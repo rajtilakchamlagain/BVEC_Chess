@@ -1,74 +1,54 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Eye, ArrowLeft } from 'lucide-react';
-import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../firebase';
+import { ArrowLeft, Eye } from 'lucide-react';
 
 export default function ChessViewerEntry() {
   const navigate = useNavigate();
-  const [code, setCode] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
+  const [roomCode, setRoomCode] = useState('');
 
-  const verifyCode = async () => {
-    if (!code) return;
-    setIsLoading(true);
-    setErrorMsg('');
-    
-    try {
-      const q = query(collection(db, 'chess_tournaments'), where('playerCode', '==', code.toUpperCase()));
-      const snap = await getDocs(q);
-      
-      if (snap.empty) {
-        setErrorMsg("Invalid Tournament Code");
-        setIsLoading(false);
-        return;
-      }
-      
-      const roomDoc = snap.docs[0];
-      navigate(`/chess-viewer-room?room=${roomDoc.id}`);
-    } catch (err) {
-      console.error(err);
-      setErrorMsg("Network error verifying code.");
-    } finally {
-      setIsLoading(false);
+  const handleJoin = () => {
+    if (roomCode.length >= 4) {
+      navigate(`/chess-viewer-room?room=${roomCode.toUpperCase()}`);
     }
   };
 
   return (
     <div style={{ background: 'var(--bg-color)', color: 'var(--text-main)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ width: '100%', maxWidth: '500px', padding: '2rem', background: 'var(--panel-bg)', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>
+      <div style={{ width: '100%', maxWidth: '440px', padding: '2.5rem', background: 'var(--panel-bg)', borderRadius: '12px', border: '1px solid var(--border-color)', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
         
-        <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2rem' }}>
-          <ArrowLeft size={16} /> Back
+        <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2rem', fontSize: '0.9rem', fontWeight: '500' }}>
+          <ArrowLeft size={16} /> Back to platform
         </button>
 
         <div className="animate-fade-in">
-          <h2 style={{ fontSize: '1.8rem', marginBottom: '1.5rem', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-            <Eye size={24} color="#00e5ff" /> Watch Tournament Live
+          <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <Eye size={20} color="var(--text-main)" /> Spectator Mode
           </h2>
-          
+
+          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', fontSize: '0.95rem', lineHeight: '1.5' }}>
+            Enter a tournament code to view live pairings, results, and standings in real-time.
+          </p>
+
           <div className="input-group">
             <label>Tournament Code</label>
             <input 
               type="text" 
               className="premium-input" 
-              placeholder="ENTER CODE"
-              value={code}
-              onChange={e => setCode(e.target.value.toUpperCase())}
-              style={{ fontSize: '1.5rem', letterSpacing: '0.3em', textAlign: 'center', borderColor: errorMsg ? 'red' : '' }}
-              onKeyDown={(e) => e.key === 'Enter' && verifyCode()}
+              placeholder="e.g. A1B2C3"
+              style={{ textTransform: 'uppercase', letterSpacing: '4px', textAlign: 'center', fontSize: '1.1rem', padding: '1rem' }}
+              value={roomCode}
+              onChange={e => setRoomCode(e.target.value.toUpperCase())}
+              onKeyDown={e => e.key === 'Enter' && handleJoin()}
             />
-            {errorMsg && <p style={{ color: 'red', fontSize: '0.9rem', textAlign: 'center', marginTop: '10px' }}>{errorMsg}</p>}
           </div>
 
           <button 
             className="btn-primary" 
-            style={{ width: '100%', marginTop: '1rem', padding: '1rem', border: 'none' }} 
-            onClick={verifyCode} 
-            disabled={isLoading || !code}
+            style={{ width: '100%', marginTop: '1.5rem' }} 
+            onClick={handleJoin} 
+            disabled={roomCode.length < 4}
           >
-            {isLoading ? 'Connecting...' : 'Join Broadcast'}
+            Enter Spectator View
           </button>
         </div>
       </div>

@@ -6,7 +6,7 @@ import { db } from '../firebase';
 
 export default function ChessOwnerEntry() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState('create'); // 'create', 'share'
+  const [mode, setMode] = useState('create'); // 'create', 'join'
   const [isLoading, setIsLoading] = useState(false);
   const [copiedCode, setCopiedCode] = useState('');
 
@@ -64,63 +64,63 @@ export default function ChessOwnerEntry() {
 
   return (
     <div style={{ background: 'var(--bg-color)', color: 'var(--text-main)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ width: '100%', maxWidth: '500px', padding: '2rem', background: 'var(--panel-bg)', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>
+      <div style={{ width: '100%', maxWidth: '440px', padding: '2.5rem', background: 'var(--panel-bg)', borderRadius: '12px', border: '1px solid var(--border-color)', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
         
-        <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2rem' }}>
-          <ArrowLeft size={16} /> Back to Home
+        <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2rem', fontSize: '0.9rem', fontWeight: '500' }}>
+          <ArrowLeft size={16} /> Back to platform
         </button>
 
         {mode === 'create' || mode === 'join' ? (
           <div className="animate-fade-in">
-            <h2 style={{ fontSize: '1.8rem', marginBottom: '1.5rem', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-              <Trophy size={24} color="#ff0080" /> Host Dashboard
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <Trophy size={20} color="var(--text-main)" /> Host Arena
             </h2>
 
-            <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '2rem', background: '#121212', padding: '4px', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
               <button 
                 onClick={() => setMode('create')}
-                style={{ flex: 1, padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--glass-border)', background: mode === 'create' ? 'var(--glass-bg)' : 'transparent', color: mode === 'create' ? '#fff' : 'var(--text-muted)', cursor: 'pointer' }}
+                style={{ flex: 1, padding: '0.6rem', borderRadius: '6px', border: 'none', background: mode === 'create' ? '#27272a' : 'transparent', color: mode === 'create' ? 'var(--text-main)' : 'var(--text-muted)', cursor: 'pointer', fontWeight: '500', fontSize: '0.9rem', transition: 'all 0.2s' }}
               >
-                Create New
+                Create
               </button>
               <button 
                 onClick={() => setMode('join')}
-                style={{ flex: 1, padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--glass-border)', background: mode === 'join' ? 'var(--glass-bg)' : 'transparent', color: mode === 'join' ? '#fff' : 'var(--text-muted)', cursor: 'pointer' }}
+                style={{ flex: 1, padding: '0.6rem', borderRadius: '6px', border: 'none', background: mode === 'join' ? '#27272a' : 'transparent', color: mode === 'join' ? 'var(--text-main)' : 'var(--text-muted)', cursor: 'pointer', fontWeight: '500', fontSize: '0.9rem', transition: 'all 0.2s' }}
               >
-                Join Existing
+                Join existing
               </button>
             </div>
 
             {mode === 'create' ? (
               <>
                 <div className="input-group">
-                  <label>Tournament Name *</label>
+                  <label>Tournament Name</label>
                   <input 
                     type="text" 
                     className="premium-input" 
-                    placeholder="e.g. Grandmaster Clash"
+                    placeholder="e.g. Autumn Open"
                     value={tournamentData.name}
                     onChange={e => setTournamentData({...tournamentData, name: e.target.value})}
                   />
                 </div>
                 
                 <div className="input-group">
-                  <label>Host / Organizer Name *</label>
+                  <label>Host Name</label>
                   <input 
                     type="text" 
                     className="premium-input" 
-                    placeholder="Your name"
+                    placeholder="e.g. John Doe"
                     value={tournamentData.hostName}
                     onChange={e => setTournamentData({...tournamentData, hostName: e.target.value})}
                   />
                 </div>
 
                 <div className="input-group">
-                  <label>Tournament Logo URL (Optional)</label>
+                  <label>Logo URL (Optional)</label>
                   <input 
                     type="text" 
                     className="premium-input" 
-                    placeholder="https://..."
+                    placeholder="https://"
                     value={tournamentData.logoUrl}
                     onChange={e => setTournamentData({...tournamentData, logoUrl: e.target.value})}
                   />
@@ -128,29 +128,29 @@ export default function ChessOwnerEntry() {
 
                 <button 
                   className="btn-primary" 
-                  style={{ width: '100%', marginTop: '1rem', padding: '1rem', background: 'linear-gradient(135deg, #ff0080 0%, #ff8c00 100%)', border: 'none' }} 
+                  style={{ width: '100%', marginTop: '1.5rem' }} 
                   onClick={handleCreate} 
                   disabled={isLoading}
                 >
-                  {isLoading ? 'Creating...' : 'Create Tournament'}
+                  {isLoading ? 'Initializing...' : 'Create Tournament'}
                 </button>
               </>
             ) : (
               <>
                 <div className="input-group">
-                  <label>Enter Host Code</label>
+                  <label>Host Code</label>
                   <input 
                     type="text" 
                     className="premium-input" 
-                    placeholder="e.g. X8J9L2"
-                    style={{ textTransform: 'uppercase', letterSpacing: '2px', textAlign: 'center', fontSize: '1.2rem' }}
+                    placeholder="XXXXXX"
+                    style={{ textTransform: 'uppercase', letterSpacing: '4px', textAlign: 'center', fontSize: '1.1rem', padding: '1rem' }}
                     value={generatedCodes.host}
                     onChange={e => setGeneratedCodes({...generatedCodes, host: e.target.value.toUpperCase()})}
                   />
                 </div>
                 <button 
                   className="btn-primary" 
-                  style={{ width: '100%', marginTop: '1rem', padding: '1rem', background: 'linear-gradient(135deg, #0055ff 0%, #00e5ff 100%)', border: 'none' }} 
+                  style={{ width: '100%', marginTop: '1.5rem' }} 
                   onClick={() => {
                     if (generatedCodes.host) {
                       localStorage.setItem('pitchbid_chess_host', generatedCodes.host);
@@ -164,38 +164,43 @@ export default function ChessOwnerEntry() {
             )}
           </div>
         ) : (
-          <div className="animate-fade-in" style={{ textAlign: 'center' }}>
-            <div style={{ background: 'var(--success)', width: '60px', height: '60px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
-              <CheckCircle2 size={30} color="#fff" />
+          <div className="animate-fade-in">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '2rem' }}>
+              <div style={{ background: 'var(--text-main)', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <CheckCircle2 size={18} color="var(--bg-color)" />
+              </div>
+              <h2 style={{ fontSize: '1.3rem', fontWeight: '600', margin: 0 }}>Tournament Active</h2>
             </div>
-            <h2 style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>Tournament Created!</h2>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Share these codes with your participants.</p>
 
-            <div style={{ background: 'rgba(0,0,0,0.2)', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Host Code (Save this)</div>
-                  <div style={{ fontSize: '1.5rem', fontWeight: 'bold', letterSpacing: '2px' }}>{generatedCodes.host}</div>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.95rem', lineHeight: '1.5' }}>
+              Your tournament has been initialized. Distribute the codes below to participants.
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2rem' }}>
+              <div style={{ background: '#121212', padding: '1rem 1.5rem', borderRadius: '8px', border: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: '500', marginBottom: '4px' }}>Host Access Code</div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: '600', letterSpacing: '2px', color: 'var(--text-main)' }}>{generatedCodes.host}</div>
                 </div>
                 <button className="btn-outline" onClick={() => handleCopy(generatedCodes.host, 'host')} style={{ padding: '8px' }}>
-                  {copiedCode === 'host' ? <CheckCircle2 size={18} color="var(--success)"/> : <Copy size={18}/>}
+                  {copiedCode === 'host' ? <CheckCircle2 size={16} /> : <Copy size={16}/>}
                 </button>
               </div>
               
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Player Join Code</div>
-                  <div style={{ fontSize: '1.5rem', fontWeight: 'bold', letterSpacing: '2px', color: 'var(--primary)' }}>{generatedCodes.player}</div>
+              <div style={{ background: '#121212', padding: '1rem 1.5rem', borderRadius: '8px', border: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: '500', marginBottom: '4px' }}>Player Join Code</div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: '600', letterSpacing: '2px', color: 'var(--secondary)' }}>{generatedCodes.player}</div>
                 </div>
                 <button className="btn-outline" onClick={() => handleCopy(generatedCodes.player, 'player')} style={{ padding: '8px' }}>
-                  {copiedCode === 'player' ? <CheckCircle2 size={18} color="var(--success)"/> : <Copy size={18}/>}
+                  {copiedCode === 'player' ? <CheckCircle2 size={16} /> : <Copy size={16}/>}
                 </button>
               </div>
             </div>
 
             <button 
               className="btn-primary" 
-              style={{ width: '100%', padding: '1rem', background: 'linear-gradient(135deg, #ff0080 0%, #ff8c00 100%)', border: 'none' }}
+              style={{ width: '100%' }}
               onClick={() => navigate(`/chess-dashboard?room=${generatedCodes.host}`)}
             >
               Enter Dashboard

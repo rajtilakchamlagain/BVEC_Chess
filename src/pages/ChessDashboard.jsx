@@ -593,46 +593,46 @@ export default function ChessDashboard() {
     }
   };
 
-  if (!roomData) return <div style={{ background: '#09090b', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Trophy color="#333" size={48} /></div>;
+  if (!roomData) return <div style={{ background: 'var(--bg-color)', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Trophy color="#333" size={48} /></div>;
 
   const activeRoundData = rounds.length > 0 ? rounds[0] : null;
 
   return (
-    <div style={{ display: 'flex', height: '100vh', background: '#09090b', color: '#ededed', fontFamily: '"Inter", sans-serif' }}>
+    <div style={{ display: 'flex', height: '100vh', background: 'var(--bg-color)', color: 'var(--text-main)', fontFamily: '"Inter", sans-serif' }}>
       
       {showSwissModal && (
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.8)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(5px)' }}>
-          <div style={{ background: '#111', width: '400px', borderRadius: '24px', padding: '2rem', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 40px 80px rgba(0,0,0,0.5)' }}>
+          <div style={{ background: 'var(--panel-bg)', width: '400px', borderRadius: '12px', padding: '2rem', border: '1px solid var(--border-color)', boxShadow: '0 40px 80px rgba(0,0,0,0.5)' }}>
             <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}><Settings color="#00e5ff" /> Advanced Hybrid Setup</h2>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2rem' }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.05)', padding: '1rem', borderRadius: '12px', cursor: 'pointer', border: swissMode === 'swiss' ? '1px solid #00e5ff' : '1px solid transparent' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'var(--border-color)', padding: '1rem', borderRadius: '12px', cursor: 'pointer', border: swissMode === 'swiss' ? '1px solid #00e5ff' : '1px solid transparent' }}>
                 <input type="radio" checked={swissMode === 'swiss'} onChange={() => setSwissMode('swiss')} />
                 <div>
                   <div style={{ fontWeight: 'bold' }}>Swiss System</div>
-                  <div style={{ fontSize: '0.8rem', color: '#888' }}>Points-based pairings for N rounds.</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Points-based pairings for N rounds.</div>
                 </div>
               </label>
 
-              <label style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.05)', padding: '1rem', borderRadius: '12px', cursor: 'pointer', border: swissMode === 'staircase' ? '1px solid #00e5ff' : '1px solid transparent' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'var(--border-color)', padding: '1rem', borderRadius: '12px', cursor: 'pointer', border: swissMode === 'staircase' ? '1px solid #00e5ff' : '1px solid transparent' }}>
                 <input type="radio" checked={swissMode === 'staircase'} onChange={() => setSwissMode('staircase')} />
                 <div>
                   <div style={{ fontWeight: 'bold' }}>Staircase (Round Robin)</div>
-                  <div style={{ fontSize: '0.8rem', color: '#888' }}>Everyone plays everyone.</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Everyone plays everyone.</div>
                 </div>
               </label>
               
               {swissMode === 'swiss' && (
                 <div style={{ marginTop: '1rem' }}>
-                  <label style={{ fontSize: '0.9rem', color: '#888' }}>Number of Rounds to Setup:</label>
-                  <input type="number" min="1" max="20" value={swissRounds} onChange={(e) => setSwissRounds(e.target.value)} style={{ width: '100%', padding: '10px', background: '#000', border: '1px solid #333', color: '#fff', borderRadius: '8px', marginTop: '5px' }} />
+                  <label style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Number of Rounds to Setup:</label>
+                  <input type="number" min="1" max="20" value={swissRounds} onChange={(e) => setSwissRounds(e.target.value)} style={{ width: '100%', padding: '10px', background: '#000', border: '1px solid #333', color: 'var(--text-main)', borderRadius: '8px', marginTop: '5px' }} />
                 </div>
               )}
             </div>
 
             <div style={{ display: 'flex', gap: '1rem' }}>
-              <button onClick={() => setShowSwissModal(false)} style={{ flex: 1, padding: '12px', background: 'transparent', border: '1px solid #333', color: '#fff', borderRadius: '8px', cursor: 'pointer' }}>Cancel</button>
-              <button onClick={() => generatePairings(swissMode)} style={{ flex: 1, padding: '12px', background: '#00e5ff', border: 'none', color: '#000', fontWeight: 'bold', borderRadius: '8px', cursor: 'pointer' }}>Start Setup</button>
+              <button onClick={() => setShowSwissModal(false)} style={{ flex: 1, padding: '12px', background: 'transparent', border: '1px solid #333', color: 'var(--text-main)', borderRadius: '8px', cursor: 'pointer' }}>Cancel</button>
+              <button onClick={() => generatePairings(swissMode)} style={{ flex: 1, padding: '12px', background: 'var(--secondary)', border: 'none', color: '#000', fontWeight: 'bold', borderRadius: '8px', cursor: 'pointer' }}>Start Setup</button>
             </div>
           </div>
         </div>
@@ -644,70 +644,70 @@ export default function ChessDashboard() {
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             onClick={(e) => e.stopPropagation()} 
-            style={{ background: '#111', width: '500px', maxWidth: '90vw', borderRadius: '24px', padding: '2rem', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 40px 80px rgba(0,0,0,0.5)', maxHeight: '90vh', overflowY: 'auto' }}
+            style={{ background: 'var(--panel-bg)', width: '500px', maxWidth: '90vw', borderRadius: '12px', padding: '2rem', border: '1px solid var(--border-color)', boxShadow: '0 40px 80px rgba(0,0,0,0.5)', maxHeight: '90vh', overflowY: 'auto' }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
               <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
                 {selectedPlayer.photoUrl ? (
-                  <img src={selectedPlayer.photoUrl} alt="" style={{ width: '80px', height: '80px', borderRadius: '16px', objectFit: 'cover', border: '2px solid rgba(255,255,255,0.1)' }} />
+                  <img src={selectedPlayer.photoUrl} alt="" style={{ width: '80px', height: '80px', borderRadius: '8px', objectFit: 'cover', border: '2px solid var(--border-color)' }} />
                 ) : (
-                  <div style={{ width: '80px', height: '80px', borderRadius: '16px', background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid rgba(255,255,255,0.1)' }}>
+                  <div style={{ width: '80px', height: '80px', borderRadius: '8px', background: 'var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid var(--border-color)' }}>
                     <UserX size={32} color="#555" />
                   </div>
                 )}
                 <div>
                   <h2 style={{ fontSize: '1.8rem', fontWeight: 'bold', margin: 0 }}>{selectedPlayer.name}</h2>
-                  <div style={{ fontSize: '0.9rem', color: '#00e5ff', fontWeight: 'bold', marginTop: '4px' }}>
+                  <div style={{ fontSize: '0.9rem', color: 'var(--secondary)', fontWeight: 'bold', marginTop: '4px' }}>
                     {selectedPlayer.isCoreMember === 'Yes' ? selectedPlayer.designation : 'Player'}
                   </div>
                 </div>
               </div>
-              <button onClick={() => setSelectedPlayer(null)} style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: '#fff', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+              <button onClick={() => setSelectedPlayer(null)} style={{ background: 'var(--border-color)', border: 'none', color: 'var(--text-main)', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
                 <X size={18} />
               </button>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
               <div style={{ background: 'rgba(255,255,255,0.03)', padding: '1rem', borderRadius: '12px' }}>
-                <div style={{ fontSize: '0.75rem', color: '#888', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Points</div>
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#fff' }}>{selectedPlayer.wins || 0}</div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Points</div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--text-main)' }}>{selectedPlayer.wins || 0}</div>
               </div>
               <div style={{ background: 'rgba(255,255,255,0.03)', padding: '1rem', borderRadius: '12px' }}>
-                <div style={{ fontSize: '0.75rem', color: '#888', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Rating</div>
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#fff' }}>{selectedPlayer.rating || 1200}</div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Rating</div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--text-main)' }}>{selectedPlayer.rating || 1200}</div>
               </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', background: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.5rem' }}>
-                <span style={{ color: '#888' }}>College</span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', background: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>
+                <span style={{ color: 'var(--text-muted)' }}>College</span>
                 <span style={{ fontWeight: '500', textAlign: 'right' }}>{selectedPlayer.collegeName || 'N/A'}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.5rem', paddingTop: '0.5rem' }}>
-                <span style={{ color: '#888' }}>Course & Year</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', paddingTop: '0.5rem' }}>
+                <span style={{ color: 'var(--text-muted)' }}>Course & Year</span>
                 <span style={{ fontWeight: '500', textAlign: 'right' }}>
                   {selectedPlayer.course} {selectedPlayer.branch ? `(${selectedPlayer.branch.includes('(') ? selectedPlayer.branch.match(/\((.*?)\)/)[1] : selectedPlayer.branch})` : ''} - {selectedPlayer.year} Year (Sem {selectedPlayer.semester})
                 </span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.5rem', paddingTop: '0.5rem' }}>
-                <span style={{ color: '#888' }}>Roll Number</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', paddingTop: '0.5rem' }}>
+                <span style={{ color: 'var(--text-muted)' }}>Roll Number</span>
                 <span style={{ fontWeight: '500', textAlign: 'right', fontFamily: 'monospace' }}>{selectedPlayer.rollNumber}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.5rem', paddingTop: '0.5rem' }}>
-                <span style={{ color: '#888' }}>Hostel / Address</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', paddingTop: '0.5rem' }}>
+                <span style={{ color: 'var(--text-muted)' }}>Hostel / Address</span>
                 <span style={{ fontWeight: '500', textAlign: 'right' }}>{selectedPlayer.address}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.5rem', paddingTop: '0.5rem' }}>
-                <span style={{ color: '#888' }}>FIDE ID</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', paddingTop: '0.5rem' }}>
+                <span style={{ color: 'var(--text-muted)' }}>FIDE ID</span>
                 <span style={{ fontWeight: '500', textAlign: 'right' }}>{selectedPlayer.fideId || 'None'}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.5rem' }}>
-                <span style={{ color: '#888' }}>AICF ID</span>
+                <span style={{ color: 'var(--text-muted)' }}>AICF ID</span>
                 <span style={{ fontWeight: '500', textAlign: 'right' }}>{selectedPlayer.aicfId || 'None'}</span>
               </div>
             </div>
             
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1.5rem', fontSize: '0.85rem', color: '#666' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1.5rem', fontSize: '0.85rem', color: '#52525b' }}>
               <span>White Played: {selectedPlayer.whitePlayed || 0}</span>
               <span>Black Played: {selectedPlayer.blackPlayed || 0}</span>
             </div>
@@ -716,10 +716,10 @@ export default function ChessDashboard() {
       )}
 
       {/* Sidebar - Players & Standings */}
-      <div style={{ width: '380px', background: '#111', borderRight: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ padding: '2rem', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+      <div style={{ width: '380px', background: 'var(--panel-bg)', borderRight: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '2rem', borderBottom: '1px solid var(--border-color)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
-            <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: '#888', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = '#888'}>
+            <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--text-main)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}>
               <ArrowLeft size={16} /> Exit Dashboard
             </button>
             <button onClick={resetTournament} style={{ background: 'none', border: 'none', color: '#ff4444', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.8rem', fontWeight: 'bold' }} title="Reset Entire Tournament">
@@ -727,23 +727,23 @@ export default function ChessDashboard() {
             </button>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-            {roomData.logoUrl ? <img src={roomData.logoUrl} style={{ width: '48px', height: '48px', borderRadius: '12px', objectFit: 'cover' }} /> : <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'linear-gradient(135deg, #1f1f1f, #09090b)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.1)' }}><Trophy size={20} color="#fff" /></div>}
+            {roomData.logoUrl ? <img src={roomData.logoUrl} style={{ width: '48px', height: '48px', borderRadius: '12px', objectFit: 'cover' }} /> : <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'linear-gradient(135deg, #1f1f1f, #09090b)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--border-color)' }}><Trophy size={20} color="#fff" /></div>}
             <div>
               <h2 style={{ fontSize: '1.2rem', fontWeight: 'bold', margin: 0 }}>{roomData.name}</h2>
-              <div style={{ fontSize: '0.85rem', color: '#888', marginTop: '4px' }}>Player Code: <span style={{ color: '#fff' }}>{roomData.playerCode}</span></div>
+              <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '4px' }}>Player Code: <span style={{ color: 'var(--text-main)' }}>{roomData.playerCode}</span></div>
             </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-          <button style={{ flex: 1, padding: '1rem', background: activeTab === 'matchups' ? 'rgba(255,255,255,0.03)' : 'transparent', border: 'none', color: activeTab === 'matchups' ? '#fff' : '#888', cursor: 'pointer', fontWeight: activeTab === 'matchups' ? 'bold' : 'normal' }} onClick={() => setActiveTab('matchups')}>Host Controls</button>
-          <button style={{ flex: 1, padding: '1rem', background: activeTab === 'standings' ? 'rgba(255,255,255,0.03)' : 'transparent', border: 'none', color: activeTab === 'standings' ? '#fff' : '#888', cursor: 'pointer', fontWeight: activeTab === 'standings' ? 'bold' : 'normal' }} onClick={() => setActiveTab('standings')}>Live Standings</button>
+        <div style={{ display: 'flex', borderBottom: '1px solid var(--border-color)' }}>
+          <button style={{ flex: 1, padding: '1rem', background: activeTab === 'matchups' ? 'rgba(255,255,255,0.03)' : 'transparent', border: 'none', color: activeTab === 'matchups' ? 'var(--text-main)' : 'var(--text-muted)', cursor: 'pointer', fontWeight: activeTab === 'matchups' ? 'bold' : 'normal' }} onClick={() => setActiveTab('matchups')}>Host Controls</button>
+          <button style={{ flex: 1, padding: '1rem', background: activeTab === 'standings' ? 'rgba(255,255,255,0.03)' : 'transparent', border: 'none', color: activeTab === 'standings' ? 'var(--text-main)' : 'var(--text-muted)', cursor: 'pointer', fontWeight: activeTab === 'standings' ? 'bold' : 'normal' }} onClick={() => setActiveTab('standings')}>Live Standings</button>
         </div>
 
         <div style={{ flex: 1, overflowY: 'auto', padding: '1rem' }}>
           {activeTab === 'standings' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 8px 8px', fontSize: '0.75rem', color: '#666', textTransform: 'uppercase', letterSpacing: '1px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 8px 8px', fontSize: '0.75rem', color: '#52525b', textTransform: 'uppercase', letterSpacing: '1px' }}>
                 <span style={{flex: 1}}>Player</span>
                 <div style={{ display: 'flex', gap: '15px', width: '120px', justifyContent: 'flex-end', paddingRight: '40px' }}>
                   <span title="Buchholz Score (Sum of opponents' points)">BUC</span>
@@ -758,27 +758,27 @@ export default function ChessDashboard() {
                     layout 
                     onClick={() => setSelectedPlayer(p)}
                     style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px', background: p.withdrawn ? 'rgba(255,0,0,0.02)' : 'rgba(255,255,255,0.02)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)', opacity: p.withdrawn ? 0.5 : 1 }}
-                    whileHover={{ scale: 1.02, background: 'rgba(255,255,255,0.05)' }}
+                    whileHover={{ scale: 1.02, background: 'var(--border-color)' }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <span style={{ color: '#666', fontSize: '0.85rem', width: '20px', fontWeight: 'bold' }}>{idx + 1}</span>
+                      <span style={{ color: '#52525b', fontSize: '0.85rem', width: '20px', fontWeight: 'bold' }}>{idx + 1}</span>
                       {p.photoUrl ? (
                         <img src={p.photoUrl} alt="" style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }} />
                       ) : (
-                        <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           <UserX size={14} color="#888" />
                         </div>
                       )}
                       <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '140px' }}>
-                        <span style={{ fontWeight: '500', color: p.withdrawn ? '#888' : '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</span>
-                        {p.course && <span style={{ fontSize: '0.7rem', color: '#666' }}>{p.course} {p.branch && `- ${p.branch.includes('(') ? p.branch.match(/\((.*?)\)/)[1] : p.branch}`} ({p.year} YR)</span>}
-                        {p.designation && <span style={{ fontSize: '0.7rem', color: '#00e5ff' }}>{p.designation}</span>}
+                        <span style={{ fontWeight: '500', color: p.withdrawn ? 'var(--text-muted)' : 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name}</span>
+                        {p.course && <span style={{ fontSize: '0.7rem', color: '#52525b' }}>{p.course} {p.branch && `- ${p.branch.includes('(') ? p.branch.match(/\((.*?)\)/)[1] : p.branch}`} ({p.year} YR)</span>}
+                        {p.designation && <span style={{ fontSize: '0.7rem', color: 'var(--secondary)' }}>{p.designation}</span>}
                       </div>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                      <div style={{ color: '#888', fontSize: '0.85rem', width: '25px', textAlign: 'right' }}>{p.BUC || 0}</div>
-                      <div style={{ color: '#888', fontSize: '0.85rem', width: '25px', textAlign: 'right' }}>{p.SB || 0}</div>
-                      <div style={{ fontWeight: 'bold', color: '#fff', fontSize: '1.2rem', width: '30px', textAlign: 'right' }}>{p.wins || 0}</div>
+                      <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', width: '25px', textAlign: 'right' }}>{p.BUC || 0}</div>
+                      <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', width: '25px', textAlign: 'right' }}>{p.SB || 0}</div>
+                      <div style={{ fontWeight: 'bold', color: 'var(--text-main)', fontSize: '1.2rem', width: '30px', textAlign: 'right' }}>{p.wins || 0}</div>
                       
                       <div style={{ display: 'flex', gap: '5px', marginLeft: '10px' }}>
                         <button onClick={(e) => { e.stopPropagation(); toggleDisqualify(p.id, p.name, p.withdrawn); }} style={{ background: 'none', border: 'none', color: p.withdrawn ? '#10b981' : '#ff9900', cursor: 'pointer', padding: '4px' }} title={p.withdrawn ? "Restore" : "Eliminate"}>
@@ -796,7 +796,7 @@ export default function ChessDashboard() {
           )}
           {activeTab === 'matchups' && (
              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '1rem' }}>
-                <p style={{ color: '#888', fontSize: '0.9rem', lineHeight: '1.5' }}>This is the central host dashboard. Use the main area to generate rounds, edit pairings in Draft Mode, and report results.</p>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: '1.5' }}>This is the central host dashboard. Use the main area to generate rounds, edit pairings in Draft Mode, and report results.</p>
              </div>
           )}
         </div>
@@ -806,15 +806,15 @@ export default function ChessDashboard() {
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
         
         {/* Top Control Bar */}
-        <div style={{ padding: '3rem', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <div style={{ padding: '3rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
             <h1 style={{ fontSize: '2.5rem', fontWeight: '900', letterSpacing: '-1px', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '15px' }}>
               {activeRoundData ? (activeRoundData.status === 'draft' ? `Draft: Round ${activeRoundData.roundNumber}` : `Round ${activeRoundData.roundNumber}`) : 'Tournament Lobby'}
-              {activeRoundData?.label && <span style={{ fontSize: '0.8rem', background: '#fff', color: '#000', padding: '4px 10px', borderRadius: '30px', fontWeight: 'bold' }}>{activeRoundData.label}</span>}
+              {activeRoundData?.label && <span style={{ fontSize: '0.8rem', background: 'var(--text-main)', color: '#000', padding: '4px 10px', borderRadius: '30px', fontWeight: 'bold' }}>{activeRoundData.label}</span>}
               {activeRoundData?.status === 'draft' && <span style={{ fontSize: '0.9rem', background: '#ff9900', color: '#000', padding: '4px 10px', borderRadius: '30px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>Draft Mode</span>}
               {activeRoundData?.status === 'completed' && <span style={{ fontSize: '0.9rem', background: '#10b981', color: '#000', padding: '4px 10px', borderRadius: '30px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>Completed</span>}
             </h1>
-            <p style={{ color: '#888' }}>{players.length} Total Players ({players.filter(p=>!p.withdrawn).length} Active Golden Ratio)</p>
+            <p style={{ color: 'var(--text-muted)' }}>{players.length} Total Players ({players.filter(p=>!p.withdrawn).length} Active Golden Ratio)</p>
           </div>
           
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px' }}>
@@ -823,7 +823,7 @@ export default function ChessDashboard() {
                  <div style={{ padding: '10px 20px', background: 'linear-gradient(135deg, #FFD700, #FDB931)', color: '#000', borderRadius: '12px', fontWeight: 'bold', fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
                    <Trophy size={20} /> TOURNAMENT CONCLUDED
                  </div>
-                 <button onClick={() => updateDoc(doc(db, 'chess_tournaments', roomCode), { status: 'live' })} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '12px', borderRadius: '12px', cursor: 'pointer' }}>
+                 <button onClick={() => updateDoc(doc(db, 'chess_tournaments', roomCode), { status: 'live' })} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: 'var(--text-main)', padding: '12px', borderRadius: '12px', cursor: 'pointer' }}>
                    Reopen
                  </button>
                </div>
@@ -841,7 +841,7 @@ export default function ChessDashboard() {
               <button 
                 onClick={() => generatePairings('knockout')} 
                 disabled={isGenerating || players.filter(p=>!p.withdrawn).length < 2 || activeRoundData?.status === 'draft'}
-                style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '12px 24px', borderRadius: '12px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', opacity: (isGenerating || activeRoundData?.status === 'draft') ? 0.5 : 1 }}
+                style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: 'var(--text-main)', padding: '12px 24px', borderRadius: '12px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', opacity: (isGenerating || activeRoundData?.status === 'draft') ? 0.5 : 1 }}
               >
                 <Swords size={18} /> Knockout Pairings
               </button>
@@ -859,7 +859,7 @@ export default function ChessDashboard() {
               <button 
                 onClick={() => setShowSwissModal(true)} 
                 disabled={isGenerating || players.filter(p=>!p.withdrawn).length < 2 || activeRoundData?.status === 'draft'}
-                style={{ background: '#fff', color: '#000', border: 'none', padding: '12px 24px', borderRadius: '12px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', opacity: (isGenerating || activeRoundData?.status === 'draft') ? 0.5 : 1 }}
+                style={{ background: 'var(--text-main)', color: '#000', border: 'none', padding: '12px 24px', borderRadius: '12px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', opacity: (isGenerating || activeRoundData?.status === 'draft') ? 0.5 : 1 }}
               >
                 <Shuffle size={18} /> {activeRoundData && (activeRoundData.format === 'swiss' || activeRoundData.format === 'staircase') ? 'Change Format' : `Hybrid Setup (Round ${currentRoundNumber + 1})`}
               </button>
@@ -884,7 +884,7 @@ export default function ChessDashboard() {
           <div style={{ background: 'rgba(255,153,0,0.05)', borderBottom: '1px solid rgba(255,153,0,0.2)', padding: '1.5rem 3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <h3 style={{ margin: '0 0 0.5rem', color: '#ff9900' }}>Review Pairings</h3>
-              <p style={{ margin: 0, color: '#888', fontSize: '0.9rem' }}>These pairings are hidden from viewers. You can edit them now. When ready, publish the round.</p>
+              <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.9rem' }}>These pairings are hidden from viewers. You can edit them now. When ready, publish the round.</p>
             </div>
             <div style={{ display: 'flex', gap: '1rem' }}>
               <button onClick={() => setSwapMode(!swapMode)} style={{ background: swapMode ? '#ff9900' : 'transparent', color: swapMode ? '#000' : '#ff9900', border: '1px solid #ff9900', padding: '10px 20px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -908,13 +908,13 @@ export default function ChessDashboard() {
               {activeRoundData.pairings.map((pairing, idx) => (
                 <div key={idx} style={{ 
                   background: 'rgba(255,255,255,0.02)', 
-                  borderRadius: '16px', 
-                  border: '1px solid rgba(255,255,255,0.05)', 
+                  borderRadius: '8px', 
+                  border: '1px solid var(--border-color)', 
                   padding: '1.5rem',
                   boxShadow: '0 10px 30px rgba(0,0,0,0.2)'
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                    <div style={{ fontSize: '0.85rem', color: '#666', fontWeight: 'bold', letterSpacing: '2px' }}>BOARD {idx + 1} {pairing.matchType && `• ${pairing.matchType}`}</div>
+                    <div style={{ fontSize: '0.85rem', color: '#52525b', fontWeight: 'bold', letterSpacing: '2px' }}>BOARD {idx + 1} {pairing.matchType && `• ${pairing.matchType}`}</div>
                     {pairing.result !== 'pending' && <div style={{ background: 'rgba(16,185,129,0.2)', color: '#10b981', padding: '4px 12px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 'bold' }}>COMPLETED</div>}
                   </div>
 
@@ -932,13 +932,13 @@ export default function ChessDashboard() {
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                        <div style={{ width: '12px', height: '12px', borderRadius: '4px', background: pairing.player1Color === 'white' ? '#fff' : '#333' }} />
+                        <div style={{ width: '12px', height: '12px', borderRadius: '4px', background: pairing.player1Color === 'white' ? 'var(--text-main)' : '#333' }} />
                         <span style={{ fontWeight: '600', fontSize: '1.1rem' }}>{pairing.player1Name}</span>
                       </div>
                       {pairing.result === 'pending' && !swapMode && activeRoundData.status === 'published' && (
                         <div style={{ display: 'flex', gap: '5px' }}>
-                           <button style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: '#fff', padding: '6px 12px', borderRadius: '6px', fontSize: '0.85rem', cursor: 'pointer', fontWeight: 'bold' }} onClick={() => reportResult(activeRoundData.id, idx, '1-0')}>Won</button>
-                           <button style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', color: '#888', padding: '6px', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer' }} onClick={() => reportResult(activeRoundData.id, idx, '1-0 (Walkover)')} title="Walkover (Opponent Absent)">WO</button>
+                           <button style={{ background: 'var(--border-color)', border: 'none', color: 'var(--text-main)', padding: '6px 12px', borderRadius: '6px', fontSize: '0.85rem', cursor: 'pointer', fontWeight: 'bold' }} onClick={() => reportResult(activeRoundData.id, idx, '1-0')}>Won</button>
+                           <button style={{ background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-muted)', padding: '6px', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer' }} onClick={() => reportResult(activeRoundData.id, idx, '1-0 (Walkover)')} title="Walkover (Opponent Absent)">WO</button>
                         </div>
                       )}
                     </div>
@@ -957,13 +957,13 @@ export default function ChessDashboard() {
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                        <div style={{ width: '12px', height: '12px', borderRadius: '4px', background: pairing.player2Color === 'white' ? '#fff' : '#333' }} />
+                        <div style={{ width: '12px', height: '12px', borderRadius: '4px', background: pairing.player2Color === 'white' ? 'var(--text-main)' : '#333' }} />
                         <span style={{ fontWeight: '600', fontSize: '1.1rem' }}>{pairing.player2Name}</span>
                       </div>
                       {pairing.result === 'pending' && !swapMode && activeRoundData.status === 'published' && (
                         <div style={{ display: 'flex', gap: '5px' }}>
-                           <button style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: '#fff', padding: '6px 12px', borderRadius: '6px', fontSize: '0.85rem', cursor: 'pointer', fontWeight: 'bold' }} onClick={() => reportResult(activeRoundData.id, idx, '0-1')}>Won</button>
-                           <button style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', color: '#888', padding: '6px', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer' }} onClick={() => reportResult(activeRoundData.id, idx, '0-1 (Walkover)')} title="Walkover (Opponent Absent)">WO</button>
+                           <button style={{ background: 'var(--border-color)', border: 'none', color: 'var(--text-main)', padding: '6px 12px', borderRadius: '6px', fontSize: '0.85rem', cursor: 'pointer', fontWeight: 'bold' }} onClick={() => reportResult(activeRoundData.id, idx, '0-1')}>Won</button>
+                           <button style={{ background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-muted)', padding: '6px', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer' }} onClick={() => reportResult(activeRoundData.id, idx, '0-1 (Walkover)')} title="Walkover (Opponent Absent)">WO</button>
                         </div>
                       )}
                     </div>
@@ -972,16 +972,16 @@ export default function ChessDashboard() {
 
                   {pairing.result === 'pending' && !swapMode && activeRoundData.status === 'published' && activeRoundData.format !== 'knockout' && (
                     <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
-                      <button style={{ width: '100%', background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', color: '#aaa', padding: '8px', borderRadius: '8px', fontSize: '0.9rem', cursor: 'pointer' }} onClick={() => reportResult(activeRoundData.id, idx, '0.5-0.5')}>Draw ½ - ½</button>
+                      <button style={{ width: '100%', background: 'transparent', border: '1px solid var(--border-color)', color: '#aaa', padding: '8px', borderRadius: '8px', fontSize: '0.9rem', cursor: 'pointer' }} onClick={() => reportResult(activeRoundData.id, idx, '0.5-0.5')}>Draw ½ - ½</button>
                     </div>
                   )}
 
                   {pairing.result !== 'pending' && (
                     <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-                      <div style={{ fontSize: '1.2rem', fontWeight: '900', color: '#fff' }}>
+                      <div style={{ fontSize: '1.2rem', fontWeight: '900', color: 'var(--text-main)' }}>
                         Result: <span style={{ color: '#10b981' }}>{pairing.result}</span>
                       </div>
-                      <button onClick={() => undoResult(activeRoundData.id, idx)} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: '#888', padding: '6px 12px', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                      <button onClick={() => undoResult(activeRoundData.id, idx)} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: 'var(--text-muted)', padding: '6px 12px', borderRadius: '6px', fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}>
                         <RotateCcw size={14} /> Undo Result
                       </button>
                     </div>
@@ -990,8 +990,8 @@ export default function ChessDashboard() {
               ))}
 
               {activeRoundData.byePlayers && activeRoundData.byePlayers.map((bp, i) => (
-                <div key={i} style={{ background: 'rgba(255,255,255,0.01)', borderRadius: '16px', border: '1px dashed rgba(255,255,255,0.1)', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                  <div style={{ fontSize: '0.85rem', color: '#666', fontWeight: 'bold', letterSpacing: '2px', marginBottom: '1rem' }}>GOLDEN BYE (1 POINT)</div>
+                <div key={i} style={{ background: 'rgba(255,255,255,0.01)', borderRadius: '8px', border: '1px dashed var(--border-color)', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                  <div style={{ fontSize: '0.85rem', color: '#52525b', fontWeight: 'bold', letterSpacing: '2px', marginBottom: '1rem' }}>GOLDEN BYE (1 POINT)</div>
                   <h3 style={{ fontSize: '1.5rem', margin: 0, textAlign: 'center' }}>{bp.name}</h3>
                 </div>
               ))}
@@ -1000,7 +1000,7 @@ export default function ChessDashboard() {
             <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', opacity: 0.5 }}>
               <Trophy size={64} style={{ marginBottom: '1.5rem' }} />
               <h2 style={{ fontSize: '2rem', fontWeight: '300' }}>Waiting to Start</h2>
-              <p style={{ color: '#888', marginTop: '1rem' }}>Share the player code {roomData.playerCode}. Once players join, generate the first round.</p>
+              <p style={{ color: 'var(--text-muted)', marginTop: '1rem' }}>Share the player code {roomData.playerCode}. Once players join, generate the first round.</p>
             </div>
           )}
         </div>
