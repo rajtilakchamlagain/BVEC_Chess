@@ -1,14 +1,14 @@
 :root {
-  --bg-color: #000000;
-  --panel-bg: #0a0a0a;
-  --primary: #ededed;
-  --primary-hover: #ffffff;
-  --secondary: #3b82f6; /* Classy blue accent */
-  --text-main: #f4f4f5;
-  --text-muted: #a1a1aa;
-  --border-color: #27272a;
-  --glass-bg: rgba(10, 10, 10, 0.8);
-  --glass-border: #27272a;
+  --bg-color: #f8fafc; /* Beautiful soft slate background */
+  --panel-bg: #ffffff; /* Crisp white panels */
+  --primary: #2563eb; /* Royal blue for primary actions */
+  --primary-hover: #1d4ed8;
+  --secondary: #0ea5e9; /* Sky blue accent */
+  --text-main: #0f172a; /* Slate 900 for stark contrast */
+  --text-muted: #64748b; /* Slate 500 for secondary text */
+  --border-color: #e2e8f0; /* Soft borders */
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: #e2e8f0;
 }
 
 * {
@@ -37,13 +37,13 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #64748b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-gradient-primary {
-  background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+  background: linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -66,7 +66,7 @@ body {
   background: var(--panel-bg);
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Soft shadow for light mode */
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -74,20 +74,21 @@ body {
 
 /* Inputs & Buttons */
 .premium-input {
-  background: #121212;
+  background: #ffffff;
   border: 1px solid var(--border-color);
   color: var(--text-main);
   padding: 0.8rem 1rem;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 0.95rem;
   outline: none;
   transition: all 0.2s ease;
   width: 100%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
 }
 
 .premium-input:focus {
-  border-color: var(--secondary);
-  box-shadow: 0 0 0 1px var(--secondary);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 .input-group {
@@ -99,15 +100,15 @@ body {
 .input-group label {
   font-size: 0.85rem;
   color: var(--text-muted);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .btn-primary {
   background: var(--primary);
-  color: #000;
+  color: #ffffff;
   border: none;
   padding: 0.8rem 1.5rem;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -116,27 +117,30 @@ body {
   justify-content: center;
   gap: 8px;
   font-size: 0.95rem;
+  box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2), 0 2px 4px -1px rgba(37, 99, 235, 0.1);
 }
 
 .btn-primary:hover:not(:disabled) {
   background: var(--primary-hover);
   transform: translateY(-1px);
+  box-shadow: 0 6px 8px -1px rgba(37, 99, 235, 0.25), 0 4px 6px -1px rgba(37, 99, 235, 0.15);
 }
 
 .btn-primary:disabled {
-  background: #333;
-  color: #666;
+  background: #cbd5e1;
+  color: #64748b;
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
 
 .btn-outline {
-  background: transparent;
+  background: #ffffff;
   color: var(--text-main);
   border: 1px solid var(--border-color);
   padding: 0.8rem 1.5rem;
-  border-radius: 6px;
-  font-weight: 500;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   display: inline-flex;
@@ -144,25 +148,26 @@ body {
   justify-content: center;
   gap: 8px;
   font-size: 0.95rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 .btn-outline:hover:not(:disabled) {
-  background: #18181b;
-  border-color: #3f3f46;
+  background: #f1f5f9;
+  border-color: #cbd5e1;
 }
 
 /* Scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: #cbd5e1;
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: #94a3b8;
 }

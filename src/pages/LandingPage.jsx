@@ -15,7 +15,8 @@ export default function LandingPage() {
       top: 0, 
       left: 0,
       overflowY: 'auto',
-      fontFamily: '"Inter", sans-serif'
+      fontFamily: '"Inter", sans-serif',
+      backgroundImage: 'radial-gradient(circle at 50% -20%, rgba(37, 99, 235, 0.05) 0%, rgba(255,255,255,0) 70%)'
     }}>
       
       {/* Premium Header */}
@@ -24,34 +25,41 @@ export default function LandingPage() {
         display: 'flex', 
         justifyContent: 'space-between', 
         alignItems: 'center',
-        background: 'rgba(0,0,0,0.5)',
+        background: 'rgba(255,255,255,0.9)',
         backdropFilter: 'blur(20px)',
         borderBottom: '1px solid var(--border-color)',
         position: 'sticky',
         top: 0,
-        zIndex: 100
+        zIndex: 100,
+        boxShadow: '0 2px 10px rgba(0,0,0,0.02)'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <img src="/logo.jpg" alt="BVEC Logo" style={{ height: '40px', borderRadius: '8px' }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          <img src="/logo.jpg" alt="BVEC Logo" style={{ height: '80px', borderRadius: '8px' }} />
           <div>
-            <h1 style={{ fontSize: '1.4rem', fontWeight: '700', margin: 0, letterSpacing: '-0.5px' }}>
+            <h1 style={{ fontSize: '1.8rem', fontWeight: '800', margin: 0, letterSpacing: '-0.5px', color: 'var(--text-main)' }}>
               ChessVerse
             </h1>
+            <div style={{ fontSize: '0.9rem', color: 'var(--primary)', fontWeight: '600' }}>
+              Barak Valley Engineering College
+            </div>
           </div>
         </div>
         
-        <nav style={{ display: 'flex', gap: '2rem', fontSize: '0.9rem', fontWeight: '500', color: 'var(--text-muted)' }}>
-          <span style={{ color: 'var(--text-main)', cursor: 'pointer' }}>Platform</span>
-          <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}>Tournaments</span>
-          <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}>Rules</span>
-        </nav>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '3rem' }}>
+          <nav style={{ display: 'flex', gap: '2rem', fontSize: '1rem', fontWeight: '600', color: 'var(--text-muted)' }}>
+            <span style={{ color: 'var(--primary)', cursor: 'pointer' }}>Platform</span>
+            <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--text-main)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}>Tournaments</span>
+            <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--text-main)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}>Rules</span>
+          </nav>
+          <img src="/chesslogo.jpeg" alt="Chess Club" style={{ height: '80px', borderRadius: '8px' }} />
+        </div>
       </header>
 
       {/* Hero Section */}
       <div style={{ 
-        padding: '8rem 2rem 6rem', 
+        padding: '6rem 2rem 6rem', 
         textAlign: 'center', 
-        maxWidth: '900px', 
+        maxWidth: '1000px', 
         margin: '0 auto',
       }}>
         
@@ -60,65 +68,71 @@ export default function LandingPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: '500', marginBottom: '2rem', border: '1px solid var(--border-color)', color: 'var(--text-muted)', background: 'var(--panel-bg)' }}>
-            <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--secondary)' }} />
-            Barak Valley Engineering College
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '20px', fontSize: '0.9rem', fontWeight: '600', marginBottom: '2rem', border: '1px solid var(--border-color)', color: 'var(--primary)', background: 'rgba(37, 99, 235, 0.05)' }}>
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary)' }} />
+            Official Tournament Engine
           </div>
           
-          <h2 style={{ fontSize: '4.5rem', fontWeight: '800', lineHeight: '1.1', letterSpacing: '-0.03em', marginBottom: '1.5rem' }}>
+          <h2 style={{ fontSize: '4.5rem', fontWeight: '800', lineHeight: '1.1', letterSpacing: '-0.03em', marginBottom: '1.5rem', color: 'var(--text-main)' }}>
             The definitive platform <br />
             <span style={{ color: 'var(--text-muted)' }}>
               for competitive chess.
             </span>
           </h2>
           
-          <p style={{ fontSize: '1.15rem', color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto 4rem', lineHeight: '1.6' }}>
+          <p style={{ fontSize: '1.25rem', color: 'var(--text-muted)', maxWidth: '650px', margin: '0 auto 4rem', lineHeight: '1.6' }}>
             Streamlined tournament management, intelligent Swiss pairings, and real-time live spectating. Built exclusively for our chess community.
           </p>
         </motion.div>
 
         {/* Minimalist Action Cards */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
           
           {/* Card 1 */}
           <motion.div 
-            whileHover={{ y: -4, borderColor: '#444' }}
-            style={{ background: 'var(--panel-bg)', padding: '2rem', borderRadius: '12px', border: '1px solid var(--border-color)', width: '280px', textAlign: 'left', cursor: 'pointer', transition: 'all 0.2s ease' }}
+            whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(0,0,0,0.08)', borderColor: 'var(--primary)' }}
+            style={{ background: 'var(--panel-bg)', padding: '2.5rem', borderRadius: '16px', border: '1px solid var(--border-color)', width: '300px', textAlign: 'left', cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}
             onClick={() => navigate('/chess-owner-entry')}
           >
-            <ShieldCheck size={24} color="var(--text-main)" style={{ marginBottom: '1.5rem' }} />
-            <h3 style={{ fontSize: '1.1rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '600' }}>Host Arena</h3>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem', lineHeight: '1.5' }}>Manage brackets, generate rounds, and control the leaderboard.</p>
-            <div style={{ color: 'var(--secondary)', fontWeight: '500', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '5px' }}>
-              Enter dashboard <ArrowRight size={14} />
+            <div style={{ background: 'rgba(37, 99, 235, 0.1)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
+              <ShieldCheck size={30} color="var(--primary)" />
+            </div>
+            <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '700' }}>Host Arena</h3>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '1rem', lineHeight: '1.5' }}>Manage brackets, generate rounds, and control the leaderboard.</p>
+            <div style={{ color: 'var(--primary)', fontWeight: '600', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '5px' }}>
+              Enter dashboard <ArrowRight size={16} />
             </div>
           </motion.div>
 
           {/* Card 2 */}
           <motion.div 
-            whileHover={{ y: -4, borderColor: '#444' }}
-            style={{ background: 'var(--panel-bg)', padding: '2rem', borderRadius: '12px', border: '1px solid var(--border-color)', width: '280px', textAlign: 'left', cursor: 'pointer', transition: 'all 0.2s ease' }}
+            whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(0,0,0,0.08)', borderColor: 'var(--primary)' }}
+            style={{ background: 'var(--panel-bg)', padding: '2.5rem', borderRadius: '16px', border: '1px solid var(--border-color)', width: '300px', textAlign: 'left', cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}
             onClick={() => navigate('/chess-player-entry')}
           >
-            <Users size={24} color="var(--text-main)" style={{ marginBottom: '1.5rem' }} />
-            <h3 style={{ fontSize: '1.1rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '600' }}>Player Entry</h3>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem', lineHeight: '1.5' }}>Register with your FIDE/AICF ID and join the active tournament.</p>
-            <div style={{ color: 'var(--secondary)', fontWeight: '500', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '5px' }}>
-              Join lobby <ArrowRight size={14} />
+            <div style={{ background: 'rgba(37, 99, 235, 0.1)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
+              <Users size={30} color="var(--primary)" />
+            </div>
+            <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '700' }}>Player Entry</h3>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '1rem', lineHeight: '1.5' }}>Register with your FIDE/AICF ID and join the active tournament.</p>
+            <div style={{ color: 'var(--primary)', fontWeight: '600', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '5px' }}>
+              Join lobby <ArrowRight size={16} />
             </div>
           </motion.div>
 
           {/* Card 3 */}
           <motion.div 
-            whileHover={{ y: -4, borderColor: '#444' }}
-            style={{ background: 'var(--panel-bg)', padding: '2rem', borderRadius: '12px', border: '1px solid var(--border-color)', width: '280px', textAlign: 'left', cursor: 'pointer', transition: 'all 0.2s ease' }}
+            whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(0,0,0,0.08)', borderColor: 'var(--primary)' }}
+            style={{ background: 'var(--panel-bg)', padding: '2.5rem', borderRadius: '16px', border: '1px solid var(--border-color)', width: '300px', textAlign: 'left', cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}
             onClick={() => navigate('/chess-viewer-entry')}
           >
-            <Eye size={24} color="var(--text-main)" style={{ marginBottom: '1.5rem' }} />
-            <h3 style={{ fontSize: '1.1rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '600' }}>Spectator Mode</h3>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem', lineHeight: '1.5' }}>Watch live match results and leaderboard standings in real-time.</p>
-            <div style={{ color: 'var(--secondary)', fontWeight: '500', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '5px' }}>
-              Watch live <ArrowRight size={14} />
+            <div style={{ background: 'rgba(37, 99, 235, 0.1)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
+              <Eye size={30} color="var(--primary)" />
+            </div>
+            <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '700' }}>Spectator Mode</h3>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '1rem', lineHeight: '1.5' }}>Watch live match results and leaderboard standings in real-time.</p>
+            <div style={{ color: 'var(--primary)', fontWeight: '600', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '5px' }}>
+              Watch live <ArrowRight size={16} />
             </div>
           </motion.div>
           
@@ -126,13 +140,13 @@ export default function LandingPage() {
       </div>
 
       {/* Footer */}
-      <footer style={{ padding: '3rem', textAlign: 'center', borderTop: '1px solid var(--border-color)', marginTop: '4rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <img src="/chesslogo.jpeg" alt="Chess Logo" style={{ height: '30px', borderRadius: '4px', opacity: 0.8 }} />
-          <span>© {new Date().getFullYear()} BVEC Chess Club.</span>
+      <footer style={{ padding: '3rem 4rem', background: '#f1f5f9', borderTop: '1px solid var(--border-color)', marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+          <img src="/logo.jpg" alt="Logo" style={{ height: '40px', borderRadius: '6px' }} />
+          <span>© {new Date().getFullYear()} Barak Valley Engineering College. All rights reserved.</span>
         </div>
-        <div>
-          Engineered by Rajtilak Chamlagain
+        <div style={{ fontWeight: '500' }}>
+          Developed by Rajtilak Chamlagain
         </div>
       </footer>
 

@@ -117,7 +117,7 @@ export default function ChessPlayerEntry() {
 
         {step === 2 && roomData && (
           <div className="animate-fade-in">
-            <div style={{ background: '#121212', padding: '1rem', borderRadius: '8px', marginBottom: '2rem', border: '1px solid var(--border-color)' }}>
+            <div style={{ background: 'var(--bg-color)', padding: '1rem', borderRadius: '8px', marginBottom: '2rem', border: '1px solid var(--border-color)' }}>
               <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '4px' }}>Registering for</div>
               <div style={{ fontSize: '1.2rem', fontWeight: '600' }}>{roomData.name}</div>
             </div>

@@ -76,16 +76,16 @@ export default function ChessOwnerEntry() {
               <Trophy size={20} color="var(--text-main)" /> Host Arena
             </h2>
 
-            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '2rem', background: '#121212', padding: '4px', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '2rem', background: 'var(--bg-color)', padding: '4px', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
               <button 
                 onClick={() => setMode('create')}
-                style={{ flex: 1, padding: '0.6rem', borderRadius: '6px', border: 'none', background: mode === 'create' ? '#27272a' : 'transparent', color: mode === 'create' ? 'var(--text-main)' : 'var(--text-muted)', cursor: 'pointer', fontWeight: '500', fontSize: '0.9rem', transition: 'all 0.2s' }}
+                style={{ flex: 1, padding: '0.6rem', borderRadius: '6px', border: 'none', background: mode === 'create' ? 'var(--bg-color)' : 'transparent', color: mode === 'create' ? 'var(--primary)' : 'var(--text-muted)', cursor: 'pointer', fontWeight: '500', fontSize: '0.9rem', transition: 'all 0.2s' }}
               >
                 Create
               </button>
               <button 
                 onClick={() => setMode('join')}
-                style={{ flex: 1, padding: '0.6rem', borderRadius: '6px', border: 'none', background: mode === 'join' ? '#27272a' : 'transparent', color: mode === 'join' ? 'var(--text-main)' : 'var(--text-muted)', cursor: 'pointer', fontWeight: '500', fontSize: '0.9rem', transition: 'all 0.2s' }}
+                style={{ flex: 1, padding: '0.6rem', borderRadius: '6px', border: 'none', background: mode === 'join' ? 'var(--bg-color)' : 'transparent', color: mode === 'join' ? 'var(--primary)' : 'var(--text-muted)', cursor: 'pointer', fontWeight: '500', fontSize: '0.9rem', transition: 'all 0.2s' }}
               >
                 Join existing
               </button>
@@ -177,7 +177,7 @@ export default function ChessOwnerEntry() {
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2rem' }}>
-              <div style={{ background: '#121212', padding: '1rem 1.5rem', borderRadius: '8px', border: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ background: 'var(--bg-color)', padding: '1rem 1.5rem', borderRadius: '8px', border: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                   <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: '500', marginBottom: '4px' }}>Host Access Code</div>
                   <div style={{ fontSize: '1.2rem', fontWeight: '600', letterSpacing: '2px', color: 'var(--text-main)' }}>{generatedCodes.host}</div>
@@ -187,7 +187,7 @@ export default function ChessOwnerEntry() {
                 </button>
               </div>
               
-              <div style={{ background: '#121212', padding: '1rem 1.5rem', borderRadius: '8px', border: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ background: 'var(--bg-color)', padding: '1rem 1.5rem', borderRadius: '8px', border: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                   <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: '500', marginBottom: '4px' }}>Player Join Code</div>
                   <div style={{ fontSize: '1.2rem', fontWeight: '600', letterSpacing: '2px', color: 'var(--secondary)' }}>{generatedCodes.player}</div>
