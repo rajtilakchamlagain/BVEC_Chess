@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Eye } from 'lucide-react';
+import { ArrowLeft, Eye, Info } from 'lucide-react';
 
 export default function ChessViewerEntry() {
   const navigate = useNavigate();
@@ -25,9 +25,12 @@ export default function ChessViewerEntry() {
             <Eye size={20} color="var(--text-main)" /> Spectator Mode
           </h2>
 
-          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', fontSize: '0.95rem', lineHeight: '1.5' }}>
-            Enter a tournament code to view live pairings, results, and standings in real-time.
-          </p>
+          <div style={{ background: 'rgba(37, 99, 235, 0.05)', border: '1px solid rgba(37, 99, 235, 0.2)', padding: '1rem', borderRadius: '8px', display: 'flex', gap: '12px', alignItems: 'flex-start', marginBottom: '2rem' }}>
+            <Info size={20} color="var(--primary)" style={{ flexShrink: 0, marginTop: '2px' }} />
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: '1.5', margin: 0 }}>
+              <strong>What is this?</strong> Enter the tournament code provided by the host. This will give you read-only access to view live scores, current round pairings, and real-time leaderboard standings as the tournament progresses!
+            </p>
+          </div>
 
           <div className="input-group">
             <label>Tournament Code</label>

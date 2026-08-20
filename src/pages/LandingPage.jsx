@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Trophy, Users, Eye, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Trophy, Users, Eye, ShieldCheck, ArrowRight, Info } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function LandingPage() {
@@ -123,9 +123,12 @@ export default function LandingPage() {
           {/* Card 3 */}
           <motion.div 
             whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(0,0,0,0.08)', borderColor: 'var(--primary)' }}
-            style={{ background: 'var(--panel-bg)', padding: '2.5rem', borderRadius: '16px', border: '1px solid var(--border-color)', width: '300px', textAlign: 'left', cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}
+            style={{ background: 'var(--panel-bg)', padding: '2.5rem', borderRadius: '16px', border: '1px solid var(--border-color)', width: '300px', textAlign: 'left', cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 4px 6px rgba(0,0,0,0.02)', position: 'relative' }}
             onClick={() => navigate('/chess-viewer-entry')}
           >
+            <div style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', color: 'var(--primary)' }} title="Access live scores, pairings, and real-time standings as they happen.">
+              <Info size={20} />
+            </div>
             <div style={{ background: 'rgba(37, 99, 235, 0.1)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
               <Eye size={30} color="var(--primary)" />
             </div>
