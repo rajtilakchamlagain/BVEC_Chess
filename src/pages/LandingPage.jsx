@@ -1,145 +1,165 @@
 import { useNavigate } from 'react-router-dom';
-import { Trophy, Users, Eye, ShieldCheck, HelpCircle } from 'lucide-react';
+import { Trophy, Users, Eye, ShieldCheck, Zap, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function LandingPage() {
   const navigate = useNavigate();
 
   return (
     <div style={{ 
-      background: '#f4f6f9', 
-      color: '#333333', 
+      background: '#050505', 
+      color: '#ededed', 
       minHeight: '100vh', 
       width: '100%', 
       position: 'absolute', 
       top: 0, 
       left: 0,
       overflowY: 'auto',
-      fontFamily: '"Open Sans", "Helvetica Neue", sans-serif'
+      fontFamily: '"Inter", "SF Pro Display", sans-serif',
+      backgroundImage: 'radial-gradient(circle at 50% -20%, rgba(0, 85, 255, 0.15) 0%, rgba(0,0,0,0) 70%)'
     }}>
       
-      {/* Top Banner (ePrastuti Style) */}
-      <div style={{ background: '#0a3d91', color: '#ffffff', padding: '4px 2rem', fontSize: '0.85rem', display: 'flex', justifyContent: 'space-between' }}>
-        <div>Government of Assam | Barak Valley Engineering College</div>
-        <div>
-          <span style={{ marginRight: '15px', cursor: 'pointer' }}>Skip to main content</span>
-          <span style={{ cursor: 'pointer' }}>A- A A+</span>
-        </div>
+      {/* Top Banner (Modern Gen-Z / Govt blend) */}
+      <div style={{ 
+        background: 'rgba(0, 229, 255, 0.1)', 
+        color: '#00e5ff', 
+        padding: '6px 2rem', 
+        fontSize: '0.8rem', 
+        display: 'flex', 
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontWeight: 'bold',
+        letterSpacing: '1px',
+        textTransform: 'uppercase'
+      }}>
+        <Sparkles size={14} style={{ marginRight: '8px' }} />
+        Official Tournament Portal • Barak Valley Engineering College
+        <Sparkles size={14} style={{ marginLeft: '8px' }} />
       </div>
 
-      {/* Main Header */}
+      {/* Header */}
       <header style={{ 
         padding: '1.5rem 4rem', 
         display: 'flex', 
         justifyContent: 'space-between', 
         alignItems: 'center',
-        background: '#ffffff',
-        borderBottom: '4px solid #e38718', // Saffron highlight
-        boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+        background: 'rgba(5, 5, 5, 0.7)',
+        backdropFilter: 'blur(20px)',
+        borderBottom: '1px solid rgba(255,255,255,0.05)',
+        position: 'sticky',
+        top: 0,
+        zIndex: 100
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          <img src="/logo.jpg" alt="BVEC Logo" style={{ height: '80px', objectFit: 'contain' }} />
-          <div style={{ borderLeft: '2px solid #ccc', paddingLeft: '20px' }}>
-            <h1 style={{ fontSize: '1.8rem', fontWeight: 'bold', color: '#0a3d91', margin: 0 }}>ChessVerse</h1>
-            <div style={{ fontSize: '1rem', color: '#555', marginTop: '4px', fontWeight: '600' }}>Barak Valley Engineering College Chess Club</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+          <img src="/logo.jpg" alt="BVEC" style={{ height: '50px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)' }} />
+          <div>
+            <h1 style={{ fontSize: '1.8rem', fontWeight: '900', margin: 0, background: 'linear-gradient(135deg, #fff 0%, #aaa 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', letterSpacing: '-1px' }}>
+              ChessVerse
+            </h1>
+            <div style={{ fontSize: '0.8rem', color: '#00e5ff', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase' }}>
+              BVEC Chess Club
+            </div>
           </div>
         </div>
         
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <img src="/chesslogo.jpeg" alt="Chess Club Logo" style={{ height: '80px', objectFit: 'contain' }} />
-        </div>
+        <nav style={{ display: 'flex', gap: '2rem', fontSize: '0.9rem', fontWeight: '600', color: '#888' }}>
+          <span style={{ color: '#fff', cursor: 'pointer', borderBottom: '2px solid #00e5ff', paddingBottom: '4px' }}>Tournaments</span>
+          <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = '#888'}>Leaderboard</span>
+          <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = '#888'}>Rules</span>
+        </nav>
       </header>
 
-      {/* Navigation */}
-      <nav style={{ background: '#0a3d91', padding: '0.8rem 4rem', display: 'flex', gap: '2rem', color: '#ffffff', fontSize: '1rem', fontWeight: '500' }}>
-        <span style={{ cursor: 'pointer', borderBottom: '2px solid #e38718' }}>Home</span>
-        <span style={{ cursor: 'pointer' }}>About Tournament</span>
-        <span style={{ cursor: 'pointer' }}>Rules & Guidelines</span>
-        <span style={{ cursor: 'pointer' }}>Contact Us</span>
-      </nav>
-
-      {/* Hero Content */}
+      {/* Hero Section */}
       <div style={{ 
-        padding: '4rem 2rem', 
+        padding: '6rem 2rem 4rem', 
         textAlign: 'center', 
-        maxWidth: '1200px', 
+        maxWidth: '1000px', 
         margin: '0 auto',
       }}>
         
-        <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#0a3d91', marginBottom: '1.5rem' }}>
-          Welcome to the Official Chess Tournament Portal
-        </h2>
-        
-        <p style={{ fontSize: '1.15rem', color: '#444', maxWidth: '800px', margin: '0 auto 3rem', lineHeight: '1.6' }}>
-          A standardized platform for organizing, managing, and viewing professional chess tournaments at Barak Valley Engineering College. Based on the Swiss and Knockout systems.
-        </p>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.05)', padding: '8px 20px', borderRadius: '30px', fontSize: '0.85rem', fontWeight: '600', marginBottom: '2rem', border: '1px solid rgba(255,255,255,0.1)', color: '#aaa' }}>
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#00e5ff', boxShadow: '0 0 10px #00e5ff' }} />
+            Swiss & Knockout Pairing Engine Live
+          </div>
+          
+          <h2 style={{ fontSize: '5rem', fontWeight: '900', lineHeight: '1', letterSpacing: '-0.04em', marginBottom: '1.5rem', color: '#fff' }}>
+            Dominate the <br />
+            <span style={{ background: 'linear-gradient(135deg, #0055ff 0%, #00e5ff 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              64 Squares.
+            </span>
+          </h2>
+          
+          <p style={{ fontSize: '1.25rem', color: '#888', maxWidth: '600px', margin: '0 auto 4rem', lineHeight: '1.6' }}>
+            The official ultra-modern tournament platform for Barak Valley Engineering College. Real-time pairings, automated standings, and live spectating.
+          </p>
+        </motion.div>
 
-        {/* Action Cards */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
+        {/* Floating Cards */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
           
           {/* Card 1 */}
-          <div style={{ background: '#fff', padding: '2rem', borderRadius: '8px', borderTop: '4px solid #0a3d91', boxShadow: '0 4px 12px rgba(0,0,0,0.05)', width: '300px', textAlign: 'center' }}>
-            <ShieldCheck size={48} color="#0a3d91" style={{ margin: '0 auto 1rem' }} />
-            <h3 style={{ fontSize: '1.3rem', color: '#333', marginBottom: '1rem' }}>Host Tournament</h3>
-            <p style={{ color: '#666', marginBottom: '1.5rem', fontSize: '0.9rem' }}>Official administration portal to generate pairings and manage rounds.</p>
-            <button 
-              onClick={() => navigate('/chess-owner-entry')}
-              style={{ background: '#0a3d91', color: '#fff', padding: '0.8rem 1.5rem', borderRadius: '4px', border: 'none', cursor: 'pointer', width: '100%', fontWeight: 'bold' }}
-            >
-              Host Login
-            </button>
-          </div>
+          <motion.div 
+            whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(0, 85, 255, 0.2)' }}
+            style={{ background: 'rgba(255,255,255,0.03)', backdropFilter: 'blur(10px)', padding: '2.5rem 2rem', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)', width: '300px', textAlign: 'center', cursor: 'pointer', transition: 'all 0.3s ease' }}
+            onClick={() => navigate('/chess-owner-entry')}
+          >
+            <div style={{ background: 'linear-gradient(135deg, #0055ff, #00e5ff)', width: '64px', height: '64px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', boxShadow: '0 10px 20px rgba(0, 229, 255, 0.3)' }}>
+              <ShieldCheck size={32} color="#fff" />
+            </div>
+            <h3 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '1rem', fontWeight: '700' }}>Host Arena</h3>
+            <p style={{ color: '#888', marginBottom: '2rem', fontSize: '0.95rem', lineHeight: '1.5' }}>Generate Swiss pairings, report results, and control the live tournament.</p>
+            <div style={{ color: '#00e5ff', fontWeight: 'bold', fontSize: '0.9rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px' }}>
+              Access Dashboard <Zap size={16} />
+            </div>
+          </motion.div>
 
           {/* Card 2 */}
-          <div style={{ background: '#fff', padding: '2rem', borderRadius: '8px', borderTop: '4px solid #e38718', boxShadow: '0 4px 12px rgba(0,0,0,0.05)', width: '300px', textAlign: 'center' }}>
-            <Users size={48} color="#e38718" style={{ margin: '0 auto 1rem' }} />
-            <h3 style={{ fontSize: '1.3rem', color: '#333', marginBottom: '1rem' }}>Player Registration</h3>
-            <p style={{ color: '#666', marginBottom: '1.5rem', fontSize: '0.9rem' }}>Register yourself for upcoming official college chess tournaments.</p>
-            <button 
-              onClick={() => navigate('/chess-player-entry')}
-              style={{ background: '#e38718', color: '#fff', padding: '0.8rem 1.5rem', borderRadius: '4px', border: 'none', cursor: 'pointer', width: '100%', fontWeight: 'bold' }}
-            >
-              Join Tournament
-            </button>
-          </div>
+          <motion.div 
+            whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(255, 0, 128, 0.2)' }}
+            style={{ background: 'rgba(255,255,255,0.03)', backdropFilter: 'blur(10px)', padding: '2.5rem 2rem', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)', width: '300px', textAlign: 'center', cursor: 'pointer', transition: 'all 0.3s ease' }}
+            onClick={() => navigate('/chess-player-entry')}
+          >
+            <div style={{ background: 'linear-gradient(135deg, #ff0080, #ff8c00)', width: '64px', height: '64px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', boxShadow: '0 10px 20px rgba(255, 0, 128, 0.3)' }}>
+              <Users size={32} color="#fff" />
+            </div>
+            <h3 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '1rem', fontWeight: '700' }}>Player Entry</h3>
+            <p style={{ color: '#888', marginBottom: '2rem', fontSize: '0.95rem', lineHeight: '1.5' }}>Register for upcoming events with your FIDE/AICF ID and climb the ranks.</p>
+            <div style={{ color: '#ff8c00', fontWeight: 'bold', fontSize: '0.9rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px' }}>
+              Join Lobby <Zap size={16} />
+            </div>
+          </motion.div>
 
           {/* Card 3 */}
-          <div style={{ background: '#fff', padding: '2rem', borderRadius: '8px', borderTop: '4px solid #0056b3', boxShadow: '0 4px 12px rgba(0,0,0,0.05)', width: '300px', textAlign: 'center' }}>
-            <Eye size={48} color="#0056b3" style={{ margin: '0 auto 1rem' }} />
-            <h3 style={{ fontSize: '1.3rem', color: '#333', marginBottom: '1rem' }}>Live Spectator</h3>
-            <p style={{ color: '#666', marginBottom: '1.5rem', fontSize: '0.9rem' }}>View live standings, current round matches, and pairings.</p>
-            <button 
-              onClick={() => navigate('/chess-viewer-entry')}
-              style={{ background: '#0056b3', color: '#fff', padding: '0.8rem 1.5rem', borderRadius: '4px', border: 'none', cursor: 'pointer', width: '100%', fontWeight: 'bold' }}
-            >
-              View Live Status
-            </button>
-          </div>
+          <motion.div 
+            whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(255, 255, 255, 0.1)' }}
+            style={{ background: 'rgba(255,255,255,0.03)', backdropFilter: 'blur(10px)', padding: '2.5rem 2rem', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)', width: '300px', textAlign: 'center', cursor: 'pointer', transition: 'all 0.3s ease' }}
+            onClick={() => navigate('/chess-viewer-entry')}
+          >
+            <div style={{ background: 'rgba(255,255,255,0.1)', width: '64px', height: '64px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', border: '1px solid rgba(255,255,255,0.1)' }}>
+              <Eye size={32} color="#fff" />
+            </div>
+            <h3 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '1rem', fontWeight: '700' }}>Live Spectator</h3>
+            <p style={{ color: '#888', marginBottom: '2rem', fontSize: '0.95rem', lineHeight: '1.5' }}>Watch the tournament unfold in real-time. Standings, stats, and live matchups.</p>
+            <div style={{ color: '#fff', fontWeight: 'bold', fontSize: '0.9rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px' }}>
+              Watch Live <Zap size={16} />
+            </div>
+          </motion.div>
           
         </div>
       </div>
 
-      {/* Footer (ePrastuti Style) */}
-      <footer style={{ background: '#2c3e50', color: '#ecf0f1', padding: '2rem 4rem', marginTop: 'auto', borderTop: '4px solid #e38718' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '2rem' }}>
-          <div>
-            <h4 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#fff' }}>About Portal</h4>
-            <p style={{ fontSize: '0.85rem', maxWidth: '300px', lineHeight: '1.5', color: '#bbb' }}>
-              Developed in compliance with the standardization guidelines for government educational institution portals. Designed for Barak Valley Engineering College.
-            </p>
-          </div>
-          <div>
-            <h4 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#fff' }}>Quick Links</h4>
-            <ul style={{ listStyle: 'none', padding: 0, fontSize: '0.85rem', lineHeight: '1.8', color: '#bbb' }}>
-              <li><a href="#" style={{ color: '#bbb', textDecoration: 'none' }}>Privacy Policy</a></li>
-              <li><a href="#" style={{ color: '#bbb', textDecoration: 'none' }}>Terms of Use</a></li>
-              <li><a href="#" style={{ color: '#bbb', textDecoration: 'none' }}>Accessibility Statement</a></li>
-            </ul>
-          </div>
-          <div style={{ textAlign: 'right' }}>
-            <p style={{ fontSize: '0.85rem', color: '#bbb' }}>Maintained by <strong>Rajtilak Chamlagain</strong></p>
-            <p style={{ fontSize: '0.85rem', color: '#bbb', marginTop: '5px' }}>© {new Date().getFullYear()} BVEC Chess Club. All rights reserved.</p>
-          </div>
-        </div>
+      {/* Footer */}
+      <footer style={{ padding: '2rem', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', marginTop: '4rem' }}>
+        <img src="/chesslogo.jpeg" alt="Chess Logo" style={{ height: '40px', borderRadius: '8px', opacity: 0.5, marginBottom: '1rem' }} />
+        <p style={{ fontSize: '0.85rem', color: '#666' }}>
+          Built with ⚡ by Rajtilak Chamlagain <br/>
+          © {new Date().getFullYear()} BVEC Chess Club. Powering the next generation of grandmasters.
+        </p>
       </footer>
 
     </div>
