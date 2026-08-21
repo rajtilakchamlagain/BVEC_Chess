@@ -137,6 +137,12 @@ export default function ChessDashboard() {
       return;
     }
 
+    const lastRoundGlobally = rounds.length > 0 ? rounds[0] : null;
+    if (lastRoundGlobally && lastRoundGlobally.status !== 'completed' && lastRoundGlobally.status !== 'draft') {
+      alert("Please wait for all matches in the current round to finish and be reported before generating the next round.");
+      return;
+    }
+
     setIsGenerating(true);
     
     try {
@@ -382,10 +388,13 @@ export default function ChessDashboard() {
       
       const updatedPairings = [...roundDoc.pairings];
       updatedPairings[pairingIndex].result = result;
-      
       const batch = writeBatch(db);
       const roundRef = doc(db, 'chess_tournaments', roomCode, 'rounds', roundId);
-      batch.update(roundRef, { pairings: updatedPairings });
+      const allDone = updatedPairings.every(p => p.result !== 'pending');
+      batch.update(roundRef, { 
+        pairings: updatedPairings,
+        ...(allDone ? { status: 'completed' } : {})
+      });
       
       const p1Ref = doc(db, 'chess_tournaments', roomCode, 'players', pairing.player1);
       const p2Ref = doc(db, 'chess_tournaments', roomCode, 'players', pairing.player2);
@@ -432,9 +441,6 @@ export default function ChessDashboard() {
       }
       
       await batch.commit();
-      
-      // Attempt auto-completion check
-      checkRoundCompletion(roundId);
     } catch (err) {
       console.error(err);
       alert("Error reporting result");
