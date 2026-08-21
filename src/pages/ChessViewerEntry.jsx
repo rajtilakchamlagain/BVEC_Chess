@@ -1,14 +1,39 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Eye, Info } from 'lucide-react';
+import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 export default function ChessViewerEntry() {
   const navigate = useNavigate();
   const [roomCode, setRoomCode] = useState('');
 
-  const handleJoin = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const handleJoin = async () => {
     if (roomCode.length >= 4) {
-      navigate(`/chess-viewer-room?room=${roomCode.toUpperCase()}`);
+      setIsLoading(true);
+      try {
+        const upperCode = roomCode.toUpperCase();
+        const q = query(collection(db, 'chess_tournaments'), where('viewerCode', '==', upperCode));
+        const qSnap = await getDocs(q);
+        
+        if (!qSnap.empty) {
+          navigate(`/chess-viewer-room?room=${qSnap.docs[0].id}`);
+        } else {
+          // Fallback check if they entered host code
+          const docRef = doc(db, 'chess_tournaments', upperCode);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            navigate(`/chess-viewer-room?room=${docSnap.id}`);
+          } else {
+            alert("Tournament not found.");
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -49,9 +74,9 @@ export default function ChessViewerEntry() {
             className="btn-primary" 
             style={{ width: '100%', marginTop: '1.5rem' }} 
             onClick={handleJoin} 
-            disabled={roomCode.length < 4}
+            disabled={roomCode.length < 4 || isLoading}
           >
-            Enter Spectator View
+            {isLoading ? 'Verifying...' : 'Enter Spectator View'}
           </button>
         </div>
       </div>

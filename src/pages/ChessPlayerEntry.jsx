@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Users, CheckCircle2 } from 'lucide-react';
-import { doc, getDoc, collection, setDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, getDoc, collection, setDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 
 export default function ChessPlayerEntry() {
@@ -38,13 +38,24 @@ export default function ChessPlayerEntry() {
       // Wait, firestore doesn't support value queries easily without index.
       // We will do a generic check if they entered host code instead of player code, or we just trust playerCode logic.
       // Since this is a demo, let's assume they provide the actual host code for now or we update the schema later.
-      const docRef = doc(db, 'chess_tournaments', roomCode.toUpperCase());
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
+      const upperCode = roomCode.toUpperCase();
+      const q = query(collection(db, 'chess_tournaments'), where('playerCode', '==', upperCode));
+      const qSnap = await getDocs(q);
+      
+      if (!qSnap.empty) {
+        const docSnap = qSnap.docs[0];
         setRoomData({ id: docSnap.id, ...docSnap.data() });
         setStep(2);
       } else {
-        alert("Tournament not found. Please check your code.");
+        // Fallback: check if they entered the host code
+        const docRef = doc(db, 'chess_tournaments', upperCode);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setRoomData({ id: docSnap.id, ...docSnap.data() });
+          setStep(2);
+        } else {
+          alert("Tournament not found. Please check your code.");
+        }
       }
     } catch (err) {
       console.error(err);
