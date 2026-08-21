@@ -1,6 +1,6 @@
 # ChessVerse - Barak Valley Engineering College ♟️
 
-**ChessVerse** is the official, modernized Chess Tournament Management Portal for the **Barak Valley Engineering College Chess Club**. It is designed as a robust, real-time application for hosting, managing, and viewing professional chess tournaments.
+**ChessVerse** is the official, modernized Chess Tournament Management Portal for the **Barak Valley Engineering College Chess Club**. It is designed as a robust, real-time application for hosting, managing, and viewing professional chess tournaments, built specifically to serve the needs of our **college students** and campus community.
 
 ## 🌟 Key Features
 - **Official & Standardized Design:** The portal's user interface is heavily inspired by the **ePrastuti guidelines** (Standardization of Websites for Assam Government). It features an accessible, clean, and formal design language with official college and club emblems.
