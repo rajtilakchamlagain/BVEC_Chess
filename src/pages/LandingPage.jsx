@@ -20,13 +20,9 @@ export default function LandingPage() {
     }}>
       
       {/* Premium Header */}
-      <header style={{ 
-        padding: '1.5rem 4rem', 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center',
+      <header className="landing-header" style={{ 
         background: 'rgba(255,255,255,0.9)',
-        backdropFilter: 'blur(20px)',
+        backdropFilter: 'blur(10px)',
         borderBottom: '1px solid var(--border-color)',
         position: 'sticky',
         top: 0,
@@ -45,7 +41,7 @@ export default function LandingPage() {
           </div>
         </div>
         
-        <div style={{ display: 'flex', alignItems: 'center', gap: '3rem' }}>
+        <div className="landing-nav">
           <nav style={{ display: 'flex', gap: '2rem', fontSize: '1rem', fontWeight: '600', color: 'var(--text-muted)' }}>
             <span style={{ color: 'var(--primary)', cursor: 'pointer' }}>Platform</span>
             <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--text-main)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}>Tournaments</span>
@@ -56,8 +52,8 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <div style={{ 
-        padding: '6rem 2rem 6rem', 
+      <div className="landing-main" style={{ 
+        flex: 1, 
         textAlign: 'center', 
         maxWidth: '1000px', 
         margin: '0 auto',
@@ -73,7 +69,7 @@ export default function LandingPage() {
             Official Tournament Engine
           </div>
           
-          <h2 style={{ fontSize: '4.5rem', fontWeight: '800', lineHeight: '1.1', letterSpacing: '-0.03em', marginBottom: '1.5rem', color: 'var(--text-main)' }}>
+          <h2 className="landing-hero-title">
             The definitive platform <br />
             <span style={{ color: 'var(--text-muted)' }}>
               for competitive chess.
@@ -143,7 +139,7 @@ export default function LandingPage() {
       </div>
 
       {/* Footer */}
-      <footer style={{ padding: '3rem 4rem', background: '#f1f5f9', borderTop: '1px solid var(--border-color)', marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+      <footer className="landing-footer" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
           <img src="/logo.jpg" alt="Logo" style={{ height: '40px', borderRadius: '6px' }} />
           <span>© {new Date().getFullYear()} Barak Valley Engineering College. All rights reserved.</span>
