@@ -156,6 +156,11 @@ export default function ChessPlayerEntry() {
                   <option>4th</option>
                 </select>
               </div>
+
+              <div className="input-group" style={{ gridColumn: '1 / -1' }}>
+                <label>Hostel / PG / Local Address (Optional)</label>
+                <input type="text" className="premium-input" placeholder="e.g. Boys Hostel 1" value={playerData.address} onChange={e => setPlayerData({...playerData, address: e.target.value})} />
+              </div>
             </div>
 
             <button 
