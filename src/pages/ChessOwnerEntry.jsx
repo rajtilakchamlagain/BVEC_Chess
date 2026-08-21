@@ -196,6 +196,16 @@ export default function ChessOwnerEntry() {
                   {copiedCode === 'player' ? <CheckCircle2 size={16} /> : <Copy size={16}/>}
                 </button>
               </div>
+
+              <div style={{ background: 'var(--bg-color)', padding: '1rem 1.5rem', borderRadius: '8px', border: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: '500', marginBottom: '4px' }}>Spectator / Viewer Code</div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: '600', letterSpacing: '2px', color: 'var(--primary)' }}>{generatedCodes.viewer}</div>
+                </div>
+                <button className="btn-outline" onClick={() => handleCopy(generatedCodes.viewer, 'viewer')} style={{ padding: '8px' }}>
+                  {copiedCode === 'viewer' ? <CheckCircle2 size={16} /> : <Copy size={16}/>}
+                </button>
+              </div>
             </div>
 
             <button 
