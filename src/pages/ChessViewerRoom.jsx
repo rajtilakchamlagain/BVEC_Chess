@@ -56,7 +56,7 @@ export default function ChessViewerRoom() {
 
   if (!roomData) {
     return (
-      <div style={{ display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center', background: '#050505', color: 'var(--text-main)' }}>
+      <div style={{ display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center', background: 'var(--bg-color)', color: 'var(--text-main)' }}>
         <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }}>
           <Trophy size={48} color="#aaa" />
         </motion.div>
@@ -69,7 +69,7 @@ export default function ChessViewerRoom() {
 
   return (
     <div style={{ 
-      background: '#050505', 
+      background: 'var(--bg-color)', 
       color: 'var(--text-main)', 
       minHeight: '100vh', 
       fontFamily: '"Inter", sans-serif',
@@ -81,7 +81,7 @@ export default function ChessViewerRoom() {
       <header style={{ 
         padding: '1.5rem 3rem', 
         borderBottom: '1px solid var(--border-color)', 
-        background: 'rgba(255,255,255,0.02)',
+        background: 'var(--panel-bg)',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -120,7 +120,7 @@ export default function ChessViewerRoom() {
         <div style={{ 
           width: '350px', 
           borderRight: '1px solid var(--border-color)', 
-          background: 'rgba(255,255,255,0.01)',
+          background: 'var(--panel-bg)',
           display: 'flex',
           flexDirection: 'column'
         }}>
@@ -152,7 +152,7 @@ export default function ChessViewerRoom() {
                     alignItems: 'center', 
                     justifyContent: 'space-between', 
                     padding: '1rem', 
-                    background: idx === 0 ? 'linear-gradient(90deg, rgba(255,215,0,0.1) 0%, rgba(255,215,0,0) 100%)' : 'rgba(255,255,255,0.03)', 
+                    background: idx === 0 ? 'linear-gradient(90deg, rgba(255,215,0,0.3) 0%, rgba(255,215,0,0) 100%)' : 'var(--panel-bg)', 
                     borderRadius: '12px', 
                     marginBottom: '8px',
                     borderLeft: idx === 0 ? '3px solid #ffd700' : idx === 1 ? '3px solid #c0c0c0' : idx === 2 ? '3px solid #cd7f32' : '3px solid transparent'
@@ -187,7 +187,7 @@ export default function ChessViewerRoom() {
             )}
             
             {players.length > 0 && (
-              <div style={{ marginTop: '2rem', padding: '1rem', background: 'rgba(255,255,255,0.02)', borderRadius: '12px', fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
+              <div style={{ marginTop: '2rem', padding: '1rem', background: 'var(--panel-bg)', borderRadius: '12px', fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
                 <div style={{ fontWeight: 'bold', color: '#aaa', marginBottom: '8px' }}>Tiebreak Legend (FIDE Rules):</div>
                 <div style={{ marginBottom: '4px' }}><strong>BUC (Buchholz):</strong> Sum of all opponents' scores. Rewards players who faced tougher opponents.</div>
                 <div><strong>SB (Sonneborn-Berger):</strong> Sum of defeated opponents' scores + half of drawn opponents' scores. Rewards players who beat high-scoring opponents.</div>
@@ -223,6 +223,7 @@ export default function ChessViewerRoom() {
                 style={{ marginBottom: '3rem' }}
               >
                 <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '0.5rem' }}>Current Matches</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: 'bold', marginBottom: '1rem' }}>Live • Auto-updating</div>
                 <h2 style={{ fontSize: '3rem', fontWeight: '900', letterSpacing: '-1px', margin: 0 }}>
                   Round {activeRound.roundNumber}
                 </h2>
@@ -263,12 +264,12 @@ export default function ChessViewerRoom() {
                           justifyContent: 'space-between', 
                           alignItems: 'center', 
                           padding: '1rem', 
-                          background: pairing.result === '1-0' ? 'var(--border-color)' : 'rgba(0,0,0,0.2)', 
+                          background: pairing.result === '1-0' ? 'var(--border-color)' : 'var(--bg-color)', 
                           borderRadius: '12px',
                           border: pairing.player1Color === 'white' ? '1px solid rgba(255,255,255,0.2)' : '1px solid transparent'
                         }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                            <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: pairing.player1Color === 'white' ? 'var(--text-main)' : '#1a1a1a', border: '2px solid #555' }} />
+                            <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: pairing.player1Color === 'white' ? 'var(--text-main)' : 'var(--text-main)', border: '2px solid #555' }} />
                             <span style={{ fontWeight: '600', fontSize: '1.2rem', color: pairing.result === '0-1' ? '#52525b' : 'var(--text-main)' }}>{pairing.player1Name}</span>
                           </div>
                           {(pairing.result === '1-0' || pairing.result === '0.5-0.5') && (
@@ -284,12 +285,12 @@ export default function ChessViewerRoom() {
                           justifyContent: 'space-between', 
                           alignItems: 'center', 
                           padding: '1rem', 
-                          background: pairing.result === '0-1' ? 'var(--border-color)' : 'rgba(0,0,0,0.2)', 
+                          background: pairing.result === '0-1' ? 'var(--border-color)' : 'var(--bg-color)', 
                           borderRadius: '12px',
                           border: pairing.player2Color === 'white' ? '1px solid rgba(255,255,255,0.2)' : '1px solid transparent'
                         }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                            <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: pairing.player2Color === 'white' ? 'var(--text-main)' : '#1a1a1a', border: '2px solid #555' }} />
+                            <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: pairing.player2Color === 'white' ? 'var(--text-main)' : 'var(--text-main)', border: '2px solid #555' }} />
                             <span style={{ fontWeight: '600', fontSize: '1.2rem', color: pairing.result === '1-0' ? '#52525b' : 'var(--text-main)' }}>{pairing.player2Name}</span>
                           </div>
                           {(pairing.result === '0-1' || pairing.result === '0.5-0.5') && (
@@ -310,7 +311,7 @@ export default function ChessViewerRoom() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     style={{ 
-                      background: 'rgba(255,255,255,0.02)', 
+                      background: 'var(--panel-bg)', 
                       borderRadius: '20px', 
                       border: '1px dashed var(--border-color)', 
                       padding: '2rem',
@@ -335,7 +336,7 @@ export default function ChessViewerRoom() {
                     <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>Round {r.roundNumber} {r.label && <span style={{color: 'var(--text-muted)', fontSize:'1rem'}}>({r.label})</span>}</h3>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem' }}>
                       {r.pairings.map((p, idx) => (
-                        <div key={idx} style={{ background: 'rgba(255,255,255,0.03)', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
+                        <div key={idx} style={{ background: 'var(--panel-bg)', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
                           <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Board {idx+1}</div>
                           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                             <span style={{ color: p.result === '1-0' ? '#10b981' : p.result === '0-1' ? '#52525b' : 'var(--text-main)' }}>{p.player1Name}</span>
@@ -348,7 +349,7 @@ export default function ChessViewerRoom() {
                         </div>
                       ))}
                       {r.byePlayers && r.byePlayers.map((bp, idx) => (
-                        <div key={'bye'+idx} style={{ background: 'rgba(255,255,255,0.03)', padding: '1rem', borderRadius: '12px', border: '1px dashed var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div key={'bye'+idx} style={{ background: 'var(--panel-bg)', padding: '1rem', borderRadius: '12px', border: '1px dashed var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           <span style={{ color: '#ffd700' }}>{bp.name} (Bye)</span>
                         </div>
                       ))}
