@@ -859,7 +859,7 @@ export default function ChessDashboard() {
               <button 
                 onClick={() => setShowSwissModal(true)} 
                 disabled={isGenerating || players.filter(p=>!p.withdrawn).length < 2 || activeRoundData?.status === 'draft'}
-                style={{ background: 'var(--text-main)', color: '#000', border: 'none', padding: '12px 24px', borderRadius: '12px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', opacity: (isGenerating || activeRoundData?.status === 'draft') ? 0.5 : 1 }}
+                style={{ background: 'var(--text-main)', color: 'var(--bg-color)', border: 'none', padding: '12px 24px', borderRadius: '12px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', opacity: (isGenerating || activeRoundData?.status === 'draft') ? 0.5 : 1 }}
               >
                 <Shuffle size={18} /> {activeRoundData && (activeRoundData.format === 'swiss' || activeRoundData.format === 'staircase') ? 'Change Format' : `Hybrid Setup (Round ${currentRoundNumber + 1})`}
               </button>
