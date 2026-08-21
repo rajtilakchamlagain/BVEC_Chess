@@ -81,7 +81,7 @@ export default function ChessViewerRoom() {
       
       {/* Header */}
       <header style={{ 
-        padding: '1.5rem 3rem', 
+        padding: '1rem', 
         borderBottom: '1px solid var(--border-color)', 
         background: 'var(--panel-bg)',
         display: 'flex',
@@ -128,7 +128,7 @@ export default function ChessViewerRoom() {
         
         {/* Standings Sidebar */}
         <div className={`spectator-sidebar ${showSidebar ? 'open' : ''}`}>
-          <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{ padding: '1.2rem', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Users size={18} color="#aaa" />
             <h2 style={{ fontSize: '1.1rem', fontWeight: '600', margin: 0 }}>Live Leaderboard</h2>
           </div>
@@ -242,7 +242,7 @@ export default function ChessViewerRoom() {
                 </h2>
               </motion.div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(450px, 1fr))', gap: '1.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
                 <AnimatePresence>
                   {activeRound.pairings.map((p, i) => ({...p, originalBoard: i+1})).filter(p => p.player1Name.toLowerCase().includes(searchQuery.toLowerCase()) || p.player2Name.toLowerCase().includes(searchQuery.toLowerCase())).map((pairing, idx) => (
                     <motion.div 
@@ -254,7 +254,7 @@ export default function ChessViewerRoom() {
                         background: 'linear-gradient(145deg, var(--border-color) 0%, rgba(255,255,255,0.01) 100%)', 
                         borderRadius: '20px', 
                         border: '1px solid var(--border-color)', 
-                        padding: '1.5rem',
+                        padding: '1.2rem',
                         boxShadow: '0 20px 40px rgba(0,0,0,0.2)'
                       }}
                     >
@@ -327,7 +327,7 @@ export default function ChessViewerRoom() {
                       background: 'var(--panel-bg)', 
                       borderRadius: '20px', 
                       border: '1px dashed var(--border-color)', 
-                      padding: '2rem',
+                      padding: '1.5rem',
                       display: 'flex',
                       flexDirection: 'column',
                       justifyContent: 'center',
@@ -347,7 +347,7 @@ export default function ChessViewerRoom() {
                 {rounds.filter(r => r.status !== 'draft').map(r => (
                   <div key={r.id}>
                     <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>Round {r.roundNumber} {r.label && <span style={{color: 'var(--text-muted)', fontSize:'1rem'}}>({r.label})</span>}</h3>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
                       {r.pairings.map((p, idx) => (
                         <div key={idx} style={{ background: 'var(--panel-bg)', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
                           <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>Board {idx+1}</div>
