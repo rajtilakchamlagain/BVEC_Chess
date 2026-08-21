@@ -173,34 +173,85 @@ body {
 }
 
 
+
 /* Mobile responsive layout for spectator mode */
 .spectator-layout {
   display: flex;
   height: 100vh;
   flex-direction: row;
+  overflow: hidden;
 }
 .spectator-sidebar {
   width: 350px;
   border-right: 1px solid var(--border-color);
+  background: var(--panel-bg);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  transition: transform 0.3s ease;
 }
 .spectator-content {
   flex: 1;
   padding: 3rem;
   overflow-y: auto;
+  position: relative;
 }
+
+.mobile-menu-btn {
+  display: none;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 101;
+  background: var(--primary);
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 99;
+}
+
 @media (max-width: 768px) {
-  .spectator-layout {
-    flex-direction: column;
-    height: auto;
-    min-height: 100vh;
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
+  
   .spectator-sidebar {
-    width: 100%;
-    height: 350px;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 300px;
+    max-width: 85vw;
+    transform: translateX(-100%);
+    box-shadow: 2px 0 20px rgba(0,0,0,0.2);
   }
+  
+  .spectator-sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .sidebar-overlay.open {
+    display: block;
+  }
+  
   .spectator-content {
     padding: 1rem;
+    padding-top: 4rem; /* Space for the menu button */
   }
 }

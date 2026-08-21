@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Trophy, ArrowLeft, LayoutGrid, Users } from 'lucide-react';
+import { Trophy, ArrowLeft, LayoutGrid, Users, Menu, X } from 'lucide-react';
 import { doc, collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -16,6 +16,7 @@ export default function ChessViewerRoom() {
   const [rounds, setRounds] = useState([]);
   const [viewMode, setViewMode] = useState('live'); // 'live' or 'history'
   const [searchQuery, setSearchQuery] = useState('');
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const rankedPlayers = useMemo(() => {
     const format = rounds.length > 0 ? rounds[0].format : 'staircase';
@@ -115,10 +116,18 @@ export default function ChessViewerRoom() {
         </div>
       </header>
 
-      <main style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+      <main className="spectator-layout" style={{ position: 'relative' }}>
+        {/* Mobile Sidebar Overlay */}
+        <div className={`sidebar-overlay ${showSidebar ? 'open' : ''}`} onClick={() => setShowSidebar(false)} />
+        
+        {/* Mobile Menu Button */}
+        <button className="mobile-menu-btn" onClick={() => setShowSidebar(!showSidebar)}>
+          {showSidebar ? <X size={20} /> : <Menu size={20} />}
+          {showSidebar ? 'Close' : 'Leaderboard'}
+        </button>
         
         {/* Standings Sidebar */}
-        <div className="spectator-sidebar" style={{ background: "var(--panel-bg)", display: "flex", flexDirection: "column" }}>
+        <div className={`spectator-sidebar ${showSidebar ? 'open' : ''}`}>
           <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Users size={18} color="#aaa" />
             <h2 style={{ fontSize: '1.1rem', fontWeight: '600', margin: 0 }}>Live Leaderboard</h2>
