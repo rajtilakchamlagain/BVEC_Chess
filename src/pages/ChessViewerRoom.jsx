@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Trophy, ArrowLeft, LayoutGrid, Users } from 'lucide-react';
 import { doc, collection, onSnapshot } from 'firebase/firestore';
@@ -16,7 +16,7 @@ export default function ChessViewerRoom() {
   const [rounds, setRounds] = useState([]);
   const [viewMode, setViewMode] = useState('live'); // 'live' or 'history'
 
-  const rankedPlayers = React.useMemo(() => {
+  const rankedPlayers = useMemo(() => {
     const format = rounds.length > 0 ? rounds[0].format : 'staircase';
     return calculateRankings(players, rounds, format);
   }, [players, rounds]);
