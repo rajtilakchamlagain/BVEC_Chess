@@ -242,8 +242,9 @@ export default function ChessViewerRoom() {
               >
                 <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '0.5rem' }}>Current Matches</div>
                   <div style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: 'bold', marginBottom: '1rem' }}>Live • Auto-updating</div>
-                <h2 style={{ fontSize: '2rem', fontWeight: '900', letterSpacing: '-1px', margin: 0 }}>
+                <h2 style={{ fontSize: '2rem', fontWeight: '900', letterSpacing: '-1px', margin: 0, display: 'flex', alignItems: 'center', gap: '15px' }}>
                   Round {activeRound.roundNumber}
+                  {activeRound.label && <span style={{ fontSize: '0.9rem', background: '#3b82f6', color: '#ffffff', padding: '4px 12px', borderRadius: '30px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>{activeRound.label}</span>}
                 </h2>
               </motion.div>
 

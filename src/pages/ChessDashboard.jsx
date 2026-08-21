@@ -810,7 +810,7 @@ export default function ChessDashboard() {
           <div>
             <h1 style={{ fontSize: '2.5rem', fontWeight: '900', letterSpacing: '-1px', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '15px' }}>
               {activeRoundData ? (activeRoundData.status === 'draft' ? `Draft: Round ${activeRoundData.roundNumber}` : `Round ${activeRoundData.roundNumber}`) : 'Tournament Lobby'}
-              {activeRoundData?.label && <span style={{ fontSize: '0.8rem', background: 'var(--text-main)', color: '#000', padding: '4px 10px', borderRadius: '30px', fontWeight: 'bold' }}>{activeRoundData.label}</span>}
+              {activeRoundData?.label && <span style={{ fontSize: '0.8rem', background: '#3b82f6', color: '#ffffff', letterSpacing: '1px', textTransform: 'uppercase', padding: '4px 10px', borderRadius: '30px', fontWeight: 'bold' }}>{activeRoundData.label}</span>}
               {activeRoundData?.status === 'draft' && <span style={{ fontSize: '0.9rem', background: '#ff9900', color: '#000', padding: '4px 10px', borderRadius: '30px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>Draft Mode</span>}
               {activeRoundData?.status === 'completed' && <span style={{ fontSize: '0.9rem', background: '#10b981', color: '#000', padding: '4px 10px', borderRadius: '30px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>Completed</span>}
             </h1>
