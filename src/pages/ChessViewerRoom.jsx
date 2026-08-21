@@ -15,6 +15,7 @@ export default function ChessViewerRoom() {
   const [players, setPlayers] = useState([]);
   const [rounds, setRounds] = useState([]);
   const [viewMode, setViewMode] = useState('live'); // 'live' or 'history'
+  const [searchQuery, setSearchQuery] = useState('');
 
   const rankedPlayers = useMemo(() => {
     const format = rounds.length > 0 ? rounds[0].format : 'staircase';
@@ -56,7 +57,7 @@ export default function ChessViewerRoom() {
 
   if (!roomData) {
     return (
-      <div style={{ display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center', background: 'var(--bg-color)', color: 'var(--text-main)' }}>
+      <div className="spectator-layout" style={{ background: "var(--bg-color)", color: "var(--text-main)" }}>
         <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }}>
           <Trophy size={48} color="#aaa" />
         </motion.div>
@@ -117,13 +118,7 @@ export default function ChessViewerRoom() {
       <main style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
         
         {/* Standings Sidebar */}
-        <div style={{ 
-          width: '350px', 
-          borderRight: '1px solid var(--border-color)', 
-          background: 'var(--panel-bg)',
-          display: 'flex',
-          flexDirection: 'column'
-        }}>
+        <div className="spectator-sidebar" style={{ background: "var(--panel-bg)", display: "flex", flexDirection: "column" }}>
           <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Users size={18} color="#aaa" />
             <h2 style={{ fontSize: '1.1rem', fontWeight: '600', margin: 0 }}>Live Leaderboard</h2>
@@ -140,7 +135,7 @@ export default function ChessViewerRoom() {
             </div>
             
             <AnimatePresence>
-              {rankedPlayers.map((p, idx) => (
+              {rankedPlayers.map((p, i) => ({...p, originalRank: i+1})).filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase())).map((p, idx) => (
                 <motion.div 
                   key={p.id}
                   layout
@@ -159,7 +154,7 @@ export default function ChessViewerRoom() {
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem', width: '20px', fontWeight: 'bold' }}>{idx + 1}</span>
+                    <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem', width: '20px', fontWeight: 'bold' }}>{p.originalRank}</span>
                     {p.photoUrl ? (
                       <img src={p.photoUrl} alt="" style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: idx === 0 ? '2px solid #ffd700' : '2px solid transparent' }} />
                     ) : (
@@ -176,7 +171,7 @@ export default function ChessViewerRoom() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', width: '20px', textAlign: 'right' }}>{p.BUC || 0}</div>
                     <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', width: '20px', textAlign: 'right' }}>{p.SB || 0}</div>
-                    <div style={{ fontWeight: 'bold', color: 'var(--text-main)', fontSize: '1.2rem', width: '25px', textAlign: 'right' }}>{p.wins || 0}</div>
+                    <div style={{ fontWeight: 'bold', color: 'var(--text-main)', fontSize: '1rem', width: '25px', textAlign: 'right' }}>{p.wins || 0}</div>
                   </div>
                 </motion.div>
               ))}
@@ -197,13 +192,22 @@ export default function ChessViewerRoom() {
         </div>
 
         {/* Pairings Area */}
-        <div style={{ flex: 1, padding: '3rem', overflowY: 'auto' }}>
+        <div className="spectator-content">
           
-          <div style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem' }}>
-            <button onClick={() => setViewMode('live')} style={{ background: 'none', border: 'none', color: viewMode === 'live' ? 'var(--text-main)' : 'var(--text-muted)', fontWeight: viewMode === 'live' ? 'bold' : 'normal', fontSize: '1.2rem', cursor: 'pointer', padding: '0 0 8px 0', borderBottom: viewMode === 'live' ? '2px solid #10b981' : '2px solid transparent' }}>
+          <div style={{ marginBottom: '2rem' }}>
+              <input 
+                type="text" 
+                placeholder="Search your name to find your board..." 
+                value={searchQuery} 
+                onChange={e => setSearchQuery(e.target.value)}
+                style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--panel-bg)', color: 'var(--text-main)', fontSize: '0.9rem' }}
+              />
+            </div>
+            <div style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem' }}>
+            <button onClick={() => setViewMode('live')} style={{ background: 'none', border: 'none', color: viewMode === 'live' ? 'var(--text-main)' : 'var(--text-muted)', fontWeight: viewMode === 'live' ? 'bold' : 'normal', fontSize: '1rem', cursor: 'pointer', padding: '0 0 8px 0', borderBottom: viewMode === 'live' ? '2px solid #10b981' : '2px solid transparent' }}>
               Live Matchups
             </button>
-            <button onClick={() => setViewMode('history')} style={{ background: 'none', border: 'none', color: viewMode === 'history' ? 'var(--text-main)' : 'var(--text-muted)', fontWeight: viewMode === 'history' ? 'bold' : 'normal', fontSize: '1.2rem', cursor: 'pointer', padding: '0 0 8px 0', borderBottom: viewMode === 'history' ? '2px solid #10b981' : '2px solid transparent' }}>
+            <button onClick={() => setViewMode('history')} style={{ background: 'none', border: 'none', color: viewMode === 'history' ? 'var(--text-main)' : 'var(--text-muted)', fontWeight: viewMode === 'history' ? 'bold' : 'normal', fontSize: '1rem', cursor: 'pointer', padding: '0 0 8px 0', borderBottom: viewMode === 'history' ? '2px solid #10b981' : '2px solid transparent' }}>
               Tournament History
             </button>
           </div>
@@ -224,14 +228,14 @@ export default function ChessViewerRoom() {
               >
                 <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '0.5rem' }}>Current Matches</div>
                   <div style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: 'bold', marginBottom: '1rem' }}>Live • Auto-updating</div>
-                <h2 style={{ fontSize: '3rem', fontWeight: '900', letterSpacing: '-1px', margin: 0 }}>
+                <h2 style={{ fontSize: '2rem', fontWeight: '900', letterSpacing: '-1px', margin: 0 }}>
                   Round {activeRound.roundNumber}
                 </h2>
               </motion.div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(450px, 1fr))', gap: '1.5rem' }}>
                 <AnimatePresence>
-                  {activeRound.pairings.map((pairing, idx) => (
+                  {activeRound.pairings.map((p, i) => ({...p, originalBoard: i+1})).filter(p => p.player1Name.toLowerCase().includes(searchQuery.toLowerCase()) || p.player2Name.toLowerCase().includes(searchQuery.toLowerCase())).map((pairing, idx) => (
                     <motion.div 
                       key={idx}
                       initial={{ opacity: 0, scale: 0.95 }}
@@ -247,7 +251,7 @@ export default function ChessViewerRoom() {
                     >
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                         <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: '600', letterSpacing: '1px' }}>
-                          BOARD {idx + 1} {pairing.matchType && <span style={{ color: 'var(--secondary)', marginLeft: '5px' }}>• {pairing.matchType}</span>}
+                          BOARD {pairing.originalBoard} {pairing.matchType && <span style={{ color: 'var(--secondary)', marginLeft: '5px' }}>• {pairing.matchType}</span>}
                         </div>
                         {pairing.result !== 'pending' && (
                           <div style={{ background: 'var(--border-color)', color: 'var(--text-main)', padding: '4px 10px', borderRadius: '30px', fontSize: '0.75rem', fontWeight: 'bold' }}>
@@ -270,7 +274,7 @@ export default function ChessViewerRoom() {
                         }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                             <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: pairing.player1Color === 'white' ? 'var(--text-main)' : 'var(--text-main)', border: '2px solid #555' }} />
-                            <span style={{ fontWeight: '600', fontSize: '1.2rem', color: pairing.result === '0-1' ? '#52525b' : 'var(--text-main)' }}>{pairing.player1Name}</span>
+                            <span style={{ fontWeight: '600', fontSize: '1rem', color: pairing.result === '0-1' ? '#52525b' : 'var(--text-main)' }}>{pairing.player1Name}</span>
                           </div>
                           {(pairing.result === '1-0' || pairing.result === '0.5-0.5') && (
                             <span style={{ fontWeight: 'bold', color: pairing.result === '1-0' ? '#10b981' : 'var(--text-muted)' }}>
@@ -291,7 +295,7 @@ export default function ChessViewerRoom() {
                         }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                             <div style={{ width: '16px', height: '16px', borderRadius: '4px', background: pairing.player2Color === 'white' ? 'var(--text-main)' : 'var(--text-main)', border: '2px solid #555' }} />
-                            <span style={{ fontWeight: '600', fontSize: '1.2rem', color: pairing.result === '1-0' ? '#52525b' : 'var(--text-main)' }}>{pairing.player2Name}</span>
+                            <span style={{ fontWeight: '600', fontSize: '1rem', color: pairing.result === '1-0' ? '#52525b' : 'var(--text-main)' }}>{pairing.player2Name}</span>
                           </div>
                           {(pairing.result === '0-1' || pairing.result === '0.5-0.5') && (
                             <span style={{ fontWeight: 'bold', color: pairing.result === '0-1' ? '#10b981' : 'var(--text-muted)' }}>
