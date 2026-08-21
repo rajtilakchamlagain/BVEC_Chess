@@ -22,6 +22,15 @@ function App() {
             <Route path="/chess-dashboard" element={<ChessDashboard />} />
             <Route path="/chess-viewer-entry" element={<ChessViewerEntry />} />
             <Route path="/chess-viewer-room" element={<ChessViewerRoom />} />
+            
+            {/* Fallback 404 Route */}
+            <Route path="*" element={
+              <div style={{ textAlign: 'center', padding: '5rem', color: 'var(--text-main)' }}>
+                <h1>404 - Page Not Found</h1>
+                <p>The link you followed may be broken or mistyped.</p>
+                <a href="/" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 'bold' }}>Return to Home</a>
+              </div>
+            } />
           </Routes>
         </div>
       </ErrorBoundary>
