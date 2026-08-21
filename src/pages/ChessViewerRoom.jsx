@@ -5,6 +5,7 @@ import { doc, collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 import { motion, AnimatePresence } from 'framer-motion';
 import { calculateRankings } from '../utils/chessLogic';
+import FinalResults from '../components/FinalResults';
 
 export default function ChessViewerRoom() {
   const navigate = useNavigate();
@@ -202,6 +203,10 @@ export default function ChessViewerRoom() {
 
         {/* Pairings Area */}
         <div className="spectator-content">
+          {roomData?.status === 'finished' ? (
+            <FinalResults rankedPlayers={rankedPlayers} />
+          ) : (
+            <>
           
           <div style={{ marginBottom: '2rem' }}>
               <input 
@@ -375,6 +380,8 @@ export default function ChessViewerRoom() {
               </div>
           ) : null}
 
+            </>
+          )}
         </div>
       </main>
     </div>
