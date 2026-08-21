@@ -28,6 +28,10 @@ export default function ChessPlayerEntry() {
     photoUrl: ''
   });
 
+  const toTitleCase = (str) => {
+    return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  };
+
   const handleVerifyCode = async () => {
     if (!roomCode || roomCode.length < 4) return;
     setIsLoading(true);
@@ -136,7 +140,7 @@ export default function ChessPlayerEntry() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <div className="input-group" style={{ gridColumn: '1 / -1' }}>
                 <label>Full Name *</label>
-                <input type="text" className="premium-input" value={playerData.name} onChange={e => setPlayerData({...playerData, name: e.target.value})} />
+                <input type="text" className="premium-input" value={playerData.name} onChange={e => setPlayerData({...playerData, name: toTitleCase(e.target.value)})} />
               </div>
 
               <div className="input-group">
@@ -170,7 +174,7 @@ export default function ChessPlayerEntry() {
 
               <div className="input-group" style={{ gridColumn: '1 / -1' }}>
                 <label>Hostel / PG / Local Address (Optional)</label>
-                <input type="text" className="premium-input" placeholder="e.g. Boys Hostel 1" value={playerData.address} onChange={e => setPlayerData({...playerData, address: e.target.value})} />
+                <input type="text" className="premium-input" placeholder="e.g. Boys Hostel 1" value={playerData.address} onChange={e => setPlayerData({...playerData, address: toTitleCase(e.target.value)})} />
               </div>
             </div>
 
