@@ -736,7 +736,7 @@ export default function ChessDashboard() {
             {roomData.logoUrl ? <img src={roomData.logoUrl} style={{ width: '48px', height: '48px', borderRadius: '12px', objectFit: 'cover' }} /> : <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'linear-gradient(135deg, #1f1f1f, #09090b)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--border-color)' }}><Trophy size={20} color="#fff" /></div>}
             <div>
               <h2 style={{ fontSize: '1.2rem', fontWeight: 'bold', margin: 0 }}>{roomData.name}</h2>
-              <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '4px' }}>Player Code: <span style={{ color: 'var(--text-main)' }}>{roomData.playerCode}</span></div>
+              <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '4px' }}>Player Code: <span style={{ color: 'var(--text-main)' }}>{roomData.playerCode}</span> &nbsp;|&nbsp; Viewer Code: <span style={{ color: 'var(--text-main)' }}>{roomData.viewerCode}</span></div>
             </div>
           </div>
         </div>
