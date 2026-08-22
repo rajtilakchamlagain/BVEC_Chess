@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Eye, Info } from 'lucide-react';
-import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, getDoc, orderBy, limit, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 
 export default function ChessViewerEntry() {
@@ -9,6 +9,26 @@ export default function ChessViewerEntry() {
   const [roomCode, setRoomCode] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
+  const [recentTournaments, setRecentTournaments] = useState([]);
+
+  useEffect(() => {
+    const q = query(
+      collection(db, 'chess_tournaments'),
+      orderBy('createdAt', 'desc'),
+      limit(5)
+    );
+    
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const tours = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setRecentTournaments(tours);
+    });
+    
+    return () => unsubscribe();
+  }, []);
+
   const handleJoin = async () => {
     if (roomCode.length >= 4) {
       setIsLoading(true);
@@ -78,6 +98,62 @@ export default function ChessViewerEntry() {
           >
             {isLoading ? 'Verifying...' : 'Enter Spectator View'}
           </button>
+        </div>
+        
+        {/* Recent Tournaments Section */}
+        <div style={{ marginTop: '2.5rem', borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem' }}>
+          <h3 style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--text-main)', marginBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span>Recent Tournaments</span>
+            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 'normal', background: 'var(--border-color)', padding: '2px 8px', borderRadius: '12px' }}>Live</span>
+          </h3>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+            {recentTournaments.length === 0 ? (
+               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', textAlign: 'center', padding: '1rem' }}>Loading recent tournaments...</p>
+            ) : (
+              recentTournaments.map(tour => (
+                <div 
+                  key={tour.id} 
+                  onClick={() => navigate(`/chess-viewer-room?room=${tour.id}`)}
+                  style={{ 
+                    padding: '1rem', 
+                    borderRadius: '8px', 
+                    background: 'var(--bg-color)', 
+                    border: '1px solid var(--border-color)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '4px',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--primary)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--border-color)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontWeight: '600', color: 'var(--text-main)', fontSize: '0.95rem' }}>{tour.name || 'Unnamed Arena'}</span>
+                    <span style={{ 
+                      fontSize: '0.75rem', 
+                      padding: '2px 8px', 
+                      borderRadius: '12px',
+                      background: tour.status === 'live' ? 'rgba(34, 197, 94, 0.1)' : (tour.status === 'finished' ? 'rgba(156, 163, 175, 0.1)' : 'rgba(59, 130, 246, 0.1)'),
+                      color: tour.status === 'live' ? '#22c55e' : (tour.status === 'finished' ? 'var(--text-muted)' : 'var(--primary)')
+                    }}>
+                      {tour.status === 'live' ? 'Ongoing' : (tour.status === 'finished' ? 'Concluded' : 'Pending')}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                    Format: {tour.format ? tour.format.charAt(0).toUpperCase() + tour.format.slice(1) : 'Swiss'}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
         </div>
       </div>
     </div>
