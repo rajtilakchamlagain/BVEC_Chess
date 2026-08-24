@@ -608,7 +608,7 @@ export default function ChessDashboard() {
       
       {showSwissModal && (
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.8)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(5px)' }}>
-          <div style={{ background: 'var(--panel-bg)', width: '400px', borderRadius: '12px', padding: '2rem', border: '1px solid var(--border-color)', boxShadow: '0 40px 80px rgba(0,0,0,0.5)' }}>
+          <div style={{ className: 'entry-container', style: { width: '400px', padding: '2rem' } }}>
             <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}><Settings color="#00e5ff" /> Advanced Hybrid Setup</h2>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2rem' }}>
@@ -631,13 +631,13 @@ export default function ChessDashboard() {
               {swissMode === 'swiss' && (
                 <div style={{ marginTop: '1rem' }}>
                   <label style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Number of Rounds to Setup:</label>
-                  <input type="number" min="1" max="20" value={swissRounds} onChange={(e) => setSwissRounds(e.target.value)} style={{ width: '100%', padding: '10px', background: '#000', border: '1px solid #333', color: 'var(--text-main)', borderRadius: '8px', marginTop: '5px' }} />
+                  <input type="number" min="1" max="20" value={swissRounds} onChange={(e) => setSwissRounds(e.target.value)} className="premium-input" />
                 </div>
               )}
             </div>
 
             <div style={{ display: 'flex', gap: '1rem' }}>
-              <button onClick={() => setShowSwissModal(false)} style={{ flex: 1, padding: '12px', background: 'transparent', border: '1px solid #333', color: 'var(--text-main)', borderRadius: '8px', cursor: 'pointer' }}>Cancel</button>
+              <button onClick={() => setShowSwissModal(false)} style={{ flex: 1, padding: '12px', background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-main)', borderRadius: '8px', cursor: 'pointer' }}>Cancel</button>
               <button onClick={() => generatePairings(swissMode)} style={{ flex: 1, padding: '12px', background: 'var(--secondary)', border: 'none', color: '#000', fontWeight: 'bold', borderRadius: '8px', cursor: 'pointer' }}>Start Setup</button>
             </div>
           </div>
@@ -978,7 +978,7 @@ export default function ChessDashboard() {
 
                   {pairing.result === 'pending' && !swapMode && activeRoundData.status === 'published' && activeRoundData.format !== 'knockout' && (
                     <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
-                      <button style={{ width: '100%', background: 'transparent', border: '1px solid var(--border-color)', color: '#aaa', padding: '8px', borderRadius: '8px', fontSize: '0.9rem', cursor: 'pointer' }} onClick={() => reportResult(activeRoundData.id, idx, '0.5-0.5')}>Draw ½ - ½</button>
+                      <button style={{ width: '100%', background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-muted)', padding: '8px', borderRadius: '8px', fontSize: '0.9rem', cursor: 'pointer' }} onClick={() => reportResult(activeRoundData.id, idx, '0.5-0.5')}>Draw ½ - ½</button>
                     </div>
                   )}
 

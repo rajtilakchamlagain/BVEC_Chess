@@ -193,7 +193,7 @@ export default function ChessViewerRoom() {
             
             {players.length > 0 && (
               <div style={{ marginTop: '2rem', padding: '1rem', background: 'var(--panel-bg)', borderRadius: '12px', fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-                <div style={{ fontWeight: 'bold', color: '#aaa', marginBottom: '8px' }}>Tiebreak Legend (FIDE Rules):</div>
+                <div style={{ fontWeight: 'bold', color: 'var(--text-muted)', marginBottom: '8px' }}>Tiebreak Legend (FIDE Rules):</div>
                 <div style={{ marginBottom: '4px' }}><strong>BUC (Buchholz):</strong> Sum of all opponents' scores. Rewards players who faced tougher opponents.</div>
                 <div><strong>SB (Sonneborn-Berger):</strong> Sum of defeated opponents' scores + half of drawn opponents' scores. Rewards players who beat high-scoring opponents.</div>
               </div>
