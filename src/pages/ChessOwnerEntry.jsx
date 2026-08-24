@@ -64,7 +64,7 @@ export default function ChessOwnerEntry() {
 
   return (
     <div style={{ background: 'var(--bg-color)', color: 'var(--text-main)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ width: '100%', maxWidth: '440px', padding: '2.5rem', background: 'var(--panel-bg)', borderRadius: '12px', border: '1px solid var(--border-color)', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
+      <div className="entry-container">
         
         <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2rem', fontSize: '0.9rem', fontWeight: '500' }}>
           <ArrowLeft size={16} /> Back to platform
@@ -143,7 +143,7 @@ export default function ChessOwnerEntry() {
                     type="text" 
                     className="premium-input" 
                     placeholder="XXXXXX"
-                    style={{ textTransform: 'uppercase', letterSpacing: '4px', textAlign: 'center', fontSize: '1.1rem', padding: '1rem' }}
+                    style={{ textTransform: 'uppercase', letterSpacing: '2px', textAlign: 'center', fontSize: '1.1rem', padding: '1rem' }}
                     value={generatedCodes.host}
                     onChange={e => setGeneratedCodes({...generatedCodes, host: e.target.value.toUpperCase()})}
                   />

@@ -114,7 +114,7 @@ export default function ChessPlayerEntry() {
                 type="text" 
                 className="premium-input" 
                 placeholder="Enter 6-character code"
-                style={{ textTransform: 'uppercase', letterSpacing: '4px', textAlign: 'center', fontSize: '1.1rem', padding: '1rem' }}
+                style={{ textTransform: 'uppercase', letterSpacing: '2px', textAlign: 'center', fontSize: '1.1rem', padding: '1rem' }}
                 value={roomCode}
                 onChange={e => setRoomCode(e.target.value.toUpperCase())}
               />

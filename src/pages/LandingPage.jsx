@@ -86,12 +86,11 @@ export default function LandingPage() {
           
           {/* Card 1 */}
           <motion.div 
-            whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(0,0,0,0.08)', borderColor: 'var(--primary)' }}
-            style={{ background: 'var(--panel-bg)', padding: '2.5rem', borderRadius: '12px', border: '1px solid var(--border-color)', width: '300px', textAlign: 'left', cursor: 'pointer', transition: 'all 0.2s ease-in-out', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
+            className="premium-card"
             onClick={() => navigate('/chess-owner-entry')}
           >
-            <div style={{ background: 'var(--bg-color)', border: '1px solid var(--border-color)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-              <ShieldCheck size={30} color="var(--primary)" />
+            <div className="premium-card-icon">
+              <ShieldCheck size={28} />
             </div>
             <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '700' }}>Host Dashboard</h3>
             <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '1rem', lineHeight: '1.5' }}>Create a tournament, manage pairings, and update live results.</p>
@@ -102,12 +101,11 @@ export default function LandingPage() {
 
           {/* Card 2 */}
           <motion.div 
-            whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(0,0,0,0.08)', borderColor: 'var(--primary)' }}
-            style={{ background: 'var(--panel-bg)', padding: '2.5rem', borderRadius: '12px', border: '1px solid var(--border-color)', width: '300px', textAlign: 'left', cursor: 'pointer', transition: 'all 0.2s ease-in-out', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
+            className="premium-card"
             onClick={() => navigate('/chess-player-entry')}
           >
-            <div style={{ background: 'var(--bg-color)', border: '1px solid var(--border-color)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-              <Users size={30} color="var(--primary)" />
+            <div className="premium-card-icon">
+              <Users size={28} />
             </div>
             <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '700' }}>Player Registration</h3>
             <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '1rem', lineHeight: '1.5' }}>Enter your details to join an active tournament lobby.</p>
