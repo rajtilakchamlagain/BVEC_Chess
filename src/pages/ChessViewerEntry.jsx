@@ -73,7 +73,7 @@ export default function ChessViewerEntry() {
           <div style={{ background: 'rgba(37, 99, 235, 0.05)', border: '1px solid rgba(37, 99, 235, 0.2)', padding: '1rem', borderRadius: '8px', display: 'flex', gap: '12px', alignItems: 'flex-start', marginBottom: '2rem' }}>
             <Info size={20} color="var(--primary)" style={{ flexShrink: 0, marginTop: '2px' }} />
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: '1.5', margin: 0 }}>
-              <strong>What is this?</strong> Enter the tournament code provided by the host. This will give you read-only access to view live scores, current round pairings, and real-time leaderboard standings as the tournament progresses!
+              <strong>What is this?</strong> Enter the 6-character tournament code to follow live match results and leaderboard standings.
             </p>
           </div>
 
@@ -82,7 +82,7 @@ export default function ChessViewerEntry() {
             <input 
               type="text" 
               className="premium-input" 
-              placeholder="e.g. A1B2C3"
+              placeholder="Enter 6-digit code"
               style={{ textTransform: 'uppercase', letterSpacing: '4px', textAlign: 'center', fontSize: '1.1rem', padding: '1rem' }}
               value={roomCode}
               onChange={e => setRoomCode(e.target.value.toUpperCase())}

@@ -66,18 +66,18 @@ export default function LandingPage() {
         >
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '20px', fontSize: '0.9rem', fontWeight: '600', marginBottom: '2rem', border: '1px solid var(--border-color)', color: 'var(--primary)', background: 'rgba(37, 99, 235, 0.05)' }}>
             <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary)' }} />
-            Official Tournament Engine
+            BVEC Chess Portal
           </div>
           
           <h2 className="landing-hero-title">
-            The definitive platform <br />
+            Tournament Management <br />
             <span style={{ color: 'var(--text-muted)' }}>
-              for competitive chess.
+              Done Right.
             </span>
           </h2>
           
           <p style={{ fontSize: '1.25rem', color: 'var(--text-muted)', maxWidth: '650px', margin: '0 auto 4rem', lineHeight: '1.6' }}>
-            Streamlined tournament management, intelligent Swiss pairings, and real-time live spectating. Built exclusively for our chess community.
+            Host and manage college chess tournaments with live pairings, automated matching, and real-time standings.
           </p>
         </motion.div>
 
@@ -87,32 +87,32 @@ export default function LandingPage() {
           {/* Card 1 */}
           <motion.div 
             whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(0,0,0,0.08)', borderColor: 'var(--primary)' }}
-            style={{ background: 'var(--panel-bg)', padding: '2.5rem', borderRadius: '16px', border: '1px solid var(--border-color)', width: '300px', textAlign: 'left', cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}
+            style={{ background: 'var(--panel-bg)', padding: '2.5rem', borderRadius: '12px', border: '1px solid var(--border-color)', width: '300px', textAlign: 'left', cursor: 'pointer', transition: 'all 0.2s ease-in-out', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
             onClick={() => navigate('/chess-owner-entry')}
           >
-            <div style={{ background: 'rgba(37, 99, 235, 0.1)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
+            <div style={{ background: 'var(--bg-color)', border: '1px solid var(--border-color)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
               <ShieldCheck size={30} color="var(--primary)" />
             </div>
-            <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '700' }}>Host Arena</h3>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '1rem', lineHeight: '1.5' }}>Manage brackets, generate rounds, and control the leaderboard.</p>
+            <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '700' }}>Host Dashboard</h3>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '1rem', lineHeight: '1.5' }}>Create a tournament, manage pairings, and update live results.</p>
             <div style={{ color: 'var(--primary)', fontWeight: '600', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '5px' }}>
-              Enter dashboard <ArrowRight size={16} />
+              Open Dashboard <ArrowRight size={16} />
             </div>
           </motion.div>
 
           {/* Card 2 */}
           <motion.div 
             whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(0,0,0,0.08)', borderColor: 'var(--primary)' }}
-            style={{ background: 'var(--panel-bg)', padding: '2.5rem', borderRadius: '16px', border: '1px solid var(--border-color)', width: '300px', textAlign: 'left', cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}
+            style={{ background: 'var(--panel-bg)', padding: '2.5rem', borderRadius: '12px', border: '1px solid var(--border-color)', width: '300px', textAlign: 'left', cursor: 'pointer', transition: 'all 0.2s ease-in-out', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
             onClick={() => navigate('/chess-player-entry')}
           >
-            <div style={{ background: 'rgba(37, 99, 235, 0.1)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
+            <div style={{ background: 'var(--bg-color)', border: '1px solid var(--border-color)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
               <Users size={30} color="var(--primary)" />
             </div>
-            <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '700' }}>Player Entry</h3>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '1rem', lineHeight: '1.5' }}>Register with your FIDE/AICF ID and join the active tournament.</p>
+            <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '700' }}>Player Registration</h3>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '1rem', lineHeight: '1.5' }}>Enter your details to join an active tournament lobby.</p>
             <div style={{ color: 'var(--primary)', fontWeight: '600', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '5px' }}>
-              Join lobby <ArrowRight size={16} />
+              Register Here <ArrowRight size={16} />
             </div>
           </motion.div>
 
@@ -125,13 +125,13 @@ export default function LandingPage() {
             <div style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', color: 'var(--primary)' }} title="Access live scores, pairings, and real-time standings as they happen.">
               <Info size={20} />
             </div>
-            <div style={{ background: 'rgba(37, 99, 235, 0.1)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
+            <div style={{ background: 'var(--bg-color)', border: '1px solid var(--border-color)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
               <Eye size={30} color="var(--primary)" />
             </div>
-            <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '700' }}>Spectator Mode</h3>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '1rem', lineHeight: '1.5' }}>Watch live match results and leaderboard standings in real-time.</p>
+            <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '700' }}>Live Spectator</h3>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '1rem', lineHeight: '1.5' }}>Follow live scores and standings from your phone.</p>
             <div style={{ color: 'var(--primary)', fontWeight: '600', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '5px' }}>
-              Watch live <ArrowRight size={16} />
+              Enter Room <ArrowRight size={16} />
             </div>
           </motion.div>
           
