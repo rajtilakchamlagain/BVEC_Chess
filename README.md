@@ -2,29 +2,23 @@
 
 **Live Demo:** [https://bvecchess.vercel.app/](https://bvecchess.vercel.app/)
 
-**ChessVerse** is the official, modernized Chess Tournament Management Portal for the **Barak Valley Engineering College Chess Club**. It is designed as a robust, real-time application for hosting, managing, and viewing professional chess tournaments, built specifically to serve the needs of our **college students** and campus community.
+**ChessVerse** is the official, modernized Chess Tournament Management Portal for the **Barak Valley Engineering College Chess Club**. It is a premium, real-time web application designed to host, manage, and spectate professional college chess tournaments seamlessly from any device.
 
-## 🌟 Key Features
-- **Official & Standardized Design:** The portal's user interface is heavily inspired by the **ePrastuti guidelines** (Standardization of Websites for Assam Government). It features an accessible, clean, and formal design language with official college and club emblems.
-- **Swiss & Knockout Pairing Engines:** Advanced algorithms to generate pairings, track colors (white/black), handle byes, and prevent duplicate matchups in Swiss formats.
-- **Real-Time Host Dashboard:** Tournament organizers can draft rounds, report match results, resolve disputes, and publish live standings instantly.
-- **Live Spectator Mode:** Students and viewers can watch the live standings, ongoing rounds, and results update in real-time without needing to refresh the page.
-- **Player Onboarding:** A streamlined registration process for players to join the official tournament lobby.
+## 🚀 Key Features
+- **Premium UI/UX:** A custom, sleek, and highly responsive interface with subtle glassmorphism, refined elevation shadows, and fluid animations. Designed to look and feel like a native application on both desktop and mobile.
+- **Advanced Pairing Engines:** Automated logic for generating **Swiss**, **Knockout**, and **Staircase** format matchups. Features built-in intelligence to track player colors (White/Black history), handle byes, and calculate advanced tie-breakers (BUC, SB).
+- **Host Dashboard:** A comprehensive control center for organizers. Draft rounds, manually swap players if needed, instantly report match results, and seamlessly generate the Grand Podium once the tournament concludes.
+- **Live Spectator Portal:** Students and fans can access the "Tournaments" tab to browse recent/ongoing tournaments. Once inside a room, spectators receive real-time, zero-refresh updates on live pairings, board numbers, and leaderboard standings.
+- **Player Hub:** A streamlined registration flow where players join a lobby using a host-provided code and track their individual tournament journey.
 
-## 💻 Tech Stack
+## 🛠️ Tech Stack
 - **Frontend Framework:** [React 19](https://react.dev/)
 - **Build Tool:** [Vite](https://vitejs.dev/)
 - **Backend & Database:** [Firebase Firestore](https://firebase.google.com/) for real-time WebSockets and NoSQL data management.
-- **Styling:** Custom CSS with [Framer Motion](https://www.framer.com/motion/) for fluid animations and [Lucide React](https://lucide.dev/) for iconography.
+- **Styling:** Custom CSS for premium styling, combined with [Framer Motion](https://www.framer.com/motion/) for fluid animations and [Lucide React](https://lucide.dev/) for iconography.
 - **Routing:** React Router v7
 
-## 🚀 How It Was Built
-The project was originally extracted from a larger monolithic application (PitchBid Auction) and meticulously refactored to serve as a standalone, specialized chess platform. The extraction process involved:
-1. **Routing Overhaul:** Stripping out unrelated auction routes and configuring the app specifically for Chess Host, Player, and Viewer experiences.
-2. **UI/UX Redesign:** Transforming the landing page from a dark-mode premium aesthetic to a bright, accessible, and government-standard compliant (ePrastuti) interface.
-3. **Logic Isolation:** Ensuring the complex `chessLogic.js` algorithms (Round Robin, Swiss, Knockout) remained intact and integrated seamlessly with the Firebase real-time listeners.
-
-## 🛠️ Running Locally
+## 💻 Running Locally
 
 To run the ChessVerse platform locally on your machine, follow these steps:
 
@@ -47,6 +41,6 @@ To run the ChessVerse platform locally on your machine, follow these steps:
 4. **Open in Browser:**
    Navigate to `http://localhost:5173` to view the application.
 
-## 📝 License
+## 📄 License
 Developed and maintained by **Rajtilak Chamlagain**.
 © 2026 BVEC Chess Club. All rights reserved.
