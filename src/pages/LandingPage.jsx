@@ -82,57 +82,62 @@ export default function LandingPage() {
         </motion.div>
 
         {/* Minimalist Action Cards */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem', width: '100%' }}>
           
-          {/* Card 1 */}
+          {/* Main Card: Tournaments (Spectator) */}
           <motion.div 
             className="premium-card"
-            onClick={() => navigate('/chess-owner-entry')}
-          >
-            <div className="premium-card-icon">
-              <ShieldCheck size={28} />
-            </div>
-            <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '700' }}>Host Dashboard</h3>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '1rem', lineHeight: '1.5' }}>Create a tournament, manage pairings, and update live results.</p>
-            <div style={{ color: 'var(--primary)', fontWeight: '600', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '5px' }}>
-              Open Dashboard <ArrowRight size={16} />
-            </div>
-          </motion.div>
-
-          {/* Card 2 */}
-          <motion.div 
-            className="premium-card"
-            onClick={() => navigate('/chess-player-entry')}
-          >
-            <div className="premium-card-icon">
-              <Users size={28} />
-            </div>
-            <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '700' }}>Player Registration</h3>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '1rem', lineHeight: '1.5' }}>Enter your details to join an active tournament lobby.</p>
-            <div style={{ color: 'var(--primary)', fontWeight: '600', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '5px' }}>
-              Register Here <ArrowRight size={16} />
-            </div>
-          </motion.div>
-
-          {/* Card 3 */}
-          <motion.div 
-            whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(0,0,0,0.08)', borderColor: 'var(--primary)' }}
-            style={{ background: 'var(--panel-bg)', padding: '2.5rem', borderRadius: '16px', border: '1px solid var(--border-color)', width: '300px', textAlign: 'left', cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 4px 6px rgba(0,0,0,0.02)', position: 'relative' }}
+            style={{ width: '100%', maxWidth: '630px' }}
             onClick={() => navigate('/chess-viewer-entry')}
           >
-            <div style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', color: 'var(--primary)' }} title="Access live scores, pairings, and real-time standings as they happen.">
+            <div style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', color: '#94a3b8' }} title="Access live scores, pairings, and real-time standings as they happen.">
               <Info size={20} />
             </div>
-            <div style={{ background: 'var(--bg-color)', border: '1px solid var(--border-color)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-              <Eye size={30} color="var(--primary)" />
+            <div className="premium-card-icon">
+              <Eye size={28} />
             </div>
-            <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '700' }}>Live Spectator</h3>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '1rem', lineHeight: '1.5' }}>Follow live scores and standings from your phone.</p>
+            <h3 style={{ fontSize: '1.5rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '800' }}>Tournaments</h3>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '1.1rem', lineHeight: '1.5' }}>Follow live scores, view ongoing match results, and check real-time standings from your phone.</p>
             <div style={{ color: 'var(--primary)', fontWeight: '600', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '5px' }}>
               Enter Room <ArrowRight size={16} />
             </div>
           </motion.div>
-          
+
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap', width: '100%', maxWidth: '630px' }}>
+            
+            {/* Card 2: Host */}
+            <motion.div 
+              className="premium-card"
+              style={{ flex: 1, minWidth: '280px' }}
+              onClick={() => navigate('/chess-owner-entry')}
+            >
+              <div className="premium-card-icon">
+                <ShieldCheck size={28} />
+              </div>
+              <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '700' }}>Host Dashboard</h3>
+              <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '1rem', lineHeight: '1.5' }}>Create a tournament, manage pairings, and update live results.</p>
+              <div style={{ color: 'var(--primary)', fontWeight: '600', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                Open Dashboard <ArrowRight size={16} />
+              </div>
+            </motion.div>
+
+            {/* Card 3: Player */}
+            <motion.div 
+              className="premium-card"
+              style={{ flex: 1, minWidth: '280px' }}
+              onClick={() => navigate('/chess-player-entry')}
+            >
+              <div className="premium-card-icon">
+                <Users size={28} />
+              </div>
+              <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: '700' }}>Player Registration</h3>
+              <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '1rem', lineHeight: '1.5' }}>Enter your details to join an active tournament lobby.</p>
+              <div style={{ color: 'var(--primary)', fontWeight: '600', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                Register Here <ArrowRight size={16} />
+              </div>
+            </motion.div>
+
+          </div>
         </div>
       </div>
 
