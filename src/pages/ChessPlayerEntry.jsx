@@ -19,7 +19,7 @@ export default function ChessPlayerEntry() {
     aicfId: '',
     collegeName: 'BVEC',
     course: 'B.Tech',
-    branch: '',
+    branch: 'CSE',
     semester: '1st',
     year: '1st',
     rollNumber: '',
@@ -154,12 +154,22 @@ export default function ChessPlayerEntry() {
                 <input type="number" className="premium-input" value={playerData.rating} onChange={e => setPlayerData({...playerData, rating: Number(e.target.value)})} />
               </div>
 
-              <div className="input-group">
+                            <div className="input-group">
                 <label>Course</label>
                 <select className="premium-input" value={playerData.course} onChange={e => setPlayerData({...playerData, course: e.target.value})}>
                   <option>B.Tech</option>
                   <option>M.Tech</option>
                   <option>B.Sc</option>
+                </select>
+              </div>
+
+              <div className="input-group">
+                <label>Branch</label>
+                <select className="premium-input" value={playerData.branch} onChange={e => setPlayerData({...playerData, branch: e.target.value})}>
+                  <option value="CSE">CSE</option>
+                  <option value="ETE">ETE</option>
+                  <option value="CE">CE</option>
+                  <option value="ME">ME</option>
                 </select>
               </div>
 
