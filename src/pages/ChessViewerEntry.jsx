@@ -30,6 +30,37 @@ export default function ChessViewerEntry() {
     return () => unsubscribe();
   }, []);
 
+  
+  useEffect(() => {
+    const code = searchParams.get('code');
+    if (code && code.length >= 4) {
+      // Auto-trigger join
+      const autoJoin = async () => {
+        setIsLoading(true);
+        try {
+          const upperCode = code.toUpperCase();
+          const q = query(collection(db, 'chess_tournaments'), where('viewerCode', '==', upperCode));
+          const qSnap = await getDocs(q);
+          
+          if (!qSnap.empty) {
+            navigate(`/chess-viewer-room?room=${qSnap.docs[0].id}`);
+          } else {
+            const docRef = doc(db, 'chess_tournaments', upperCode);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+              navigate(`/chess-viewer-room?room=${docSnap.id}`);
+            }
+          }
+        } catch (err) {
+          console.error(err);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      autoJoin();
+    }
+  }, []);
+
   const handleJoin = async () => {
     if (roomCode.length >= 4) {
       setIsLoading(true);

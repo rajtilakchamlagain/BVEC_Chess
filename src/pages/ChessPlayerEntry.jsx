@@ -33,6 +33,39 @@ export default function ChessPlayerEntry() {
     return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
   };
 
+  
+  useEffect(() => {
+    const code = searchParams.get('code');
+    if (code && code.length >= 4) {
+      const autoVerify = async () => {
+        setIsLoading(true);
+        try {
+          const upperCode = code.toUpperCase();
+          const q = query(collection(db, 'chess_tournaments'), where('playerCode', '==', upperCode));
+          const qSnap = await getDocs(q);
+          
+          if (!qSnap.empty) {
+            const docSnap = qSnap.docs[0];
+            setRoomData({ id: docSnap.id, ...docSnap.data() });
+            setStep(2);
+          } else {
+            const docRef = doc(db, 'chess_tournaments', upperCode);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+              setRoomData({ id: docSnap.id, ...docSnap.data() });
+              setStep(2);
+            }
+          }
+        } catch (err) {
+          console.error(err);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      autoVerify();
+    }
+  }, []);
+
   const handleVerifyCode = async () => {
     if (!roomCode || roomCode.length < 4) return;
     setIsLoading(true);
