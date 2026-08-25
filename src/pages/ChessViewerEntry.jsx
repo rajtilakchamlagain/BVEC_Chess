@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Eye, Info } from 'lucide-react';
 import { collection, query, where, getDocs, doc, getDoc, orderBy, limit, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 
 export default function ChessViewerEntry() {
   const navigate = useNavigate();
-  const [roomCode, setRoomCode] = useState('');
+  const [searchParams] = useSearchParams();
+  const [roomCode, setRoomCode] = useState(searchParams.get('code') || '');
 
   const [isLoading, setIsLoading] = useState(false);
   const [recentTournaments, setRecentTournaments] = useState([]);
@@ -59,7 +60,7 @@ export default function ChessViewerEntry() {
 
   return (
     <div style={{ background: 'var(--bg-color)', color: 'var(--text-main)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
-      <div className="entry-container">
+      <div className="entry-container" style={{ borderTop: '10px solid var(--primary)', borderRadius: '16px', boxShadow: '0 20px 50px rgba(0,0,0,0.08)', transform: 'translateY(-5px)' }}>
         
         <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2rem', fontSize: '0.9rem', fontWeight: '500' }}>
           <ArrowLeft size={16} /> Back to platform

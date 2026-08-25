@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Trophy, Copy, CheckCircle2 } from 'lucide-react';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 
 export default function ChessOwnerEntry() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [mode, setMode] = useState('create'); // 'create', 'join'
   const [isLoading, setIsLoading] = useState(false);
   const [copiedCode, setCopiedCode] = useState('');
@@ -64,7 +65,7 @@ export default function ChessOwnerEntry() {
 
   return (
     <div style={{ background: 'var(--bg-color)', color: 'var(--text-main)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
-      <div className="entry-container">
+      <div className="entry-container" style={{ borderTop: '10px solid var(--primary)', borderRadius: '16px', boxShadow: '0 20px 50px rgba(0,0,0,0.08)', transform: 'translateY(-5px)' }}>
         
         <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2rem', fontSize: '0.9rem', fontWeight: '500' }}>
           <ArrowLeft size={16} /> Back to platform

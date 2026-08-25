@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Trophy, Swords, Shuffle, ArrowLeft, Trash2, Edit2, UserX, CheckCircle2, MoreVertical, ShieldAlert, RotateCcw, Settings, X } from 'lucide-react';
+import { Trophy, Copy, Check, Swords, Shuffle, ArrowLeft, Trash2, Edit2, UserX, CheckCircle2, MoreVertical, ShieldAlert, RotateCcw, Settings, X } from 'lucide-react';
 import { doc, collection, onSnapshot, updateDoc, writeBatch, serverTimestamp, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -65,7 +65,8 @@ export default function ChessDashboard() {
   const [players, setPlayers] = useState([]);
   const [rounds, setRounds] = useState([]);
   const [currentRoundNumber, setCurrentRoundNumber] = useState(0);
-  const [activeTab, setActiveTab] = useState('matchups'); 
+  const [activeTab, setActiveTab] = useState('matchups');
+  const [copiedLink, setCopiedLink] = useState(null); 
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
 
@@ -736,7 +737,20 @@ export default function ChessDashboard() {
             {roomData.logoUrl ? <img src={roomData.logoUrl} style={{ width: '48px', height: '48px', borderRadius: '12px', objectFit: 'cover' }} /> : <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'linear-gradient(135deg, #1f1f1f, #09090b)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--border-color)' }}><Trophy size={20} color="#fff" /></div>}
             <div>
               <h2 style={{ fontSize: '1.2rem', fontWeight: 'bold', margin: 0 }}>{roomData.name}</h2>
-              <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '4px' }}>Player Code: <span style={{ color: 'var(--text-main)' }}>{roomData.playerCode}</span> &nbsp;|&nbsp; Viewer Code: <span style={{ color: 'var(--text-main)' }}>{roomData.viewerCode}</span></div>
+              <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '15px', flexWrap: 'wrap' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', background: 'var(--bg-color)', padding: '4px 8px', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                    Player Code: <span style={{ color: 'var(--text-main)', fontWeight: 'bold' }}>{roomData.playerCode}</span>
+                    <button onClick={() => handleCopyLink(roomData.playerCode, 'player')} style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', color: copiedLink === 'player' ? '#10b981' : 'var(--text-muted)' }} title="Copy Player Link">
+                      {copiedLink === 'player' ? <Check size={14} /> : <Copy size={14} />}
+                    </button>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', background: 'var(--bg-color)', padding: '4px 8px', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                    Viewer Code: <span style={{ color: 'var(--text-main)', fontWeight: 'bold' }}>{roomData.viewerCode}</span>
+                    <button onClick={() => handleCopyLink(roomData.viewerCode, 'viewer')} style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', color: copiedLink === 'viewer' ? '#10b981' : 'var(--text-muted)' }} title="Copy Viewer Link">
+                      {copiedLink === 'viewer' ? <Check size={14} /> : <Copy size={14} />}
+                    </button>
+                  </div>
+                </div>
             </div>
           </div>
         </div>
