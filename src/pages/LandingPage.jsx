@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -70,7 +71,7 @@ export default function LandingPage() {
                   <img src={user.photoURL} alt="Profile" style={{ width: '32px', height: '32px', borderRadius: '50%' }} />
                 ) : (
                   <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'var(--primary)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
-                    {user.email.charAt(0).toUpperCase()}
+                    {user?.email?.charAt(0)?.toUpperCase() || 'U'}
                   </div>
                 )}
                 <span style={{ fontSize: '0.9rem', fontWeight: '600' }}>Host Arena</span>
