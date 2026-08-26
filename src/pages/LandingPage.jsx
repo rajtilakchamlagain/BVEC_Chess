@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 export default function LandingPage() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {

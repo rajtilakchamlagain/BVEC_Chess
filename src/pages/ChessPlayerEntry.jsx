@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Users, CheckCircle2 } from 'lucide-react';
 import { doc, getDoc, collection, setDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db, auth, googleProvider } from '../firebase';
+import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 
 export default function ChessPlayerEntry() {
   const navigate = useNavigate();
@@ -10,6 +11,49 @@ export default function ChessPlayerEntry() {
   const [step, setStep] = useState(1);
   const [roomCode, setRoomCode] = useState(searchParams.get('code') || '');
   const [roomData, setRoomData] = useState(null);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        try {
+          const docRef = doc(db, 'users', currentUser.email);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            setPlayerData(prev => ({
+              ...prev,
+              name: data.name || prev.name,
+              rollNumber: data.rollNumber || prev.rollNumber,
+              branch: data.branch || prev.branch,
+              year: data.year || prev.year,
+              fideId: data.fideId || prev.fideId,
+              aicfId: data.aicfId || prev.aicfId,
+              chesscomId: data.chesscomId || prev.chesscomId,
+              lichessId: data.lichessId || prev.lichessId,
+              bio: data.bio || prev.bio,
+              favOpening: data.favOpening || prev.favOpening,
+              photoUrl: currentUser.photoURL || prev.photoUrl,
+              email: currentUser.email
+            }));
+          } else {
+             setPlayerData(prev => ({...prev, name: currentUser.displayName, photoUrl: currentUser.photoURL, email: currentUser.email}));
+          }
+        } catch(e) {}
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleAutofillLogin = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const [isLoading, setIsLoading] = useState(false);
 
   const [playerData, setPlayerData] = useState({
@@ -26,7 +70,11 @@ export default function ChessPlayerEntry() {
     address: '',
     isCoreMember: 'No',
     designation: '',
-    photoUrl: ''
+    photoUrl: '',
+    chesscomId: '',
+    lichessId: '',
+    bio: '',
+    favOpening: ''
   });
 
   const toTitleCase = (str) => {

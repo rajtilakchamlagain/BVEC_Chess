@@ -7,6 +7,7 @@ import ChessPlayerEntry from './pages/ChessPlayerEntry';
 import ChessDashboard from './pages/ChessDashboard';
 import ChessViewerEntry from './pages/ChessViewerEntry';
 import ChessViewerRoom from './pages/ChessViewerRoom';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
             
             {/* Chess Routes */}
             <Route path="/chess-owner-entry" element={<ChessOwnerEntry />} />
