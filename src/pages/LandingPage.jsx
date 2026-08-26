@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Trophy, Users, Eye, ShieldCheck, ArrowRight, Info } from 'lucide-react';
+import { Trophy, Users, Eye, ShieldCheck, ArrowRight, Info , LogIn, UserCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function LandingPage() {
