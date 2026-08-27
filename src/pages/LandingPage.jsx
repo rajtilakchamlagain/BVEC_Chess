@@ -277,27 +277,41 @@ export default function LandingPage() {
                 <X size={24} />
               </button>
               
-              <div style={{ width: '100px', height: '100px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--primary), #a855f7)', margin: '0 auto 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '2.5rem', fontWeight: 'bold' }}>
-                RC
-              </div>
-              
-              <h2 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '0.5rem', color: 'var(--text-main)' }}>Rajtilak Chamlagain</h2>
-              <p style={{ color: 'var(--primary)', fontWeight: '600', marginBottom: '1.5rem' }}>Full Stack Developer & Creator</p>
-              
-              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '2rem' }}>
-                I built ChessVerse to provide a seamless, real-time tournament management experience for the BVEC Chess Club. Passionate about creating modern, scalable web applications.
-              </p>
-              
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
-                <a href="https://github.com/rajtilakchamlagain" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '45px', height: '45px', borderRadius: '50%', background: 'rgba(255,255,255,0.05)', color: 'var(--text-main)', transition: 'all 0.2s', border: '1px solid var(--border-color)' }} onMouseEnter={e => {e.currentTarget.style.background = 'white'; e.currentTarget.style.color = 'black';}} onMouseLeave={e => {e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = 'var(--text-main)';}}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                </a>
-                <a href="https://www.linkedin.com/in/rajtilakchamlagain" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '45px', height: '45px', borderRadius: '50%', background: 'rgba(255,255,255,0.05)', color: '#0a66c2', transition: 'all 0.2s', border: '1px solid var(--border-color)' }} onMouseEnter={e => {e.currentTarget.style.background = '#0a66c2'; e.currentTarget.style.color = 'white';}} onMouseLeave={e => {e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = '#0a66c2';}}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                </a>
-                <a href="https://instagram.com/rajtilak_chamlagain" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '45px', height: '45px', borderRadius: '50%', background: 'rgba(255,255,255,0.05)', color: '#e1306c', transition: 'all 0.2s', border: '1px solid var(--border-color)' }} onMouseEnter={e => {e.currentTarget.style.background = 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)'; e.currentTarget.style.color = 'white';}} onMouseLeave={e => {e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = '#e1306c';}}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                </a>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+                <img 
+                  src="/raj.jpg" 
+                  alt="Rajtilak Chamlagain" 
+                  style={{ width: '110px', height: '110px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--border-color)', marginBottom: '1.5rem', boxShadow: '0 10px 25px rgba(0,0,0,0.2)' }} 
+                  onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }}
+                />
+                {/* Fallback avatar if image doesn't load */}
+                <div style={{ display: 'none', width: '110px', height: '110px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--primary), #a855f7)', margin: '0 auto 1.5rem', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '2.5rem', fontWeight: 'bold' }}>
+                  RC
+                </div>
+                
+                <h2 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '0.2rem', color: 'var(--text-main)', letterSpacing: '-0.5px' }}>Rajtilak Chamlagain</h2>
+                <div style={{ display: 'inline-block', background: 'rgba(37, 99, 235, 0.1)', color: 'var(--primary)', padding: '4px 12px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: '600', marginBottom: '1.5rem', border: '1px solid rgba(37, 99, 235, 0.2)' }}>
+                  Software Engineer
+                </div>
+                
+                <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '2rem', fontSize: '0.95rem', padding: '0 10px' }}>
+                  Dedicated to crafting beautiful, high-performance web applications. I developed ChessVerse to digitize our college's chess ecosystem, bringing automated pairings and live leaderboards to every tournament.
+                </p>
+                
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', width: '100%' }}>
+                  <a href="https://github.com/rajtilakchamlagain" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '10px 0', borderRadius: '10px', background: 'rgba(255,255,255,0.03)', color: 'var(--text-main)', transition: 'all 0.2s', border: '1px solid var(--border-color)', gap: '8px', fontSize: '0.9rem', fontWeight: '500' }} onMouseEnter={e => {e.currentTarget.style.background = 'white'; e.currentTarget.style.color = 'black';}} onMouseLeave={e => {e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.color = 'var(--text-main)';}}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    GitHub
+                  </a>
+                  <a href="https://www.linkedin.com/in/rajtilak-chamlagain-7129942a3/" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '10px 0', borderRadius: '10px', background: 'rgba(255,255,255,0.03)', color: '#0a66c2', transition: 'all 0.2s', border: '1px solid var(--border-color)', gap: '8px', fontSize: '0.9rem', fontWeight: '500' }} onMouseEnter={e => {e.currentTarget.style.background = '#0a66c2'; e.currentTarget.style.color = 'white';}} onMouseLeave={e => {e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.color = '#0a66c2';}}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    LinkedIn
+                  </a>
+                  <a href="https://instagram.com/raj.tilak__" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '10px 0', borderRadius: '10px', background: 'rgba(255,255,255,0.03)', color: '#e1306c', transition: 'all 0.2s', border: '1px solid var(--border-color)', gap: '8px', fontSize: '0.9rem', fontWeight: '500' }} onMouseEnter={e => {e.currentTarget.style.background = 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)'; e.currentTarget.style.color = 'white';}} onMouseLeave={e => {e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.color = '#e1306c';}}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    Instagram
+                  </a>
+                </div>
               </div>
             </motion.div>
           </div>
