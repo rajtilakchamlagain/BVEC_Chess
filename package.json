@@ -13,6 +13,7 @@
     "firebase": "^12.17.1",
     "framer-motion": "^13.1.0",
     "lucide-react": "^1.29.0",
+    "md-to-pdf": "^5.2.5",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.2"
