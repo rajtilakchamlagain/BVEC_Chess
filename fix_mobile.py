@@ -1,0 +1,36 @@
+import os
+
+css_file = r"C:\Users\rajti\Downloads\Projects\ChessVerse\src\index.css"
+
+with open(css_file, 'a') as f:
+    f.write("\n\n/* Mobile responsive layout for spectator mode */\n")
+    f.write(".spectator-layout {\n")
+    f.write("  display: flex;\n")
+    f.write("  height: 100vh;\n")
+    f.write("  flex-direction: row;\n")
+    f.write("}\n")
+    f.write(".spectator-sidebar {\n")
+    f.write("  width: 350px;\n")
+    f.write("  border-right: 1px solid var(--border-color);\n")
+    f.write("}\n")
+    f.write(".spectator-content {\n")
+    f.write("  flex: 1;\n")
+    f.write("  padding: 3rem;\n")
+    f.write("  overflow-y: auto;\n")
+    f.write("}\n")
+    f.write("@media (max-width: 768px) {\n")
+    f.write("  .spectator-layout {\n")
+    f.write("    flex-direction: column;\n")
+    f.write("    height: auto;\n")
+    f.write("    min-height: 100vh;\n")
+    f.write("  }\n")
+    f.write("  .spectator-sidebar {\n")
+    f.write("    width: 100%;\n")
+    f.write("    height: 350px;\n") # Fixed height for leaderboard on mobile
+    f.write("    border-right: none;\n")
+    f.write("    border-bottom: 1px solid var(--border-color);\n")
+    f.write("  }\n")
+    f.write("  .spectator-content {\n")
+    f.write("    padding: 1rem;\n")
+    f.write("  }\n")
+    f.write("}\n")

@@ -605,11 +605,11 @@ export default function ChessDashboard() {
   const activeRoundData = rounds.length > 0 ? rounds[0] : null;
 
   return (
-    <div style={{ display: 'flex', height: '100vh', background: 'var(--bg-color)', color: 'var(--text-main)', fontFamily: '"Inter", sans-serif' }}>
+    <div className="dashboard-layout" style={{ background: 'var(--bg-color)', color: 'var(--text-main)', fontFamily: '"Inter", sans-serif' }}>
       
       {showSwissModal && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.8)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(5px)' }}>
-          <div style={{ className: 'entry-container', style: { width: '400px', padding: '2rem' } }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.8)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(5px)', padding: '15px' }}>
+          <div className="entry-container" style={{ width: '100%', maxWidth: '400px', padding: '2rem' }}>
             <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}><Settings color="#00e5ff" /> Advanced Hybrid Setup</h2>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2rem' }}>
@@ -646,24 +646,24 @@ export default function ChessDashboard() {
       )}
 
       {selectedPlayer && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.8)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(5px)' }} onClick={() => setSelectedPlayer(null)}>
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.8)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(5px)', padding: '15px' }} onClick={() => setSelectedPlayer(null)}>
           <motion.div 
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             onClick={(e) => e.stopPropagation()} 
-            style={{ background: 'var(--panel-bg)', width: '500px', maxWidth: '90vw', borderRadius: '12px', padding: '2rem', border: '1px solid var(--border-color)', boxShadow: '0 40px 80px rgba(0,0,0,0.5)', maxHeight: '90vh', overflowY: 'auto' }}
+            style={{ background: 'var(--panel-bg)', width: '100%', maxWidth: '500px', borderRadius: '12px', padding: '1.5rem', border: '1px solid var(--border-color)', boxShadow: '0 40px 80px rgba(0,0,0,0.5)', maxHeight: '90vh', overflowY: 'auto' }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
               <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
                 {selectedPlayer.photoUrl ? (
-                  <img src={selectedPlayer.photoUrl} alt="" style={{ width: '80px', height: '80px', borderRadius: '8px', objectFit: 'cover', border: '2px solid var(--border-color)' }} />
+                  <img src={selectedPlayer.photoUrl} alt="" style={{ width: '60px', height: '60px', borderRadius: '8px', objectFit: 'cover', border: '2px solid var(--border-color)' }} />
                 ) : (
-                  <div style={{ width: '80px', height: '80px', borderRadius: '8px', background: 'var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid var(--border-color)' }}>
-                    <UserX size={32} color="#555" />
+                  <div style={{ width: '60px', height: '60px', borderRadius: '8px', background: 'var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid var(--border-color)' }}>
+                    <UserX size={24} color="#555" />
                   </div>
                 )}
                 <div>
-                  <h2 style={{ fontSize: '1.8rem', fontWeight: 'bold', margin: 0 }}>{selectedPlayer.name}</h2>
+                  <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0 }}>{selectedPlayer.name}</h2>
                   <div style={{ fontSize: '0.9rem', color: 'var(--secondary)', fontWeight: 'bold', marginTop: '4px' }}>
                     {selectedPlayer.isCoreMember === 'Yes' ? selectedPlayer.designation : 'Player'}
                   </div>
@@ -686,29 +686,29 @@ export default function ChessDashboard() {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', background: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', flexWrap: 'wrap' }}>
                 <span style={{ color: 'var(--text-muted)' }}>College</span>
                 <span style={{ fontWeight: '500', textAlign: 'right' }}>{selectedPlayer.collegeName || 'N/A'}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', paddingTop: '0.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', paddingTop: '0.5rem', flexWrap: 'wrap' }}>
                 <span style={{ color: 'var(--text-muted)' }}>Course & Year</span>
                 <span style={{ fontWeight: '500', textAlign: 'right' }}>
                   {selectedPlayer.course} {selectedPlayer.branch ? `(${selectedPlayer.branch.includes('(') ? selectedPlayer.branch.match(/\((.*?)\)/)[1] : selectedPlayer.branch})` : ''} - {selectedPlayer.year} Year (Sem {selectedPlayer.semester})
                 </span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', paddingTop: '0.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', paddingTop: '0.5rem', flexWrap: 'wrap' }}>
                 <span style={{ color: 'var(--text-muted)' }}>Roll Number</span>
                 <span style={{ fontWeight: '500', textAlign: 'right', fontFamily: 'monospace' }}>{selectedPlayer.rollNumber}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', paddingTop: '0.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', paddingTop: '0.5rem', flexWrap: 'wrap' }}>
                 <span style={{ color: 'var(--text-muted)' }}>Hostel / Address</span>
                 <span style={{ fontWeight: '500', textAlign: 'right' }}>{selectedPlayer.address}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', paddingTop: '0.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', paddingTop: '0.5rem', flexWrap: 'wrap' }}>
                 <span style={{ color: 'var(--text-muted)' }}>FIDE ID</span>
                 <span style={{ fontWeight: '500', textAlign: 'right' }}>{selectedPlayer.fideId || 'None'}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.5rem', flexWrap: 'wrap' }}>
                 <span style={{ color: 'var(--text-muted)' }}>AICF ID</span>
                 <span style={{ fontWeight: '500', textAlign: 'right' }}>{selectedPlayer.aicfId || 'None'}</span>
               </div>
@@ -723,7 +723,7 @@ export default function ChessDashboard() {
       )}
 
       {/* Sidebar - Players & Standings */}
-      <div style={{ width: '380px', background: 'var(--panel-bg)', borderRight: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
+      <div className="dashboard-sidebar">
         <div style={{ padding: '2rem', borderBottom: '1px solid var(--border-color)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
             <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--text-main)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}>
@@ -737,15 +737,15 @@ export default function ChessDashboard() {
             {roomData.logoUrl ? <img src={roomData.logoUrl} style={{ width: '48px', height: '48px', borderRadius: '12px', objectFit: 'cover' }} /> : <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'linear-gradient(135deg, #1f1f1f, #09090b)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--border-color)' }}><Trophy size={20} color="#fff" /></div>}
             <div>
               <h2 style={{ fontSize: '1.2rem', fontWeight: 'bold', margin: 0 }}>{roomData.name}</h2>
-              <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '15px', flexWrap: 'wrap' }}>
+              <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '5px', background: 'var(--bg-color)', padding: '4px 8px', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
-                    Player Code: <span style={{ color: 'var(--text-main)', fontWeight: 'bold' }}>{roomData.playerCode}</span>
+                    Player: <span style={{ color: 'var(--text-main)', fontWeight: 'bold' }}>{roomData.playerCode}</span>
                     <button onClick={() => handleCopyLink(roomData.playerCode, 'player')} style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', color: copiedLink === 'player' ? '#10b981' : 'var(--text-muted)' }} title="Copy Player Link">
                       {copiedLink === 'player' ? <Check size={14} /> : <Copy size={14} />}
                     </button>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '5px', background: 'var(--bg-color)', padding: '4px 8px', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
-                    Viewer Code: <span style={{ color: 'var(--text-main)', fontWeight: 'bold' }}>{roomData.viewerCode}</span>
+                    Viewer: <span style={{ color: 'var(--text-main)', fontWeight: 'bold' }}>{roomData.viewerCode}</span>
                     <button onClick={() => handleCopyLink(roomData.viewerCode, 'viewer')} style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', color: copiedLink === 'viewer' ? '#10b981' : 'var(--text-muted)' }} title="Copy Viewer Link">
                       {copiedLink === 'viewer' ? <Check size={14} /> : <Copy size={14} />}
                     </button>
@@ -823,12 +823,12 @@ export default function ChessDashboard() {
       </div>
 
       {/* Main Area */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
+      <div className="dashboard-main" style={{ display: 'flex', flexDirection: 'column' }}>
         
         {/* Top Control Bar */}
-        <div style={{ padding: '3rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <div className="dashboard-header">
           <div>
-            <h1 style={{ fontSize: '2.5rem', fontWeight: '900', letterSpacing: '-1px', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '15px' }}>
+            <h1 style={{ fontSize: '2.5rem', fontWeight: '900', letterSpacing: '-1px', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '15px', flexWrap: 'wrap' }}>
               {activeRoundData ? (activeRoundData.status === 'draft' ? `Draft: Round ${activeRoundData.roundNumber}` : `Round ${activeRoundData.roundNumber}`) : 'Tournament Lobby'}
               {activeRoundData?.label && <span style={{ fontSize: '0.8rem', background: '#3b82f6', color: '#ffffff', letterSpacing: '1px', textTransform: 'uppercase', padding: '4px 10px', borderRadius: '30px', fontWeight: 'bold' }}>{activeRoundData.label}</span>}
               {activeRoundData?.status === 'draft' && <span style={{ fontSize: '0.9rem', background: '#ff9900', color: '#000', padding: '4px 10px', borderRadius: '30px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>Draft Mode</span>}
@@ -837,9 +837,9 @@ export default function ChessDashboard() {
             <p style={{ color: 'var(--text-muted)' }}>{players.length} Total Players ({players.filter(p=>!p.withdrawn).length} Active Golden Ratio)</p>
           </div>
           
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '8px' }}>
             {roomData?.status === 'finished' ? (
-               <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+               <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
                  <div style={{ padding: '10px 20px', background: 'linear-gradient(135deg, #FFD700, #FDB931)', color: '#000', borderRadius: '12px', fontWeight: 'bold', fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
                    <Trophy size={20} /> TOURNAMENT CONCLUDED
                  </div>
@@ -848,7 +848,7 @@ export default function ChessDashboard() {
                  </button>
                </div>
             ) : (
-            <div style={{ display: 'flex', gap: '1rem' }}>
+            <div className="dashboard-actions">
               {activeRoundData?.status === 'completed' && (
                 <button 
                   onClick={() => rollbackRound(activeRoundData.id)}
@@ -901,12 +901,12 @@ export default function ChessDashboard() {
 
         {/* Current Round Actions Bar (Only if draft) */}
         {activeRoundData && activeRoundData.status === 'draft' && (
-          <div style={{ background: 'rgba(255,153,0,0.05)', borderBottom: '1px solid rgba(255,153,0,0.2)', padding: '1.5rem 3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ background: 'rgba(255,153,0,0.05)', borderBottom: '1px solid rgba(255,153,0,0.2)', padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
             <div>
               <h3 style={{ margin: '0 0 0.5rem', color: '#ff9900' }}>Review Pairings</h3>
               <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.9rem' }}>These pairings are hidden from viewers. You can edit them now. When ready, publish the round.</p>
             </div>
-            <div style={{ display: 'flex', gap: '1rem' }}>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
               <button onClick={() => setSwapMode(!swapMode)} style={{ background: swapMode ? '#ff9900' : 'transparent', color: swapMode ? '#000' : '#ff9900', border: '1px solid #ff9900', padding: '10px 20px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Edit2 size={16} /> {swapMode ? 'Cancel Swap' : 'Swap Players'}
               </button>
@@ -921,9 +921,9 @@ export default function ChessDashboard() {
         )}
 
         {/* Matchups Grid */}
-        <div style={{ padding: '3rem', flex: 1 }}>
+        <div className="matchups-grid" style={{ padding: '3rem', flex: 1 }}>
           {activeRoundData ? (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(450px, 1fr))', gap: '2rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
               
               {activeRoundData.pairings.map((pairing, idx) => (
                 <div key={idx} style={{ 

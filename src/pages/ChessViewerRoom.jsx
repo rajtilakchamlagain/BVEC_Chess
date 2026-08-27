@@ -217,7 +217,7 @@ export default function ChessViewerRoom() {
                 style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--panel-bg)', color: 'var(--text-main)', fontSize: '0.9rem' }}
               />
             </div>
-            <div style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem' }}>
+            <div style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem', flexWrap: 'wrap' }}>
             <button onClick={() => setViewMode('live')} style={{ background: 'none', border: 'none', color: viewMode === 'live' ? 'var(--text-main)' : 'var(--text-muted)', fontWeight: viewMode === 'live' ? 'bold' : 'normal', fontSize: '1rem', cursor: 'pointer', padding: '0 0 8px 0', borderBottom: viewMode === 'live' ? '2px solid #10b981' : '2px solid transparent' }}>
               Live Matchups
             </button>

@@ -226,13 +226,13 @@ export default function LandingPage() {
               initial={{ opacity: 0, scale: 0.95 }} 
               animate={{ opacity: 1, scale: 1 }} 
               exit={{ opacity: 0, scale: 0.95 }}
-              style={{ background: 'var(--panel-bg)', border: '1px solid var(--border-color)', borderRadius: '16px', maxWidth: '600px', width: '100%', padding: '2rem', position: 'relative', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)', maxHeight: '80vh', overflowY: 'auto' }}
+              style={{ background: 'var(--panel-bg)', border: '1px solid var(--border-color)', borderRadius: '16px', maxWidth: '600px', width: '100%', padding: '1.5rem', position: 'relative', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)', maxHeight: '85vh', overflowY: 'auto' }}
               onClick={e => e.stopPropagation()}
             >
-              <button onClick={() => setShowRulesModal(false)} style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}>
+              <button onClick={() => setShowRulesModal(false)} style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}>
                 <X size={24} />
               </button>
-              <h2 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '1.5rem', color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '1.5rem', color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <ShieldCheck /> FIDE Standard Rules
               </h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', color: 'var(--text-main)', lineHeight: '1.6' }}>
@@ -270,10 +270,10 @@ export default function LandingPage() {
               initial={{ opacity: 0, scale: 0.95 }} 
               animate={{ opacity: 1, scale: 1 }} 
               exit={{ opacity: 0, scale: 0.95 }}
-              style={{ background: 'var(--panel-bg)', border: '1px solid var(--border-color)', borderRadius: '16px', maxWidth: '450px', width: '100%', padding: '2.5rem', position: 'relative', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)', textAlign: 'center' }}
+              style={{ background: 'var(--panel-bg)', border: '1px solid var(--border-color)', borderRadius: '16px', maxWidth: '450px', width: '100%', padding: '1.5rem', position: 'relative', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)', textAlign: 'center', maxHeight: '90vh', overflowY: 'auto' }}
               onClick={e => e.stopPropagation()}
             >
-              <button onClick={() => setShowAboutModal(false)} style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}>
+              <button onClick={() => setShowAboutModal(false)} style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}>
                 <X size={24} />
               </button>
               
@@ -298,7 +298,7 @@ export default function LandingPage() {
                   Dedicated to crafting beautiful, high-performance web applications. I developed ChessVerse to digitize our college's chess ecosystem, bringing automated pairings and live leaderboards to every tournament.
                 </p>
                 
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', width: '100%' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', width: '100%', flexWrap: 'wrap' }}>
                   <a href="https://github.com/rajtilakchamlagain" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '10px 0', borderRadius: '10px', background: 'rgba(255,255,255,0.03)', color: 'var(--text-main)', transition: 'all 0.2s', border: '1px solid var(--border-color)', gap: '8px', fontSize: '0.9rem', fontWeight: '500' }} onMouseEnter={e => {e.currentTarget.style.background = 'white'; e.currentTarget.style.color = 'black';}} onMouseLeave={e => {e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.color = 'var(--text-main)';}}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                     GitHub
