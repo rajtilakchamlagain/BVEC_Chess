@@ -21,6 +21,8 @@ export default function ProfilePage() {
     fideId: '',
     aicfId: '',
     bio: '',
+    contactNumber: '',
+    contactType: 'Phone Only',
     favOpening: ''
   });
 

@@ -74,6 +74,8 @@ export default function ChessPlayerEntry() {
     chesscomId: '',
     lichessId: '',
     bio: '',
+    contactNumber: '',
+    contactType: 'Phone Only',
     favOpening: ''
   });
 

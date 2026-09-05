@@ -204,7 +204,7 @@ export default function ChessViewerRoom() {
         {/* Pairings Area */}
         <div className="spectator-content">
           {roomData?.status === 'finished' ? (
-            <FinalResults rankedPlayers={rankedPlayers} />
+            <FinalResults rankedPlayers={rankedPlayers} roomData={roomData} />
           ) : (
             <>
           
