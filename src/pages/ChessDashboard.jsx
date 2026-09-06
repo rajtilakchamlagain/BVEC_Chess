@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Trophy, Copy, Check, Swords, Shuffle, ArrowLeft, Trash2, Edit2, UserX, CheckCircle2, MoreVertical, ShieldAlert, RotateCcw, Settings, X } from 'lucide-react';
+import { Trophy, Copy, Check, Swords, Shuffle, ArrowLeft, Trash2, Edit2, UserX, CheckCircle2, MoreVertical, ShieldAlert, RotateCcw, Settings, X, Download, Share2 } from 'lucide-react';
 import { doc, collection, onSnapshot, updateDoc, writeBatch, serverTimestamp, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -69,6 +69,8 @@ export default function ChessDashboard() {
   const [copiedLink, setCopiedLink] = useState(null); 
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
+  const [editingName, setEditingName] = useState(false);
+  const [newName, setNewName] = useState('');
 
   // Swiss Modal State
   const [showSwissModal, setShowSwissModal] = useState(false);
@@ -600,6 +602,107 @@ export default function ChessDashboard() {
     }
   };
 
+  
+  
+  const handleUpdateName = async () => {
+    if (!newName.trim() || newName.trim() === selectedPlayer.name) {
+      setEditingName(false);
+      return;
+    }
+    try {
+      await updateDoc(doc(db, 'chess_tournaments', roomCode, 'players', selectedPlayer.id), { name: newName.trim() });
+      setSelectedPlayer({ ...selectedPlayer, name: newName.trim() });
+      setEditingName(false);
+    } catch (e) {
+      console.error(e);
+      alert('Failed to update name');
+    }
+  };
+
+
+  
+  const sharePairings = async () => {
+    if (!activeRoundData) return;
+    
+    let text = `🏆 *ROUND ${activeRoundData.roundNumber} PAIRINGS* 🏆\n`;
+    if (activeRoundData.label) text += `*${activeRoundData.label}*\n`;
+    text += `\n`;
+
+    activeRoundData.pairings.forEach((p, idx) => {
+      text += `*Board ${idx + 1}*\n`;
+      text += `⚪ ${p.player1Name}\n`;
+      text += `⚫ ${p.player2Name}\n\n`;
+    });
+
+    if (activeRoundData.byePlayers && activeRoundData.byePlayers.length > 0) {
+      text += `*BYE (1 Point)*\n`;
+      activeRoundData.byePlayers.forEach(b => text += `🌟 ${b.name}\n`);
+      text += `\n`;
+    }
+    
+    text += `Follow live at: https://bvecchess.vercel.app/room?room=${roomCode}`;
+
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: `Round ${activeRoundData.roundNumber} Pairings`,
+          text: text
+        });
+      } else {
+        await navigator.clipboard.writeText(text);
+        alert('Pairings copied to clipboard! You can now paste them in WhatsApp.');
+      }
+    } catch (e) {
+      console.error(e);
+      await navigator.clipboard.writeText(text);
+      alert('Pairings copied to clipboard! You can now paste them in WhatsApp.');
+    }
+  };
+
+
+  const exportParticipantsToCSV = () => {
+    // Standardize CSV headers based on all collected data
+    const headers = [
+      'Rank', 'Name', 'Wins/Points', 'Contact Number', 'Contact Type',
+      'Roll Number', 'Course', 'Branch', 'Year', 'Semester', 'College Name',
+      'Designation', 'FIDE ID', 'AICF ID', 'Address', 'Rating', 'BUC', 'SB', 'Withdrawn'
+    ];
+    
+    const rows = rankedPlayers.map((p, index) => {
+      return [
+        index + 1,
+        p.name || '',
+        p.wins || 0,
+        p.contactNumber || '',
+        p.contactType || '',
+        p.rollNumber || '',
+        p.course || '',
+        p.branch || '',
+        p.year || '',
+        p.semester || '',
+        p.collegeName || '',
+        p.designation || '',
+        p.fideId || '',
+        p.aicfId || '',
+        (p.address || '').replace(/,/g, ' '), // Remove commas from address for clean CSV
+        p.rating || 1200,
+        p.BUC || 0,
+        p.SB || 0,
+        p.withdrawn ? 'Yes' : 'No'
+      ].map(val => `"${val}"`).join(',');
+    });
+
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(','), ...rows].join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `${roomData?.name?.replace(/\s+/g, '_') || 'Tournament'}_Participants.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+
   if (!roomData) return <div style={{ background: 'var(--bg-color)', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Trophy color="#333" size={48} /></div>;
 
   const activeRoundData = rounds.length > 0 ? rounds[0] : null;
@@ -663,7 +766,26 @@ export default function ChessDashboard() {
                   </div>
                 )}
                 <div>
-                  <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0 }}>{selectedPlayer.name}</h2>
+                  
+                  {editingName ? (
+                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                      <input 
+                        type="text" 
+                        value={newName} 
+                        onChange={(e) => setNewName(e.target.value)}
+                        autoFocus
+                        style={{ padding: '4px 8px', borderRadius: '4px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-main)', fontSize: '1.2rem', fontWeight: 'bold' }}
+                      />
+                      <button onClick={handleUpdateName} style={{ background: '#10b981', border: 'none', color: '#000', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>Save</button>
+                      <button onClick={() => setEditingName(false)} style={{ background: 'var(--border-color)', border: 'none', color: 'var(--text-main)', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}>Cancel</button>
+                    </div>
+                  ) : (
+                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      {selectedPlayer.name}
+                      <button onClick={() => setEditingName(true)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}><Edit2 size={16} /></button>
+                    </h2>
+                  )}
+
                   <div style={{ fontSize: '0.9rem', color: 'var(--secondary)', fontWeight: 'bold', marginTop: '4px' }}>
                     {selectedPlayer.isCoreMember === 'Yes' ? selectedPlayer.designation : 'Player'}
                   </div>
@@ -771,6 +893,16 @@ export default function ChessDashboard() {
         <div style={{ flex: 1, overflowY: 'auto', padding: '1rem' }}>
           {activeTab === 'standings' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Registered Players: {rankedPlayers.length}</span>
+                <button 
+                  onClick={exportParticipantsToCSV}
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'var(--border-color)', border: 'none', color: 'var(--text-main)', padding: '6px 12px', borderRadius: '6px', fontSize: '0.85rem', cursor: 'pointer', fontWeight: 'bold' }}
+                >
+                  <Download size={14} /> Export CSV
+                </button>
+              </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 8px 8px', fontSize: '0.75rem', color: '#52525b', textTransform: 'uppercase', letterSpacing: '1px' }}>
                 <span style={{flex: 1}}>Player</span>
                 <div style={{ display: 'flex', gap: '15px', width: '120px', justifyContent: 'flex-end', paddingRight: '40px' }}>
@@ -784,7 +916,7 @@ export default function ChessDashboard() {
                   <motion.div 
                     key={p.id} 
                     layout 
-                    onClick={() => setSelectedPlayer(p)}
+                    onClick={() => { setSelectedPlayer(p); setEditingName(false); setNewName(p.name); }}
                     style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px', background: p.withdrawn ? 'rgba(255,0,0,0.02)' : 'rgba(255,255,255,0.02)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.03)', opacity: p.withdrawn ? 0.5 : 1 }}
                     whileHover={{ scale: 1.02, background: 'var(--border-color)' }}
                   >
