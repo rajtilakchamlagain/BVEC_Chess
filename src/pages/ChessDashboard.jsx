@@ -1017,6 +1017,14 @@ export default function ChessDashboard() {
               )}
 
               <button 
+                onClick={sharePairings}
+                disabled={!activeRoundData}
+                style={{ background: 'var(--bg-color)', color: 'var(--text-main)', border: '1px solid var(--border-color)', padding: '12px 24px', borderRadius: '12px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}
+              >
+                <Share2 size={18} /> Share Pairings
+              </button>
+
+              <button 
                 onClick={() => setShowSwissModal(true)} 
                 disabled={isGenerating || players.filter(p=>!p.withdrawn).length < 2 || activeRoundData?.status === 'draft'}
                 style={{ background: 'var(--text-main)', color: 'var(--bg-color)', border: 'none', padding: '12px 24px', borderRadius: '12px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', opacity: (isGenerating || activeRoundData?.status === 'draft') ? 0.5 : 1 }}
