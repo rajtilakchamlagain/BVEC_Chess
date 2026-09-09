@@ -214,12 +214,29 @@ export default function ChessPlayerEntry() {
           </div>
         )}
 
+
         {step === 2 && roomData && (
           <div className="animate-fade-in">
             <div style={{ background: 'var(--bg-color)', padding: '1rem', borderRadius: '8px', marginBottom: '2rem', border: '1px solid var(--border-color)' }}>
               <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '4px' }}>Registering for</div>
               <div style={{ fontSize: '1.2rem', fontWeight: '600' }}>{roomData.name}</div>
             </div>
+
+            {!user ? (
+              <div style={{ textAlign: 'center', padding: '2rem 0' }}>
+                <h3 style={{ marginBottom: '1rem', color: 'var(--text-main)' }}>Authentication Required</h3>
+                <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>You must sign in with your Google account to register for this tournament.</p>
+                <button 
+                  onClick={handleAutofillLogin}
+                  style={{ background: '#fff', color: '#000', padding: '12px 24px', borderRadius: '30px', fontWeight: 'bold', border: 'none', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '10px' }}
+                >
+                  <img src="https://www.google.com/favicon.ico" alt="Google" style={{ width: '18px' }} />
+                  Sign in with Google
+                </button>
+              </div>
+            ) : (
+              <>
+
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <div className="input-group" style={{ gridColumn: '1 / -1' }}>
@@ -272,16 +289,18 @@ export default function ChessPlayerEntry() {
               </div>
             </div>
 
-            <button 
-              className="btn-primary" 
-              style={{ width: '100%', marginTop: '2rem' }} 
-              onClick={handleRegister} 
-              disabled={isLoading}
-            >
-              {isLoading ? 'Submitting...' : 'Complete Registration'}
-            </button>
-          </div>
-        )}
+              <button 
+                className="btn-primary" 
+                style={{ width: '100%', marginTop: '2rem' }} 
+                onClick={handleRegister} 
+                disabled={isLoading}
+              >
+                {isLoading ? 'Submitting...' : 'Complete Registration'}
+              </button>
+              </>
+            )}
+            </div>
+          )}
 
         {step === 3 && (
           <div className="animate-fade-in" style={{ textAlign: 'center', padding: '2rem 0' }}>
