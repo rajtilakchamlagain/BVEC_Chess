@@ -22,7 +22,7 @@ export default function Leaderboard() {
           playersSnap.forEach(pDoc => {
             const p = pDoc.data();
             // Need a unique identifier. rollNumber is best, fallback to name
-            const uid = (p.rollNumber && p.rollNumber.trim() !== '') ? p.rollNumber.toUpperCase() : p.name.toUpperCase();
+            const uid = p.email ? p.email.toLowerCase() : `${(p.name || '').trim().toLowerCase()}_${(p.rollNumber || '').trim().toLowerCase()}`;
             
             if (!playerStats[uid]) {
               playerStats[uid] = {
