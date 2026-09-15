@@ -58,7 +58,7 @@ export default function LandingPage() {
     }}>
       
       {/* Premium Header */}
-      <header className="landing-header" style={{ 
+      <header className="landing-header" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', 
         background: 'rgba(255,255,255,0.9)',
         backdropFilter: 'blur(10px)',
         borderBottom: '1px solid var(--border-color)',
@@ -79,7 +79,7 @@ export default function LandingPage() {
           </div>
         </div>
         
-        <div className="landing-nav" style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+        <div className="landing-nav" style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', marginTop: '10px' }}>
           <nav style={{ display: 'flex', gap: '2rem', fontSize: '1rem', fontWeight: '600', color: 'var(--text-muted)', alignItems: 'center' }}>
             <span style={{ color: 'var(--primary)', cursor: 'pointer' }} onClick={() => navigate('/')}>Platform</span>
             <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--text-main)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'} onClick={() => navigate('/chess-viewer-entry')}>Tournaments</span>
