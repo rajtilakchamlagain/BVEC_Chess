@@ -316,6 +316,46 @@ export default function ChessDashboard() {
     }
   };
 
+
+  const [isSyncingAll, setIsSyncingAll] = useState(false);
+
+  const autoSyncAll = async () => {
+    if (!activeRoundData || activeRoundData.status !== 'published') return;
+    setIsSyncingAll(true);
+    let updatedCount = 0;
+    
+    for (let idx = 0; idx < activeRoundData.pairings.length; idx++) {
+      const pairing = activeRoundData.pairings[idx];
+      if (pairing.result !== 'pending') continue; // Skip resolved games
+      
+      const p1Data = players.find(p => p.id === pairing.player1);
+      const p2Data = players.find(p => p.id === pairing.player2);
+      if (!p1Data?.lichessId || !p2Data?.lichessId) continue;
+      
+      try {
+         const res = await fetch(`https://lichess.org/api/games/user/${p1Data.lichessId}?vs=${p2Data.lichessId}&max=1`, { headers: { 'Accept': 'application/x-ndjson' } });
+         const text = await res.text();
+         if (text) {
+             const game = JSON.parse(text);
+             let winner = game.winner; 
+             let resString = '0.5-0.5';
+             if (winner === 'white') resString = '1-0';
+             else if (winner === 'black') resString = '0-1';
+             await reportResult(activeRoundData.id, idx, resString, true); // Added true flag to silent alert
+             updatedCount++;
+         }
+      } catch (e) {
+        console.error(e);
+      }
+      // Delay to avoid hitting Lichess rate limits too hard
+      await new Promise(r => setTimeout(r, 1000));
+    }
+    
+    setIsSyncingAll(false);
+    if (updatedCount > 0) alert(`Successfully synced ${updatedCount} matches from Lichess!`);
+    else alert('No new completed matches found on Lichess.');
+  };
+
   const finishTournament = async () => {
     if (!window.confirm("Are you sure you want to officially conclude the tournament?")) return;
     try {
@@ -424,7 +464,7 @@ export default function ChessDashboard() {
   };
 
 
-  const reportResult = async (roundId, pairingIndex, result) => {
+  const reportResult = async (roundId, pairingIndex, result, silent = false) => {
     try {
       const roundDoc = rounds.find(r => r.id === roundId);
       if (!roundDoc) return;

@@ -23,7 +23,10 @@ export default function ChessOwnerEntry() {
   const [tournamentData, setTournamentData] = useState({
     name: '',
     hostName: '',
-    logoUrl: ''
+    logoUrl: '',
+    isOnline: false,
+    timeControlLimit: 10,
+    timeControlIncrement: 0
   });
   
   const [generatedCodes, setGeneratedCodes] = useState({
