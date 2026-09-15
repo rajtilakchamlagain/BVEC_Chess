@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, UserCircle, Save, CheckCircle2, XCircle, Loader2 } from 'lucide-react';
-import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, getDoc, setDoc, serverTimestamp, collection, getDocs } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '../firebase';
 
@@ -26,7 +26,8 @@ export default function ProfilePage() {
     favOpening: ''
   });
 
-  const [verifications, setVerifications] = useState({
+  const [aggregatedStats, setAggregatedStats] = useState({ totalWins: 0, tournamentsPlayed: 0, rating: 1200 });
+    const [verifications, setVerifications] = useState({
     chesscom: null, // null, 'loading', 'valid', 'invalid'
     lichess: null
   });

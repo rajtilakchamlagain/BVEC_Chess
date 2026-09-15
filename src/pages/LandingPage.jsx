@@ -69,6 +69,7 @@ export default function LandingPage() {
           <nav style={{ display: 'flex', gap: '2rem', fontSize: '1rem', fontWeight: '600', color: 'var(--text-muted)', alignItems: 'center' }}>
             <span style={{ color: 'var(--primary)', cursor: 'pointer' }} onClick={() => navigate('/')}>Platform</span>
             <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--text-main)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'} onClick={() => navigate('/chess-viewer-entry')}>Tournaments</span>
+            <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--text-main)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'} onClick={() => navigate('/leaderboard')}>Leaderboard</span>
             <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--text-main)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'} onClick={() => setShowRulesModal(true)}>Rules</span>
             <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--text-main)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'} onClick={() => setShowAboutModal(true)}>About</span>
           </nav>

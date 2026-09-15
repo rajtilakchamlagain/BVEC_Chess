@@ -381,6 +381,49 @@ export default function ChessDashboard() {
     }
   };
 
+  
+  const handleSyncResult = async (roundId, idx, p1, p2) => {
+    const p1Data = players.find(p => p.id === p1);
+    const p2Data = players.find(p => p.id === p2);
+    
+    if (!p1Data || !p2Data) return;
+    
+    const p1Id = p1Data.lichessId;
+    const p2Id = p2Data.lichessId;
+    
+    if (!p1Id || !p2Id) {
+       alert(`Both players must have Lichess IDs in their profiles.\n${p1Data.name}: ${p1Id || 'MISSING'}\n${p2Data.name}: ${p2Id || 'MISSING'}`);
+       return;
+    }
+    
+    try {
+       const res = await fetch(`https://lichess.org/api/games/user/${p1Id}?vs=${p2Id}&max=1`, { headers: { 'Accept': 'application/x-ndjson' } });
+       const text = await res.text();
+       if (!text) {
+           alert("No recent game found between these players on Lichess.");
+           return;
+       }
+       const game = JSON.parse(text);
+       let winner = game.winner; // 'white' or 'black' or undefined
+       let resString = '0.5-0.5';
+       if (winner === 'white') resString = '1-0';
+       else if (winner === 'black') resString = '0-1';
+       
+       const lichessWhite = game.players.white.user.id.toLowerCase();
+       if (lichessWhite === p2Id.toLowerCase()) {
+           if (resString === '1-0') resString = '0-1';
+           else if (resString === '0-1') resString = '1-0';
+       }
+
+       await reportResult(roundId, idx, resString);
+       alert("Lichess Game Synced Successfully!");
+    } catch(e) {
+       console.error(e);
+       alert("Failed to sync game from Lichess.");
+    }
+  };
+
+
   const reportResult = async (roundId, pairingIndex, result) => {
     try {
       const roundDoc = rounds.find(r => r.id === roundId);
@@ -1138,7 +1181,16 @@ export default function ChessDashboard() {
 
                   </div>
 
+                  
+                  {pairing.result === 'pending' && !swapMode && activeRoundData.status === 'published' && roomData?.isOnline && (
+                    <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
+                      <button style={{ width: '100%', background: '#10b981', border: 'none', color: '#000', padding: '8px', borderRadius: '8px', fontSize: '0.9rem', cursor: 'pointer', fontWeight: 'bold' }} onClick={() => handleSyncResult(activeRoundData.id, idx, pairing.player1, pairing.player2)}>
+                        Sync from Lichess
+                      </button>
+                    </div>
+                  )}
                   {pairing.result === 'pending' && !swapMode && activeRoundData.status === 'published' && activeRoundData.format !== 'knockout' && (
+
                     <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
                       <button style={{ width: '100%', background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-muted)', padding: '8px', borderRadius: '8px', fontSize: '0.9rem', cursor: 'pointer' }} onClick={() => reportResult(activeRoundData.id, idx, '0.5-0.5')}>Draw ½ - ½</button>
                     </div>

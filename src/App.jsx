@@ -4,6 +4,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 
 import ChessOwnerEntry from './pages/ChessOwnerEntry';
 import ChessPlayerEntry from './pages/ChessPlayerEntry';
+import Leaderboard from './pages/Leaderboard';
 import ChessDashboard from './pages/ChessDashboard';
 import ChessViewerEntry from './pages/ChessViewerEntry';
 import ChessViewerRoom from './pages/ChessViewerRoom';
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
             
             {/* Chess Routes */}
             <Route path="/chess-owner-entry" element={<ChessOwnerEntry />} />
