@@ -29,8 +29,7 @@ export default function Leaderboard() {
 
           tPlayers.forEach((p, index) => {
             // Filter out players without email
-            if (!p.email || p.email.trim() === '') return;
-            
+            if (!p.email || typeof p.email !== 'string' || p.email.trim() === '') return;
             const uid = p.email.toLowerCase();
             const rankInTourney = index + 1;
             
@@ -81,10 +80,11 @@ export default function Leaderboard() {
     fetchLeaderboard();
   }, []);
 
+  
   const getBadgeIcon = (type) => {
-    if (type === 'gold') return <span style={{ fontSize: '1.2rem', filter: 'drop-shadow(0 2px 4px rgba(255,215,0,0.4))' }}>🥇</span>;
-    if (type === 'silver') return <span style={{ fontSize: '1.2rem', filter: 'drop-shadow(0 2px 4px rgba(192,192,192,0.4))' }}>🥈</span>;
-    if (type === 'bronze') return <span style={{ fontSize: '1.2rem', filter: 'drop-shadow(0 2px 4px rgba(205,127,50,0.4))' }}>🥉</span>;
+    if (type === 'gold') return <span style={{ fontSize: '1.2rem', filter: 'drop-shadow(0 2px 4px rgba(255,215,0,0.4))' }}>{"\u{1F947}"}</span>;
+    if (type === 'silver') return <span style={{ fontSize: '1.2rem', filter: 'drop-shadow(0 2px 4px rgba(192,192,192,0.4))' }}>{"\u{1F948}"}</span>;
+    if (type === 'bronze') return <span style={{ fontSize: '1.2rem', filter: 'drop-shadow(0 2px 4px rgba(205,127,50,0.4))' }}>{"\u{1F949}"}</span>;
   };
 
   return (
@@ -150,7 +150,7 @@ export default function Leaderboard() {
                         )}
                         <div>
                           <div style={{ fontWeight: 'bold', fontSize: '1.05rem', color: 'var(--text-main)' }}>{player.name}</div>
-                          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{player.course || 'B.Tech'} • {player.rollNumber || 'N/A'}</div>
+                          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{player.course || 'B.Tech'} - {player.rollNumber || 'N/A'}</div>
                         </div>
                       </div>
                     </td>
