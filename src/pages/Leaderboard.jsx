@@ -19,6 +19,7 @@ export default function Leaderboard() {
         const playerStats = {}; 
 
         for (const tDoc of tournamentsSnap.docs) {
+          if (tDoc.data().status !== 'finished') continue;
           const tName = tDoc.data().name || 'Unknown Tournament';
           const playersSnap = await getDocs(collection(db, 'chess_tournaments', tDoc.id, 'players'));
           
@@ -107,7 +108,7 @@ export default function Leaderboard() {
 
         <div style={{ background: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.2)', padding: '12px 16px', borderRadius: '8px', marginBottom: '2rem', fontSize: '0.9rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
           <Info size={20} style={{ color: 'var(--primary)', flexShrink: 0, marginTop: '2px' }} />
-          <span><strong>Note:</strong> Players who registered anonymously (without signing in) are hidden from the Global Leaderboard, but they still appear in their specific tournament's local standings.</span>
+          <span><strong>Note:</strong> Ongoing tournaments and anonymous players (without Google Sign-In) are hidden from the Global Leaderboard. Tournaments are added here only after they have officially concluded!</span>
         </div>
 
         {isLoading ? (
