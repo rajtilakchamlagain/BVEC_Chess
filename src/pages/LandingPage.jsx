@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { auth, googleProvider } from '../firebase';
+import { onAuthStateChanged, signInWithPopup } from 'firebase/auth';
 import { Trophy, Users, Eye, ShieldCheck, ArrowRight, Info , LogIn, UserCircle, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function LandingPage() {
   const navigate = useNavigate();
+
+  const handleSignIn = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+    } catch (e) {
+      console.error("Login failed", e);
+    }
+  };
+
   const [user, setUser] = useState(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showRulesModal, setShowRulesModal] = useState(false);
@@ -104,7 +113,7 @@ export default function LandingPage() {
                 </div>
               ) : (
                 <button 
-                  onClick={() => navigate('/chess-owner-entry')} 
+                  onClick={handleSignIn} 
                   style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'var(--panel-bg)', border: '1px solid var(--border-color)', padding: '10px 16px', borderRadius: '12px', cursor: 'pointer', color: 'var(--text-main)', fontWeight: '600', transition: 'all 0.2s', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}
                   onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--primary)'}
                   onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border-color)'}
@@ -175,7 +184,7 @@ export default function LandingPage() {
             <motion.div 
               className="premium-card"
               style={{ flex: 1, minWidth: '280px' }}
-              onClick={() => navigate('/chess-owner-entry')}
+              onClick={handleSignIn}
             >
               <div className="premium-card-icon">
                 <ShieldCheck size={28} />
