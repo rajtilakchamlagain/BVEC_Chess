@@ -318,6 +318,25 @@ export default function ChessViewerRoom() {
                             </span>
                           )}
                         </div>
+                        
+                        {roomData?.isOnline && pairing.result === 'pending' && activeRound.status === 'published' && (
+                          <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                            <a 
+                              href={players.find(p => p.id === pairing.player2)?.lichessId ? `https://lichess.org/?user=${players.find(p => p.id === pairing.player2)?.lichessId}#friend` : '#'} 
+                              target="_blank" rel="noreferrer" onClick={(e) => { if (e.currentTarget.getAttribute('href') === '#') { e.preventDefault(); alert('This player did not provide a Lichess Username during registration.'); } }} 
+                              style={{ flex: 1, padding: '10px', textAlign: 'center', background: '#10b981', color: '#000', textDecoration: 'none', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 'bold' }}
+                            >
+                              Challenge {pairing.player2Name.split(' ')[0]}
+                            </a>
+                            <a 
+                              href={players.find(p => p.id === pairing.player1)?.lichessId ? `https://lichess.org/?user=${players.find(p => p.id === pairing.player1)?.lichessId}#friend` : '#'} 
+                              target="_blank" rel="noreferrer" onClick={(e) => { if (e.currentTarget.getAttribute('href') === '#') { e.preventDefault(); alert('This player did not provide a Lichess Username during registration.'); } }} 
+                              style={{ flex: 1, padding: '10px', textAlign: 'center', background: '#10b981', color: '#000', textDecoration: 'none', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 'bold' }}
+                            >
+                              Challenge {pairing.player1Name.split(' ')[0]}
+                            </a>
+                          </div>
+                        )}
 
                       </div>
                     </motion.div>
