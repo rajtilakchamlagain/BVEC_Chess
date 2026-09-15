@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, Users, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Users, CheckCircle2, Star } from 'lucide-react';
 import { doc, getDoc, collection, setDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
 import { db, auth, googleProvider } from '../firebase';
 import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
@@ -10,6 +10,11 @@ export default function ChessPlayerEntry() {
   const [searchParams] = useSearchParams();
   const [step, setStep] = useState(1);
   const [roomCode, setRoomCode] = useState(searchParams.get('code') || '');
+
+
+
+  const [roomData, setRoomData] = useState(null);
+  const [user, setUser] = useState(null);
 
   const [lichessVerified, setLichessVerified] = useState(false);
   const [isVerifyingLichess, setIsVerifyingLichess] = useState(false);
@@ -60,9 +65,6 @@ export default function ChessPlayerEntry() {
       setIsVerifyingLichess(false);
     }
   };
-
-  const [roomData, setRoomData] = useState(null);
-  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
