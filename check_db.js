@@ -1,8 +1,7 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import fs from 'fs';
 
-// Read firebase.js to get config
 const firebaseConfigStr = fs.readFileSync('src/firebase.js', 'utf8');
 const configMatch = firebaseConfigStr.match(/const firebaseConfig = ({[\s\S]*?});/);
 let firebaseConfig;
@@ -12,27 +11,17 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 async function check() {
-  const tournamentsSnap = await getDocs(collection(db, 'chess_tournaments'));
-  console.log(`Total tournaments: ${tournamentsSnap.size}`);
+  const code = '3S6NG3';
+  const q = query(collection(db, 'chess_tournaments'), where('playerCode', '==', code));
+  const qSnap = await getDocs(q);
+  console.log('Query by playerCode results:', qSnap.size);
   
-  let rachayitaCount = 0;
-  
-  for (const tDoc of tournamentsSnap.docs) {
-    const playersSnap = await getDocs(collection(db, 'chess_tournaments', tDoc.id, 'players'));
-    let found = false;
-    playersSnap.forEach(pDoc => {
-      const p = pDoc.data();
-      if (p.name && p.name.toLowerCase().includes('rachayita')) {
-        found = true;
-      }
-    });
-    if (found) {
-        rachayitaCount++;
-        console.log(`- Found in tournament: ${tDoc.data().name} (ID: ${tDoc.id})`);
-    }
+  const docRef = doc(db, 'chess_tournaments', 'MOC8ML');
+  const d = await getDoc(docRef);
+  if (d.exists()) {
+    console.log('Tournament MOC8ML data:', d.data());
+  } else {
+    console.log('MOC8ML does not exist!');
   }
-  
-  console.log(`Total times Rachayita is found: ${rachayitaCount}`);
 }
-
 check().then(() => process.exit(0)).catch(console.error);

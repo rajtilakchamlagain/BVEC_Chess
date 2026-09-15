@@ -38,7 +38,7 @@ export default function ChessViewerEntry() {
       const autoJoin = async () => {
         setIsLoading(true);
         try {
-          const upperCode = code.toUpperCase();
+          const upperCode = code.trim().toUpperCase();
           const q = query(collection(db, 'chess_tournaments'), where('viewerCode', '==', upperCode));
           const qSnap = await getDocs(q);
           
@@ -65,7 +65,7 @@ export default function ChessViewerEntry() {
     if (roomCode.length >= 4) {
       setIsLoading(true);
       try {
-        const upperCode = roomCode.toUpperCase();
+        const upperCode = roomCode.trim().toUpperCase();
         const q = query(collection(db, 'chess_tournaments'), where('viewerCode', '==', upperCode));
         const qSnap = await getDocs(q);
         

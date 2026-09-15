@@ -143,7 +143,7 @@ export default function ChessPlayerEntry() {
       const autoVerify = async () => {
         setIsLoading(true);
         try {
-          const upperCode = code.toUpperCase();
+          const upperCode = code.trim().toUpperCase();
           const q = query(collection(db, 'chess_tournaments'), where('playerCode', '==', upperCode));
           const qSnap = await getDocs(q);
           
@@ -179,7 +179,7 @@ export default function ChessPlayerEntry() {
       // Wait, firestore doesn't support value queries easily without index.
       // We will do a generic check if they entered host code instead of player code, or we just trust playerCode logic.
       // Since this is a demo, let's assume they provide the actual host code for now or we update the schema later.
-      const upperCode = roomCode.toUpperCase();
+      const upperCode = roomCode.trim().toUpperCase();
       const q = query(collection(db, 'chess_tournaments'), where('playerCode', '==', upperCode));
       const qSnap = await getDocs(q);
       
