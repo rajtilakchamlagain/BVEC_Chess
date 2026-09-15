@@ -8,6 +8,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function LandingPage() {
   const navigate = useNavigate();
 
+  
+  const handleHostClick = async () => {
+    if (user) {
+      navigate('/chess-owner-entry');
+    } else {
+      try {
+        await signInWithPopup(auth, googleProvider);
+        navigate('/chess-owner-entry');
+      } catch (e) {
+        console.error("Login failed", e);
+      }
+    }
+  };
+
   const handleSignIn = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
@@ -185,7 +199,7 @@ export default function LandingPage() {
             <motion.div 
               className="premium-card"
               style={{ flex: 1, minWidth: '280px' }}
-              onClick={handleSignIn}
+              onClick={handleHostClick}
             >
               <div className="premium-card-icon">
                 <ShieldCheck size={28} />
