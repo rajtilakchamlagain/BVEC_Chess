@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Users, CheckCircle2, Star } from 'lucide-react';
 import { doc, getDoc, collection, setDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
 import { db, auth, googleProvider } from '../firebase';
-import { signInWithPopup, onAuthStateChanged } from 'firebase/auth';
+import { signInWithPopup, onAuthStateChanged, signInWithRedirect, getRedirectResult } from 'firebase/auth';
 
 export default function ChessPlayerEntry() {
   const navigate = useNavigate();
@@ -66,6 +66,9 @@ export default function ChessPlayerEntry() {
   };
 
   useEffect(() => {
+    // Check for redirect result first (crucial for mobile in-app browsers)
+    getRedirectResult(auth).catch(console.error);
+
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
@@ -103,9 +106,17 @@ export default function ChessPlayerEntry() {
 
   const handleAutofillLogin = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      if (isMobile) {
+        await signInWithRedirect(auth, googleProvider);
+      } else {
+        await signInWithPopup(auth, googleProvider);
+      }
     } catch (error) {
       console.error(error);
+      if (error.code === 'auth/popup-blocked') {
+         await signInWithRedirect(auth, googleProvider);
+      }
     }
   };
 
