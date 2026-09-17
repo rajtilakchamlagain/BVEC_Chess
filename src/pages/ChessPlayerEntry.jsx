@@ -11,6 +11,31 @@ export default function ChessPlayerEntry() {
   const [step, setStep] = useState(1);
   const [roomCode, setRoomCode] = useState(searchParams.get('code') || '');
 
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [playerData, setPlayerData] = useState({
+    name: '',
+    rating: 1200,
+    fideId: '',
+    aicfId: '',
+    collegeName: 'BVEC',
+    course: 'B.Tech',
+    branch: 'CSE',
+    semester: '1st',
+    year: '1st',
+    rollNumber: '',
+    address: '',
+    isCoreMember: 'No',
+    designation: '',
+    photoUrl: '',
+    chesscomId: '',
+    lichessId: '',
+    bio: '',
+    contactNumber: '',
+    contactType: 'Phone Only',
+    favOpening: ''
+  });
+
 
 
   const [roomData, setRoomData] = useState(null);
@@ -19,33 +44,7 @@ export default function ChessPlayerEntry() {
   const [lichessVerified, setLichessVerified] = useState(false);
   const [isVerifyingLichess, setIsVerifyingLichess] = useState(false);
   
-  // Watch for auth changes and pull global user profile
-  useEffect(() => {
-    const fetchGlobalProfile = async () => {
-      if (!user) return;
-      try {
-        const docSnap = await getDoc(doc(db, 'users', user.email));
-        if (docSnap.exists()) {
-          const globalData = docSnap.data();
-          setPlayerData(prev => ({
-            ...prev,
-            name: globalData.name || prev.name || user.displayName || '',
-            rollNumber: globalData.rollNumber || prev.rollNumber,
-            course: globalData.course || prev.course,
-            branch: globalData.branch || prev.branch,
-            year: globalData.year || prev.year,
-            lichessId: globalData.lichessId || prev.lichessId
-          }));
-          if (globalData.lichessId) {
-            setLichessVerified(true);
-          }
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchGlobalProfile();
-  }, [user]);
+
 
   const verifyLichessAccount = async () => {
     if (!playerData.lichessId) return;
@@ -90,6 +89,9 @@ export default function ChessPlayerEntry() {
               photoUrl: currentUser.photoURL || prev.photoUrl,
               email: currentUser.email
             }));
+            if (data.lichessId) {
+              setLichessVerified(true);
+            }
           } else {
              setPlayerData(prev => ({...prev, name: currentUser.displayName, photoUrl: currentUser.photoURL, email: currentUser.email}));
           }
@@ -107,30 +109,7 @@ export default function ChessPlayerEntry() {
     }
   };
 
-  const [isLoading, setIsLoading] = useState(false);
 
-  const [playerData, setPlayerData] = useState({
-    name: '',
-    rating: 1200,
-    fideId: '',
-    aicfId: '',
-    collegeName: 'BVEC',
-    course: 'B.Tech',
-    branch: 'CSE',
-    semester: '1st',
-    year: '1st',
-    rollNumber: '',
-    address: '',
-    isCoreMember: 'No',
-    designation: '',
-    photoUrl: '',
-    chesscomId: '',
-    lichessId: '',
-    bio: '',
-    contactNumber: '',
-    contactType: 'Phone Only',
-    favOpening: ''
-  });
 
   const toTitleCase = (str) => {
     return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
