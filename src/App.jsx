@@ -23,6 +23,7 @@ function App() {
             {/* Chess Routes */}
             <Route path="/chess-owner-entry" element={<ChessOwnerEntry />} />
             <Route path="/chess-player-entry" element={<ChessPlayerEntry />} />
+            <Route path="/join" element={<ChessPlayerEntry />} />
             <Route path="/chess-dashboard" element={<ChessDashboard />} />
             <Route path="/chess-viewer-entry" element={<ChessViewerEntry />} />
             <Route path="/chess-viewer-room" element={<ChessViewerRoom />} />

@@ -72,6 +72,17 @@ export default function ChessDashboard() {
   const [editingName, setEditingName] = useState(false);
   const [newName, setNewName] = useState('');
 
+  const handleCopyLink = (code, type) => {
+    const baseUrl = window.location.origin;
+    let textToCopy = code;
+    if (type === 'player') textToCopy = `${baseUrl}/chess-player-entry?code=${code}`;
+    else if (type === 'viewer') textToCopy = `${baseUrl}/chess-viewer-entry?code=${code}`;
+    
+    navigator.clipboard.writeText(textToCopy);
+    setCopiedLink(type);
+    setTimeout(() => setCopiedLink(null), 2000);
+  };
+
   // Swiss Modal State
   const [showSwissModal, setShowSwissModal] = useState(false);
   const [swissMode, setSwissMode] = useState('swiss');
