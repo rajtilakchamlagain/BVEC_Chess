@@ -71,6 +71,7 @@ export default function ChessDashboard() {
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   const [editingName, setEditingName] = useState(false);
   const [newName, setNewName] = useState('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleCopyLink = (code, type) => {
     const baseUrl = window.location.origin;
@@ -187,17 +188,16 @@ export default function ChessDashboard() {
              label = 'Finals';
            }
         } else {
-           // Normal Knockout & Golden Ratio
+           // Fully Random Knockout & Random Golden Ratio Byes
            const { byes, playing } = getGoldenRatioByes(activePlayers.length);
-           let sortedForHierarchy = [...activePlayers].sort(sortPlayersHierarchy);
+           
+           // Randomize everything to satisfy "fully random(not any fix formula)"
+           let pool = [...activePlayers].sort(() => Math.random() - 0.5);
            
            if (byes > 0) {
-             byePlayers = sortedForHierarchy.slice(0, byes);
-             sortedForHierarchy = sortedForHierarchy.slice(byes);
+             byePlayers = pool.slice(0, byes);
+             pool = pool.slice(byes);
            }
-           
-           // Randomize the playing pool to prevent predictable preliminary brackets
-           let pool = [...sortedForHierarchy].sort(() => Math.random() - 0.5);
            
            while (pool.length >= 2) {
              const p1 = pool.shift();
@@ -220,8 +220,10 @@ export default function ChessDashboard() {
           }
         });
 
-        // Sort active players strictly by points
-        let pool = [...activePlayers].sort((a, b) => (b.wins || 0) - (a.wins || 0));
+        // Sort active players strictly by points, but shuffle first for random tied pairings
+        let pool = [...activePlayers]
+          .sort(() => Math.random() - 0.5)
+          .sort((a, b) => (b.wins || 0) - (a.wins || 0));
         
         // Recursive Backtracking to find a perfect matching with NO duplicate history
         const findValidPairings = (remainingPool, currentPairs) => {
@@ -650,13 +652,15 @@ export default function ChessDashboard() {
         updatedPairings[pairingIndex].player2Name = pA.name;
       }
 
+      // Clear state synchronously to prevent race conditions during slow network requests
+      setSelectedForSwap(null);
+      setSwapMode(false);
+
       try {
         await updateDoc(doc(db, 'chess_tournaments', roomCode, 'rounds', roundId), { pairings: updatedPairings });
       } catch (err) {
         console.error(err);
       }
-      setSelectedForSwap(null);
-      setSwapMode(false);
     }
   };
 
@@ -802,8 +806,14 @@ export default function ChessDashboard() {
   const activeRoundData = rounds.length > 0 ? rounds[0] : null;
 
   return (
-    <div className="dashboard-layout" style={{ background: 'var(--bg-color)', color: 'var(--text-main)', fontFamily: '"Inter", sans-serif' }}>
+    <div className="dashboard-layout spectator-layout" style={{ background: 'var(--bg-color)', color: 'var(--text-main)', fontFamily: '"Inter", sans-serif' }}>
       
+      <button className="mobile-menu-btn" onClick={() => setMobileMenuOpen(true)}>
+        <MoreVertical size={20} /> Menu
+      </button>
+
+      <div className={`sidebar-overlay ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(false)}></div>
+
       {showSwissModal && (
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.8)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(5px)', padding: '15px' }}>
           <div className="entry-container" style={{ width: '100%', maxWidth: '400px', padding: '2rem' }}>
@@ -947,7 +957,7 @@ export default function ChessDashboard() {
       )}
 
       {/* Sidebar - Players & Standings */}
-      <div className="dashboard-sidebar">
+      <div className={`dashboard-sidebar spectator-sidebar ${mobileMenuOpen ? 'open' : ''}`}>
         <div style={{ padding: '2rem', borderBottom: '1px solid var(--border-color)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
             <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = 'var(--text-main)'} onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}>
@@ -1057,7 +1067,7 @@ export default function ChessDashboard() {
       </div>
 
       {/* Main Area */}
-      <div className="dashboard-main" style={{ display: 'flex', flexDirection: 'column' }}>
+      <div className="dashboard-main spectator-content" style={{ display: 'flex', flexDirection: 'column' }}>
         
         {/* Top Control Bar */}
         <div className="dashboard-header">
@@ -1083,7 +1093,7 @@ export default function ChessDashboard() {
                </div>
             ) : (
             <div className="dashboard-actions">
-              {activeRoundData?.status === 'completed' && (
+              {(activeRoundData?.status === 'completed' || activeRoundData?.status === 'published') && (
                 <button 
                   onClick={() => rollbackRound(activeRoundData.id)}
                   style={{ background: 'transparent', border: '1px solid rgba(255,68,68,0.5)', color: '#ff4444', padding: '12px 24px', borderRadius: '12px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}
@@ -1117,6 +1127,16 @@ export default function ChessDashboard() {
               >
                 <Share2 size={18} /> Share Pairings
               </button>
+
+              {activeRoundData?.status === 'published' && roomData?.isOnline && (
+                <button 
+                  onClick={autoSyncAll}
+                  disabled={isSyncingAll}
+                  style={{ background: '#10b981', color: '#000', border: 'none', padding: '12px 24px', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', opacity: isSyncingAll ? 0.5 : 1 }}
+                >
+                  <RotateCcw size={18} className={isSyncingAll ? "animate-spin" : ""} /> {isSyncingAll ? "Syncing..." : "Auto Sync All Games"}
+                </button>
+              )}
 
               <button 
                 onClick={() => setShowSwissModal(true)} 

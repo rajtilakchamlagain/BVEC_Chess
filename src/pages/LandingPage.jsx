@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, googleProvider } from '../firebase';
-import { onAuthStateChanged, signInWithPopup } from 'firebase/auth';
+import { onAuthStateChanged, signInWithPopup, signInWithRedirect, getRedirectResult } from 'firebase/auth';
 import { Trophy, Users, Eye, ShieldCheck, ArrowRight, Info , LogIn, UserCircle, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -18,6 +18,9 @@ export default function LandingPage() {
         navigate('/chess-owner-entry');
       } catch (e) {
         console.error("Login failed", e);
+        if (e.code === 'auth/popup-blocked' || e.code === 'auth/web-storage-unsupported') {
+          alert("Sign-in is blocked by this app's built-in browser.\n\nPlease tap the three dots (⋮) in the top right corner and select 'Open in Chrome' or 'Open in Browser', then try again.");
+        }
       }
     }
   };
@@ -27,6 +30,9 @@ export default function LandingPage() {
       await signInWithPopup(auth, googleProvider);
     } catch (e) {
       console.error("Login failed", e);
+      if (e.code === 'auth/popup-blocked' || e.code === 'auth/web-storage-unsupported') {
+        alert("Sign-in is blocked by this app's built-in browser.\n\nPlease tap the three dots (⋮) in the top right corner and select 'Open in Chrome' or 'Open in Browser', then try again.");
+      }
     }
   };
 
@@ -36,11 +42,19 @@ export default function LandingPage() {
   const [showAboutModal, setShowAboutModal] = useState(false);
 
   useEffect(() => {
+    getRedirectResult(auth).then(() => {
+      const intent = localStorage.getItem('chess_intent');
+      if (intent) {
+        localStorage.removeItem('chess_intent');
+        navigate(intent);
+      }
+    }).catch(console.error);
+
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
     return () => unsubscribe();
-  }, []);
+  }, [navigate]);
 
 
   return (

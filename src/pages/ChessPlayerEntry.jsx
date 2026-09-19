@@ -40,11 +40,11 @@ export default function ChessPlayerEntry() {
 
   const [roomData, setRoomData] = useState(null);
   const [user, setUser] = useState(null);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
   const [lichessVerified, setLichessVerified] = useState(false);
   const [isVerifyingLichess, setIsVerifyingLichess] = useState(false);
   
-
 
   const verifyLichessAccount = async () => {
     if (!playerData.lichessId) return;
@@ -67,11 +67,16 @@ export default function ChessPlayerEntry() {
 
   useEffect(() => {
     // Check for redirect result first (crucial for mobile in-app browsers)
-    getRedirectResult(auth).catch(console.error);
+    getRedirectResult(auth)
+      .finally(() => {
+        setTimeout(() => setIsCheckingAuth(false), 800);
+      })
+      .catch(console.error);
 
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
+        setIsCheckingAuth(false);
         try {
           const docRef = doc(db, 'users', currentUser.email);
           const docSnap = await getDoc(docRef);
@@ -106,6 +111,10 @@ export default function ChessPlayerEntry() {
 
   const handleAutofillLogin = async () => {
     try {
+      if (roomCode) {
+        localStorage.setItem('chess_pending_room', roomCode);
+      }
+      
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
       if (isMobile) {
         await signInWithRedirect(auth, googleProvider);
@@ -115,7 +124,7 @@ export default function ChessPlayerEntry() {
     } catch (error) {
       console.error(error);
       if (error.code === 'auth/popup-blocked') {
-         await signInWithRedirect(auth, googleProvider);
+        await signInWithRedirect(auth, googleProvider);
       }
     }
   };
@@ -128,7 +137,19 @@ export default function ChessPlayerEntry() {
 
   
   useEffect(() => {
-    const code = searchParams.get('code');
+    let code = searchParams.get('code');
+    
+    // If not in URL, check if we saved it before a redirect
+    if (!code) {
+      const savedCode = localStorage.getItem('chess_pending_room');
+      if (savedCode) {
+        code = savedCode;
+        setRoomCode(code);
+        // Clear it so it doesn't persist forever
+        localStorage.removeItem('chess_pending_room');
+      }
+    }
+
     if (code && code.length >= 4) {
       const autoVerify = async () => {
         setIsLoading(true);
@@ -285,16 +306,27 @@ export default function ChessPlayerEntry() {
               <div style={{ fontSize: '1.2rem', fontWeight: '600' }}>{roomData.name}</div>
             </div>
 
-            {!user ? (
+            {isCheckingAuth ? (
+              <div style={{ textAlign: 'center', padding: '3rem 0' }}>
+                <style>{`
+                  @keyframes spin { 100% { transform: rotate(360deg); } }
+                `}</style>
+                <div style={{ width: '40px', height: '40px', border: '3px solid var(--border-color)', borderTopColor: 'var(--primary)', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 1rem' }}></div>
+                <div style={{ color: 'var(--text-muted)' }}>Checking authentication...</div>
+              </div>
+            ) : !user ? (
               <div style={{ textAlign: 'center', padding: '2rem 0' }}>
                 <h3 style={{ marginBottom: '1rem', color: 'var(--text-main)' }}>Authentication Required</h3>
-                <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>You must sign in with your Google account to register for this tournament.</p>
+                <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', lineHeight: '1.6' }}>
+                  Please go to the <strong>Home Page</strong> to sign in first.<br/><br/>
+                  Once you are signed in, return to this link and you will be able to register instantly.
+                </p>
                 <button 
-                  onClick={handleAutofillLogin}
-                  style={{ background: '#fff', color: '#000', padding: '12px 24px', borderRadius: '30px', fontWeight: 'bold', border: 'none', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '10px' }}
+                  onClick={() => navigate('/')}
+                  className="btn-primary"
+                  style={{ width: '100%', padding: '12px 24px' }}
                 >
-                  <img src="https://www.google.com/favicon.ico" alt="Google" style={{ width: '18px' }} />
-                  Sign in with Google
+                  Go to Home Page
                 </button>
               </div>
             ) : (

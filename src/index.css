@@ -384,27 +384,24 @@ body {
 }
 
 @media (max-width: 768px) {
-  .dashboard-layout {
-    flex-direction: column;
-  }
-  .dashboard-sidebar {
-    width: 100%;
-    height: auto;
-    max-height: 50vh;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
-  }
-  .dashboard-main {
-    height: auto;
-    flex: 1;
-  }
   .dashboard-header {
-    padding: 1.5rem;
+    padding: 1rem;
     flex-direction: column;
+  }
+  .dashboard-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+  .dashboard-actions > button {
+    flex: 1;
+    min-width: 48%;
+    font-size: 0.85rem;
+    padding: 10px;
+    justify-content: center;
   }
   .matchups-grid {
     grid-template-columns: 1fr !important;
-    padding: 1.5rem !important;
+    padding: 0.5rem !important;
   }
 }
 

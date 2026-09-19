@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Trophy, CheckCircle2, Copy, Lock, ShieldAlert, MailCheck, ShieldCheck } from 'lucide-react';
 import { collection, addDoc, serverTimestamp, setDoc, doc, getDoc, getDocs, query, where, deleteDoc } from 'firebase/firestore';
-import { signInWithPopup, onAuthStateChanged, signOut } from 'firebase/auth';
+import { signInWithPopup, onAuthStateChanged, signOut, signInWithRedirect, getRedirectResult } from 'firebase/auth';
 import { db, auth, googleProvider } from '../firebase';
 
 export default function ChessOwnerEntry() {
@@ -41,6 +41,8 @@ export default function ChessOwnerEntry() {
   const SUPER_ADMIN = 'rjtiksrm@gmail.com';
 
   useEffect(() => {
+    getRedirectResult(auth).catch(console.error);
+
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
@@ -87,7 +89,11 @@ export default function ChessOwnerEntry() {
       await signInWithPopup(auth, googleProvider);
     } catch (error) {
       console.error("Google Sign-In Error:", error);
-      alert("Failed to sign in. Please try again.");
+      if (error.code === 'auth/popup-blocked' || error.code === 'auth/web-storage-unsupported') {
+        alert("Sign-in is blocked by this app's built-in browser.\n\nPlease tap the three dots (⋮) in the top right corner and select 'Open in Chrome' or 'Open in Browser', then try again.");
+      } else if (error.code !== 'auth/cancelled-popup-request' && error.code !== 'auth/popup-closed-by-user') {
+        alert("Failed to sign in. Please try again in a standard browser.");
+      }
     }
     setIsLoading(false);
   };
