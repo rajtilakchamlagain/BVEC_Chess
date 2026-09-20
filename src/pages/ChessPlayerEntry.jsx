@@ -410,14 +410,76 @@ export default function ChessPlayerEntry() {
               </div>
             </div>
 
-              <button 
-                className="btn-primary" 
-                style={{ width: '100%', marginTop: '2rem' }} 
-                onClick={handleRegister} 
-                disabled={isLoading}
-              >
-                {isLoading ? 'Submitting...' : 'Complete Registration'}
-              </button>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem' }}>
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                  {!roomData?.isPaid ? (
+                    <button 
+                      className="btn-primary" 
+                      style={{ flex: 1 }} 
+                      onClick={handleRegister} 
+                      disabled={isLoading}
+                    >
+                      {isLoading ? 'Submitting...' : 'Free Registration'}
+                    </button>
+                  ) : (
+                    <button 
+                      className="btn-primary" 
+                      style={{ flex: 1, background: '#3399cc', color: '#fff', border: 'none' }} 
+                      onClick={() => {
+                          // Razorpay Integration Logic
+                          setIsLoading(true);
+                          import('firebase/functions').then(({ getFunctions, httpsCallable }) => {
+                              const functions = getFunctions();
+                              const createOrder = httpsCallable(functions, 'payments-createOrder');
+                              
+                              createOrder({ amount: roomData.entryFee, receipt: 'rcpt_' + Date.now() })
+                              .then(result => {
+                                  const options = {
+                                      key: 'rzp_live_TeQk38h6zZnFHW',
+                                      amount: result.data.amount,
+                                      currency: 'INR',
+                                      name: 'ChessVerse Tournament',
+                                      description: roomData.name + ' Entry Fee',
+                                      order_id: result.data.orderId,
+                                      handler: async function (response) {
+                                          // On success, register them to database
+                                          await handleRegister();
+                                          alert('Payment Successful & Registered!');
+                                      },
+                                      theme: { color: '#3399cc' }
+                                  };
+                                  const rzp1 = new window.Razorpay(options);
+                                  rzp1.open();
+                                  setIsLoading(false);
+                              })
+                              .catch(err => {
+                                  console.error(err);
+                                  alert('Failed to initialize payment.');
+                                  setIsLoading(false);
+                              });
+                          });
+                      }} 
+                      disabled={isLoading}
+                    >
+                      {isLoading ? 'Processing...' : `Pay Entry Fee (₹${roomData.entryFee})`}
+                    </button>
+                  )}
+                </div>
+
+                <button 
+                  className="btn-outline" 
+                  style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', background: '#fff', color: '#000', border: '1px solid #ccc' }} 
+                  onClick={() => {
+                      const clientId = 'chessverse-app';
+                      const redirectUri = encodeURIComponent(window.location.origin + '/chess-entry?room=' + roomCode);
+                      alert(`Redirecting to Lichess Auth...\n\nURL: https://lichess.org/oauth?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}\n\nNote: This requires registering the redirect URI in your Lichess API dashboard.`);
+                  }} 
+                  disabled={isLoading}
+                >
+                  <img src="https://lichess1.org/assets/logo/lichess-favicon-512.png" alt="Lichess" style={{ width: '20px', height: '20px' }} />
+                  Quick Fill with Lichess OAuth
+                </button>
+              </div>
               </>
             )}
             </div>

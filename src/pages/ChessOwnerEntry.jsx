@@ -25,6 +25,8 @@ export default function ChessOwnerEntry() {
     hostName: '',
     logoUrl: '',
     isOnline: false,
+    isPaid: false,
+    entryFee: 100,
     timeControlLimit: 10,
     timeControlIncrement: 0
   });
@@ -389,6 +391,35 @@ export default function ChessOwnerEntry() {
                       </label>
                     </div>
 
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '1rem', padding: '1rem', background: 'rgba(255,255,255,0.02)', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <input 
+                          type="checkbox" 
+                          id="isPaid"
+                          checked={tournamentData.isPaid}
+                          onChange={e => setTournamentData({...tournamentData, isPaid: e.target.checked})}
+                          style={{ width: '20px', height: '20px', cursor: 'pointer' }}
+                        />
+                        <label htmlFor="isPaid" style={{ margin: 0, cursor: 'pointer', display: 'flex', flexDirection: 'column' }}>
+                          <span style={{ fontWeight: '600', color: 'var(--text-main)' }}>Paid Tournament</span>
+                          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Require players to pay an entry fee via Razorpay UPI</span>
+                        </label>
+                      </div>
+                      
+                      {tournamentData.isPaid && (
+                        <div className="input-group" style={{ marginTop: '10px' }}>
+                          <label>Entry Fee Amount (₹)</label>
+                          <input 
+                            type="number" 
+                            className="premium-input" 
+                            placeholder="100"
+                            value={tournamentData.entryFee}
+                            onChange={e => setTournamentData({...tournamentData, entryFee: Number(e.target.value)})}
+                          />
+                        </div>
+                      )}
+                    </div>
 
                     <button 
                       className="btn-primary" 
