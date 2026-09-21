@@ -469,11 +469,11 @@ export default function ChessPlayerEntry() {
                 <button 
                   className="btn-outline" 
                   style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', background: '#fff', color: '#000', border: '1px solid #ccc' }} 
-                  onClick={() => {
-                      const clientId = 'chessverse-app';
-                      const redirectUri = encodeURIComponent(window.location.origin + '/chess-entry?room=' + roomCode);
-                      alert(`Redirecting to Lichess Auth...\n\nURL: https://lichess.org/oauth?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}\n\nNote: This requires registering the redirect URI in your Lichess API dashboard.`);
-                  }} 
+                  
+                    onClick={() => {
+                        startLichessAuth(roomCode);
+                    }} 
+ 
                   disabled={isLoading}
                 >
                   <img src="https://lichess1.org/assets/logo/lichess-favicon-512.png" alt="Lichess" style={{ width: '20px', height: '20px' }} />
