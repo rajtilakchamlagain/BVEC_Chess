@@ -4,58 +4,69 @@
 
 **ChessVerse** is the official, modernized Chess Tournament Management Portal for the **Barak Valley Engineering College Chess Club**. It is a premium, real-time web application designed to host, manage, and spectate professional college chess tournaments seamlessly from any device.
 
-## 🚀 Key Features
+## 🚀 Key Features & Implementations
 
-- **Premium UI/UX:** A custom, sleek, and highly responsive interface with subtle glassmorphism, refined elevation shadows, and fluid animations. Designed to look and feel like a native application on both desktop and mobile.
-- **Advanced Pairing Engines:** Automated logic for generating **Swiss**, **Knockout**, and **Staircase** format matchups. Features built-in intelligence to track player colors (White/Black history), handle byes, and calculate advanced tie-breakers (BUC, SB).
-- **Host Dashboard:** A comprehensive control center for organizers. Draft rounds, manually swap players if needed, instantly report match results, and seamlessly generate the Grand Podium once the tournament concludes.
-- **Live Spectator Portal:** Students and fans can access the "Tournaments" tab to browse recent/ongoing tournaments. Once inside a room, spectators receive real-time, zero-refresh updates on live pairings, board numbers, and leaderboard standings.
-- **Player Hub:** A streamlined registration flow where players join a lobby using a host-provided code and track their individual tournament journey.
-- **Integrated Rules & About:** FIDE standard rules integrated directly into a sleek popup modal, along with a dedicated creator profile card linking to GitHub and LinkedIn.
+### 1. Tournament Management Engine
+- **Advanced Pairing Logic:** Automated matchmaking for generating **Swiss**, **Knockout**, and **Staircase** formats. Features intelligence for tracking player colors (White/Black history), handling byes, and calculating advanced tie-breakers (Buchholz, Sonneborn-Berger).
+- **Host Dashboard:** A comprehensive control center to draft rounds, manually swap players if algorithmic pairings need adjusting, report match results, and seamlessly generate the Grand Podium once the tournament concludes.
+- **Live Spectator Portal:** Students and fans can access the "Tournaments" tab to browse recent/ongoing tournaments. Spectators receive real-time, zero-refresh updates on live pairings, board numbers, and leaderboard standings using WebSocket connections.
 
-## 🛠️ Tech Stack
+### 2. Monetization (Razorpay Integration)
+- **Dynamic "Paid Tournaments":** Hosts can optionally flag a tournament as "Paid" during initialization and set an entry fee amount.
+- **Secure UPI Checkouts:** When registering, players are presented with a live Razorpay popup to pay the exact entry fee via UPI/Cards. 
+- **Serverless Payment Verification:** Uses Google Cloud Functions (`payments-createOrder`, `payments-verifyPayment`) to securely generate transaction IDs and verify Razorpay webhook signatures on the backend. No secret keys are exposed on the client.
 
-- **Frontend Framework:** [React 19](https://react.dev/)
-- **Build Tool:** [Vite](https://vitejs.dev/)
-- **Backend & Database:** [Firebase Firestore](https://firebase.google.com/) for real-time WebSockets and NoSQL data management.
-- **Styling:** Custom CSS for premium styling, combined with [Framer Motion](https://www.framer.com/motion/) for fluid animations and [Lucide React](https://lucide.dev/) for iconography.
+### 3. Online Integrity (Lichess OAuth PKCE)
+- **Passwordless Identity Verification:** For online tournaments, players authenticate directly via Lichess.org to prove their identity and prevent impersonation.
+- **Lichess API Integration:** Implements the modern OAuth 2.0 Authorization Code Flow with PKCE entirely on the frontend. Generates secure `code_verifier` and `code_challenge` cryptographic hashes to exchange for access tokens.
+- **Auto-Fill Data:** Securely pulls the authenticated player's official Lichess username and Blitz/Rapid ratings directly into the tournament registration form.
+
+## 🏗️ Upcoming Features / Roadmap
+- [ ] **Automated Notifications System (Email & WhatsApp):**
+  - Integrate **Resend API** to automatically trigger emails when a player successfully registers.
+  - Implement real-time notifications alerting players when their next round begins ("Round 3 begins in 5 mins! Your board is X, Opponent is Y").
+  - Send final tournament standings and PDF certificates to all participants when the tournament concludes.
+- [ ] **WhatsApp Business API:** Optional WhatsApp alerts for instant push notifications to players on mobile.
+
+## 🛠️ Tech Stack Architecture
+
+- **Frontend Framework:** [React 19](https://react.dev/) + [Vite](https://vitejs.dev/)
+- **Backend Infrastructure:** Google Firebase (Firestore Database + Firebase Cloud Functions)
+- **Authentication:** Custom PKCE OAuth implementation for Lichess
+- **Payment Gateway:** [Razorpay](https://razorpay.com/) (Node.js SDK via Cloud Functions)
+- **Styling:** Custom CSS with Glassmorphism principles, [Framer Motion](https://www.framer.com/motion/) animations, and [Lucide React](https://lucide.dev/) icons.
 - **Routing:** React Router v7
 
-## 📁 File Structure & Architecture
+## 📁 Core File Structure 
 
-The application is structured logically to separate UI views from business logic and routing:
-
-- **`src/App.jsx`**: The root routing component. Handles client-side routing to `LandingPage`, `ChessDashboard`, `ChessViewerRoom`, etc.
-- **`src/pages/LandingPage.jsx`**: The main entry point. Features premium Glassmorphic cards, functional navigation for Rules (FIDE standard rules modal) and About (Developer profile), and links to the three main portals (Host, Player, Spectator).
-- **`src/pages/ChessDashboard.jsx`**: The protected Host portal. Integrates with Firestore to push live round generation and match score updates.
-- **`src/pages/ChessPlayerEntry.jsx`**: The gateway for players to register themselves into an active tournament room using a 6-digit access code.
-- **`src/pages/ChessViewerRoom.jsx`**: The live spectator room that subscribes to Firestore `onSnapshot` listeners to render real-time leaderboards and active matches without needing page refreshes.
-- **`src/firebase.js`**: Initializes the Firebase application and exports the authentication and Firestore database instances.
-- **`src/index.css` & `src/App.css`**: Contain global CSS variables and responsive rules to maintain the premium light theme across all devices.
+- **`src/App.jsx`**: Root client-side routing.
+- **`src/pages/ChessDashboard.jsx`**: The protected Host portal for round generation and score updates.
+- **`src/pages/ChessPlayerEntry.jsx`**: Registration gateway featuring Lichess authentication and Razorpay payment modals.
+- **`src/utils/lichessAuth.js`**: Core cryptography utility for generating PKCE SHA-256 hashes and handling the OAuth handshake.
+- **`functions/payments.js`**: Google Cloud Functions backend containing Razorpay order creation and secret key handling.
+- **`src/pages/ChessViewerRoom.jsx`**: The live spectator room using Firestore `onSnapshot` listeners.
 
 ## 💻 Running Locally
-
-To run the ChessVerse platform locally on your machine, follow these steps:
 
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/rajtilakchamlagain/BVEC_Chess.git
    cd BVEC_Chess
    ```
-
 2. **Install dependencies:**
    ```bash
    npm install
    ```
-
 3. **Start the development server:**
    ```bash
    npm run dev
    ```
+4. **Firebase Deployment (For Backend APIs):**
+   ```bash
+   firebase login
+   firebase deploy --only functions
+   ```
 
-4. **Open in Browser:**
-   Navigate to `http://localhost:5173` to view the application.
-
-## 📄 License
+## 📜 License
 Developed and maintained by **Rajtilak Chamlagain**.
 © 2026 BVEC Chess Club. All rights reserved.
